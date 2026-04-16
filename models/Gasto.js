@@ -5,7 +5,6 @@ class Gasto {
         this.montoTotal = montoTotal;
         this.estado = estado;
         this.idObra = idObra;
-        this.idUsuario = idUsuario; //Usuario que realizo el pedido
     }
 }
 
