@@ -1,0 +1,17 @@
+[
+  {
+    "id": 1,
+    "nombre": "Mariana Rodríguez",
+    "rol": "Capataz de Obra"
+  },
+  {
+    "id": 2,
+    "nombre": "Roberto Gómez",
+    "rol": "Administrador Central"
+  },
+  {
+    "id": 3,
+    "nombre": "Lucas Martínez",
+    "rol": "Analista de Compras"
+  }
+]

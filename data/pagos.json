@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "montoPagado": 450000,
+    "metodoPago": "Cheque Diferido",
+    "fecha": "2026-05-10",
+    "idGasto": 1
+  },
+  {
+    "id": 2,
+    "montoPagado": 400000,
+    "metodoPago": "Transferencia Bancaria",
+    "fecha": "2026-05-12",
+    "idGasto": 1
+  },
+  {
+    "id": 3,
+    "nombre": "Residencial El Parque",
+    "ubicacion": "San Martín 800, Lanús",
+    "presupuestoTotal": 15000000,
+    "idGasto": 3
+  }
+]

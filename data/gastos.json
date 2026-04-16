@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "idObra": 1,
+    "idUsuario": 1,
+    "descripcion": "2000 ladrillos huecos",
+    "monto": 850000,
+    "estado": "Pendiente"
+  },
+  {
+    "id": 2,
+    "idObra": 2,
+    "idUsuario": 1,
+    "descripcion": "Pintura sintética 20L",
+    "monto": 120000,
+    "estado": "Autorizado"
+  },
+  {
+    "id": 3,
+    "idObra": 3,
+    "idUsuario": 3,
+    "descripcion": "Alquiler de andamios (mes 1)",
+    "monto": 200000,
+    "estado": "Autorizado"
+  }
+]
