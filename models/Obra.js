@@ -7,4 +7,4 @@ class Obra {
     }
 }
 
-exports.module = Obra;
+module.exports = Obra;
