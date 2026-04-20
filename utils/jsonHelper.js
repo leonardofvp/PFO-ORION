@@ -10,7 +10,7 @@ const path = require("path");
  */
 const leerArchivo = (nombreArchivo) => {
     try {
-        const ruta = path.join(__dirname, nombreArchivo);
+        const ruta = path.join(__dirname, "..", "data", nombreArchivo);
         const datos = fs.readFileSync(ruta, "utf-8");      
         
         return datos ? JSON.parse(datos) : [];
@@ -30,7 +30,7 @@ const leerArchivo = (nombreArchivo) => {
  */
 const escribirArchivo = (nombreArchivo, contenido) => {
     try {
-        const ruta = path.join(__dirname, nombreArchivo);
+        const ruta = path.join(__dirname, "..", "data", nombreArchivo);
         const datos = JSON.stringify(contenido, null, 2);
         fs.writeFileSync(ruta, datos, "utf-8");
 
