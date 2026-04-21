@@ -4,20 +4,20 @@
     "nombre": "Edificio Los Alerces",
     "ubicacion": "Calle Falsa 123, CABA",
     "presupuestoTotal": 25000000,
-    "estado": "En ejecución"
+    "estado": "activa"
   },
   {
     "id": 2,
     "nombre": "Complejo San Juan",
     "ubicacion": "Av. Rivadavia 4500, CABA",
     "presupuestoTotal": 40000000,
-    "estado": "En ejecución"
+    "estado": "activa"
   },
   {
     "id": 3,
     "nombre": "Residencial El Parque",
     "ubicacion": "San Martín 800, Lanús",
     "presupuestoTotal": 15000000,
-    "estado": "Iniciada"
+    "estado": "iniciando"
   }
 ]

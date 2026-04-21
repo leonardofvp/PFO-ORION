@@ -1,8 +1,8 @@
 class Obra {
-    constructor(id, nombre, presupuestoTotal, estado) {
+    constructor(id, nombre, presupuesto, estado) {
         this.id =  id;
         this.nombre = nombre;
-        this.presupuestoTotal = presupuestoTotal;
+        this.presupuesto = presupuesto;
         this.estado = estado;
     }
 }

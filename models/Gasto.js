@@ -1,10 +1,10 @@
 class Gasto {
-    constructor(id, descripcion, montoTotal, estado, idObra, idUsuario) {
+    constructor(id, descripcion, montoTotal, estado, idObra) {
         this.id = id;
-        this.descripcion = descripcion;
-        this.montoTotal = montoTotal;
-        this.estado = estado;
         this.idObra = idObra;
+        this.descripcion = descripcion;
+        this.monto = monto;
+        this.estado = estado;
     }
 }
 
