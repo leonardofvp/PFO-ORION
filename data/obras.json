@@ -24,12 +24,12 @@
     "id": 4,
     "nombre": "Edificio Alvear",
     "ubicacion": "Av. Alvear 1800, Recoleta",
-    "presupuesto": 45000000
+    "presupuestoTotal": 45000000
   },
   {
     "id": 5,
     "nombre": "Barrio Los Robles",
     "ubicacion": "Rura 8 km 40, Pilar",
-    "presupuesto": 80000000
+    "presupuestoTotal": 80000000
   }
 ]
