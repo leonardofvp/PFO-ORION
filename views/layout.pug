@@ -1,17 +1,23 @@
-html(lang = "es")
+doctype html
+html(lang="es")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0") 
-        title Cimientos Sólidos S.A 
-
+        title Cimientos Sólidos S.A
     body 
         header 
-            h1 Cimientos Sólidos S.A. 
-            nav 
-                // Agregar enlaces de navegacion
-                       
+            h1 Cimientos Sólidos S.A - Proyectos de Real Estate de Lujo
+        nav 
+            ul
+            li: a(href="/") Inicio
+            li: a(href="/proyectos") Ver Proyectos
         main 
             block content 
+                ul
+                    each obra in lista
+                        li
+                            strong= obra.nombre 
+                            |  - Ubicación: #{obra.ubicacion} (Presupuesto: USD #{obra.presupuesto})
 
         footer 
-            p Proyecto Cimientos Sólidos S.A. - Grupo Orión
+            p Proyecto Cimientos Sólidos S.A. - Grupo Orión -
