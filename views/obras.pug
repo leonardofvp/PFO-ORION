@@ -1,0 +1,25 @@
+extend layout 
+
+block  content
+    h2 Gestión de obras
+
+    div
+        a(href="/obras/nueva-obra") Agregar nueva obra
+
+    h3 Lista de obras
+    table(border = 1)
+        thead
+            tr
+                th Nombre
+                th Ubicación
+                th Estado
+                th Acciones
+        tbody
+            each obra in obras
+                tr
+                    td
+                        strong= obra.nombre
+                        td= obra.ubicacion
+                        td= obra.estado 
+                    td
+                        a(href=`/obras/detalle-obra/${obra.id}`) Ver detalle

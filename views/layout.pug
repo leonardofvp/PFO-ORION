@@ -10,14 +10,11 @@ html(lang="es")
         nav 
             ul
             li: a(href="/") Inicio
-            li: a(href="/proyectos") Ver Proyectos
+            li: a(href="/obras") Ver obras
+            li: a(href="/gastos") Ver gastos
+        
         main 
             block content 
-                ul
-                    each obra in lista
-                        li
-                            strong= obra.nombre 
-                            |  - Ubicación: #{obra.ubicacion} (Presupuesto: USD #{obra.presupuesto})
 
         footer 
             p Proyecto Cimientos Sólidos S.A. - Grupo Orión -

@@ -1,0 +1,49 @@
+extends layout
+
+block content
+    h2= editable ? "Editar obra" : "Nueva obra"
+
+    form(method="POST", action= editable ? `/obras/editar-obra/${obra.id}?_method=PUT` : `/obras/nueva-obra`)
+            
+        label ID :
+        input(type="number", name="id" value= obra.id || "", readonly=editable, required)
+
+        br
+        br
+
+        label Nombre:
+        input(type="text", name="nombre", value= obra.nombre || "", required)
+
+        br
+        br
+
+        label Ubicacion:
+        input(type="text", name="ubicacion", value= obra.ubicacion || "", required)
+
+        br
+        br
+
+        label Presupuesto:
+        input(type="number", name="presupuesto", value= obra.presupuesto || "", required)
+
+        br
+        br
+
+        label Estado:
+        select(name="estado")
+            option(value="iniciando" selected= !obra.estado || obra.estado === "iniciando") iniciando
+            option(value="activa" selected= obra.estado === "en_ejecucion") activa
+            option(value="finalizada" selected= obra.estado === "finalizada") finalizada
+
+        br
+        br
+
+        button(type="submit")= editable ? "Guardar cambios" : "Crear obra"
+
+        br
+        br
+
+        if editable
+            a(href=`/obras/detalle-obra/${obra.id}`) Cancelar
+        else 
+            a(href="/obras") Volver al listado
