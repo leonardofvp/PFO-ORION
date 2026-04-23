@@ -16,13 +16,13 @@
   {
     "id": 3,
     "nombre": "Residencial El Parque",
-    "ubicacion": "San Martín 800, Lanús",
+    "ubicacion": "San Martín 800, Beccar",
     "presupuestoTotal": 15000000,
     "estado": "iniciando"
   },
   {
     "id": 4,
-    "nombre": "Edificio Alvear",
+    "nombre": "Maison Alvear",
     "ubicacion": "Av. Alvear 1800, Recoleta",
     "presupuesto": 45000000,
     "estado": "iniciando"
@@ -33,5 +33,19 @@
     "ubicacion": "Rura 8 km 40, Pilar",
     "presupuestoTotal": 80000000,
     "estado": "iniciando"
+  },
+  {
+    "id": 6,
+    "nombre": "Jardines de Arroyo",
+    "ubicacion": "Arroyo 930, Retiro",
+    "presupuestoTotal": 350000000,
+    "estado": "activa"
+  },
+  {
+    "id": 7,
+    "nombre": "Petit Hotel Voltaire",
+    "ubicacion": "Pasaje Voltaire 200, Palermo",
+    "presupuestoTotal": 40000000,
+    "estado": "activa"
   }
 ]
