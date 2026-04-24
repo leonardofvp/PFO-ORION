@@ -6,6 +6,9 @@ const {
 
 const Gasto = require("../models/Gasto");
 
+// Se incluye para validaciones, ya que los gastos estan asociados a las obras
+const Obra = require("../models/Obra");
+
 // get
 const obtenerGastosJson = (req, res) => {
     const gastos = leerArchivo("gastos.json");
@@ -28,20 +31,40 @@ const obtenerGastoPorId = (req, res) => {
 const crearGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     const { id, idObra, descripcion, monto, estado, fecha } = req.body;
-    const nuevoGasto = new Gasto(
+
+    //validar que la obra existe
+    const obras = leerArchivo("obras.json");
+    const obra = obras.find(o => o.id === parseInt(idObra));
+
+    if (!obra) {
+        return res.status(404).json({mensaje: "Obra no ecnontrada"});
+    }
+    //---------------------------------------------------------------
+
+    // validar que el id del nuevo gasto no exista
+    const gasto = gastos.find(g => g.id === parseInt(id));
+
+    if (!gasto) {
+         const nuevoGasto = new Gasto(
          parseInt(id),
          parseInt(idObra),
          descripcion,
          parseFloat(monto),
          estado,
         fecha
-    );
+        );
 
-    gastos.push(nuevoGasto);
+        gastos.push(nuevoGasto);
 
-    escribirArchivo("gastos.json", gastos);
-    
-    res.status(201).json(nuevoGasto);
+        escribirArchivo("gastos.json", gastos);
+        
+        res.status(201).json("Creado con exitosamente!");
+    } else {
+        return res.status(409).json("¡Ya existe un gasto asociado al id!");
+    }
+    //---------------------------------------------------------------
+
+   
 };
 
 

@@ -81,5 +81,13 @@
     "monto": 150000,
     "estado": "pendiente",
     "fecha": "2026-04-23"
+  },
+  {
+    "id": 15,
+    "idObra": 1,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
   }
 ]
