@@ -2,22 +2,84 @@
   {
     "id": 1,
     "idObra": 1,
-    "descripcion": "2000 ladrillos huecos",
-    "monto": 850000,
-    "estado": "pendiente"
+    "descripcion": "Compra de cemento (50 bolsas)",
+    "monto": 300000,
+    "fecha": "2026-04-01"
   },
   {
     "id": 2,
-    "idObra": 2,
-    "descripcion": "Pintura sintética 20L",
-    "monto": 120000,
-    "estado": "autorizado"
+    "idObra": 1,
+    "descripcion": "Arena y piedra",
+    "monto": 150000,
+    "fecha": "2026-04-03"
   },
   {
     "id": 3,
+    "idObra": 2,
+    "descripcion": "Mano de obra albañiles",
+    "monto": 500000,
+    "fecha": "2026-04-05"
+  },
+  {
+    "id": 4,
+    "idObra": 2,
+    "descripcion": "Compra de pintura",
+    "monto": 120000,
+    "fecha": "2026-04-10"
+  },
+  {
+    "id": 5,
     "idObra": 3,
-    "descripcion": "Alquiler de andamios (mes 1)",
-    "monto": 200000,
-    "estado": "autorizado"
+    "descripcion": "Alquiler de maquinaria",
+    "monto": 400000,
+    "fecha": "2026-04-15"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
+  },
+  {
+    "id": 10,
+    "idObra": 2,
+    "descripcion": "Compra de herramientas",
+    "monto": 150000,
+    "estado": "pendiente",
+    "fecha": "2026-04-23"
   }
 ]

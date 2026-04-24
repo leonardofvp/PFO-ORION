@@ -7,6 +7,7 @@ const PORT = process.env.PORT || 3000;
 
 const indexRoutes = require("./routes/indexRoutes");
 const obrasRoutes = require("./routes/obrasRoutes");
+const gastosRoutes = require("./routes/gastosRoutes");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -17,6 +18,7 @@ app.set("views", "./views");
 
 app.use("/", indexRoutes);
 app.use("/obras", obrasRoutes);
+app.use("/gastos", gastosRoutes);
 
 // Se guarda la ejecución en la constante server
 const server = app.listen(PORT, () => {
