@@ -1,0 +1,23 @@
+extend layout 
+
+block  content
+    h2 Gestión de gastos
+
+    div
+        a(href="/gastos/nuevo-gasto") Agregar nuevo gasto
+
+    h3 Lista de gastos
+    table(border = 1)
+        thead
+            tr
+                th ID Obra
+                th Detalle
+                th Fecha
+        tbody
+            each gasto in gastos
+                tr
+                    td= gasto.idObra
+                    td= gasto.descripcion
+                    td= gasto.fecha 
+                    td
+                        a(href=`/gastos/detalle-gasto/${gasto.id}`) Ver detalle

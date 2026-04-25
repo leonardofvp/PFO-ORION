@@ -96,20 +96,16 @@ const editarObra = (req, res) => {
 
 const eliminarObra = (req, res) => {
     const obras = leerArchivo("obras.json");
-    const gastos = leerArchivo("gastos.json"); // <-- Necesario para saber si la obra tiene gastos asociados
     const id = parseInt(req.params.id);
 
-    const tieneGastos = gastos.some(g => parseInt(g.idObra) === id);
-
-    if (tieneGastos) { // Si hay gastos asociados, se hace una baja logica marcandola como inactiva
-        const obra = obras.find(o => o.id === id); 
-        obra.estado = "inactiva";
+    const obra = obras.find(o => o.id === id); 
+    
+    if (!obra) {
+        return res.status(404).send("Obra no encontrado");
+    }else {
+        obra.estado = "eliminada";      // <-- Baja lojica, por si tiene gastos asociados
         escribirArchivo("obras.json", obras);
         res.redirect(`/obras/detalle-obra/${obra.id}`);
-    }else{ // Si no hay gastos asociados, se elimina
-        const obrasFiltradas = obras.filter(o => o.id !== id);
-        escribirArchivo("obras.json", obrasFiltradas);
-        res.redirect("/obras");
     }
 }
 

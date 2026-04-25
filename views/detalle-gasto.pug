@@ -1,0 +1,21 @@
+extends layout 
+
+block content
+    div.container.mt-5
+        h2 Detalle de gasto
+        ul.list-group
+            li.list-group-item ID: #{gasto.id}
+            li.list-group-item ID Obra: #{gasto.idObra}
+            li.list-group-item Descripción: #{gasto.descripcion}
+            li.list-group-item Monto: #{gasto.monto}
+            li.list-group-item Estado: #{gasto.estado}
+            li.list-group-item Fecha: #{gasto.fecha}
+        button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${gasto.id}'`) Editar        
+        | &nbsp;|&nbsp;
+        form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST", style="display:inline")
+            button(type="submit") Eliminar
+
+        br
+        br 
+
+        a.btn.btn-primary.mt-3(href="/gastos") Volver atras

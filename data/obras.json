@@ -3,8 +3,8 @@
     "id": 1,
     "nombre": "Edificio Los Alerces",
     "ubicacion": "Arroyo 123, CABA",
-    "presupuesto": 25000000,
-    "estado": "inactiva"
+    "presupuesto": "25000000",
+    "estado": "activa"
   },
   {
     "id": 2,

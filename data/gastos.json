@@ -1,9 +1,10 @@
 [
   {
     "id": 1,
-    "idObra": 1,
+    "idObra": "1",
     "descripcion": "Compra de cemento (50 bolsas)",
-    "monto": 300000,
+    "monto": "100000",
+    "estado": "eliminado",
     "fecha": "2026-04-01"
   },
   {
@@ -11,6 +12,7 @@
     "idObra": 1,
     "descripcion": "Arena y piedra",
     "monto": 150000,
+    "estado": "pendiente",
     "fecha": "2026-04-03"
   },
   {
@@ -18,6 +20,7 @@
     "idObra": 2,
     "descripcion": "Mano de obra albañiles",
     "monto": 500000,
+    "estado": "pendiente",
     "fecha": "2026-04-05"
   },
   {
@@ -25,6 +28,7 @@
     "idObra": 2,
     "descripcion": "Compra de pintura",
     "monto": 120000,
+    "estado": "pendiente",
     "fecha": "2026-04-10"
   },
   {
@@ -32,6 +36,7 @@
     "idObra": 3,
     "descripcion": "Alquiler de maquinaria",
     "monto": 400000,
+    "estado": "pendiente",
     "fecha": "2026-04-15"
   },
   {

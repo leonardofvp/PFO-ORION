@@ -10,9 +10,9 @@ const Gasto = require("../models/Gasto");
 const Obra = require("../models/Obra");
 
 // get
-const obtenerGastosJson = (req, res) => {
+const obtenerGastos = (req, res) => {
     const gastos = leerArchivo("gastos.json");
-    res.status(200).json(gastos);
+    res.render("gastos", { gastos });
 };
 
 // get por id
@@ -24,10 +24,17 @@ const obtenerGastoPorId = (req, res) => {
         return res.status(404).json({mensaje: "Gasto no encontrado"});
     }
 
-    res.status(200).json(gasto);
+    res.render("detalle-gasto", { gasto });
 };
 
 // post
+const formularioCrearGasto = (req, res) => {
+    res.render("formulario-gasto", {
+        editable: false,
+        gasto: {}
+    });
+};
+
 const crearGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     const { id, idObra, descripcion, monto, estado, fecha } = req.body;
@@ -45,12 +52,12 @@ const crearGasto = (req, res) => {
     const gasto = gastos.find(g => g.id === parseInt(id));
 
     if (!gasto) {
-         const nuevoGasto = new Gasto(
-         parseInt(id),
-         parseInt(idObra),
-         descripcion,
-         parseFloat(monto),
-         estado,
+        const nuevoGasto = new Gasto(
+        parseInt(id),
+        parseInt(idObra),
+        descripcion,
+        parseFloat(monto),
+        estado,
         fecha
         );
 
@@ -58,7 +65,7 @@ const crearGasto = (req, res) => {
 
         escribirArchivo("gastos.json", gastos);
         
-        res.status(201).json("Creado con exitosamente!");
+        res.redirect("/gastos");
     } else {
         return res.status(409).json("¡Ya existe un gasto asociado al id!");
     }
@@ -70,6 +77,21 @@ const crearGasto = (req, res) => {
 
 //put
 
+const formularioEditarGasto = (req, res) => {
+        const id = parseInt(req.params.id);
+        const gastos = leerArchivo("gastos.json");
+        const gasto = gastos.find(g => g.id === id);
+
+        if (!gasto) {
+            return res.status(404).send("Gasto no encontrado");
+        }
+
+        res.render("formulario-gasto", {
+        editable: true,
+        gasto: gasto
+    });
+};
+
 const editarGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     
@@ -80,17 +102,18 @@ const editarGasto = (req, res) => {
         return res.status(404).send("Gasto no encontrado");
     }
 
-    const { descripcion, montoTotal, estado, idObra, fecha } = req.body;
+    const { descripcion, monto, estado, idObra, fecha } = req.body;
 
     gasto.id = gasto.id;
     gasto.descripcion = descripcion ?? gasto.descripcion;
-    gasto.montoTotal = montoTotal ?? gasto.montoTotal;
+    gasto.monto = monto ?? gasto.monto;
     gasto.estado = estado ?? gasto.estado;
     gasto.idObra = idObra ?? gasto.idObra;
     gasto.fecha = fecha ?? gasto.fecha;
-
+    
     escribirArchivo("gastos.json", gastos);
-     res.status(200).json(gasto);
+    
+    res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
 };
 
 
@@ -98,22 +121,24 @@ const editarGasto = (req, res) => {
 const eliminarGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     const id = parseInt(req.params.id);
-    const gasto = gastos.findgasto(g => g.id === id);
+    const gasto = gastos.find(g => g.id === id);
 
     if (!gasto) {
         return res.status(404).send("Gasto no encontrado");
     }else {
         gasto.estado = "eliminado";
         escribirArchivo("gastos.json", gastos);
-        res.status(204);
+        
+        res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
     }
-
 };
 
 module.exports = {
-    obtenerGastosJson,
+    obtenerGastos,
     obtenerGastoPorId,
+    formularioCrearGasto,
     crearGasto,
+    formularioEditarGasto,
     editarGasto,
     eliminarGasto
 };

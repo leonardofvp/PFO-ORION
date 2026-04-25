@@ -2,17 +2,18 @@ extends layout
 
 block content
     div.container.mt-5
-        h1 Detalle de: #{obra.nombre}
+        h2 Detalle de: #{obra.nombre}
         ul.list-group
             li.list-group-item ID: #{obra.id}
             li.list-group-item Ubicación: #{obra.ubicacion}
             li.list-group-item Presupuesto: USD #{obra.presupuesto}
             li.list-group-item Estado: #{obra.estado}
-        a(href=`/obras/editar-obra/${obra.id}`) Editar 
+        button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar        
         | &nbsp;|&nbsp;
-        a(href=`/obras/eliminar-obra/${obra.id}`) Eliminar
+        form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST", style="display:inline")
+            button(type="submit") Eliminar
 
         br
-        br 
+        br  
 
         a.btn.btn-primary.mt-3(href="/obras") Volver atras
