@@ -2,50 +2,57 @@
   {
     "id": 1,
     "nombre": "Edificio Los Alerces",
-    "ubicacion": "Arroyo 123, CABA",
-    "presupuesto": "25000000",
+    "ubicacion": "Av. del Libertador 6500, Belgrano",
+    "presupuesto": 25000000,
     "estado": "activa"
   },
   {
     "id": 2,
     "nombre": "Complejo San Juan",
-    "ubicacion": "Av. Rivadavia 4500, CABA",
+    "ubicacion": "La Isla, Nordelta",
     "presupuesto": 40000000,
     "estado": "activa"
   },
   {
     "id": 3,
     "nombre": "Residencial El Parque",
-    "ubicacion": "San Martín 800, Beccar",
-    "presupuestoTotal": 15000000,
+    "ubicacion": "Calle de la Brisa, Puertos del Lago",
+    "presupuesto": 15000000,
     "estado": "iniciando"
   },
   {
     "id": 4,
     "nombre": "Maison Alvear",
-    "ubicacion": "Av. Alvear 1800, Recoleta",
+    "ubicacion": "Vuelta de Obligado 1900, Nuñez",
     "presupuesto": 45000000,
     "estado": "iniciando"
   },
   {
     "id": 5,
     "nombre": "Barrio Los Robles",
-    "ubicacion": "Rura 8 km 40, Pilar",
-    "presupuestoTotal": 80000000,
+    "ubicacion": "Ruta 8 km 52, Pilar",
+    "presupuesto": 80000000,
     "estado": "iniciando"
   },
   {
     "id": 6,
     "nombre": "Jardines de Arroyo",
-    "ubicacion": "Arroyo 930, Retiro",
-    "presupuestoTotal": 350000000,
+    "ubicacion": "Camino de los Remeros, Tigre",
+    "presupuesto": 350000000,
     "estado": "activa"
   },
   {
     "id": 7,
     "nombre": "Petit Hotel Voltaire",
-    "ubicacion": "Pasaje Voltaire 200, Palermo",
-    "presupuestoTotal": 40000000,
+    "ubicacion": "Av. Figueroa Alcorta 3300, Palermo Chico",
+    "presupuesto": 40000000,
     "estado": "activa"
+  },
+  {
+    "id": 8,
+    "nombre": "Torre Sky View",
+    "ubicacion": "Barrio Santa Bárbara, Tigre",
+    "presupuesto": "65000000",
+    "estado": "eliminada"
   }
 ]
