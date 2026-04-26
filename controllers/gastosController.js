@@ -35,14 +35,6 @@ const obtenerGastoPorId = (req, res) => {
         return res.status(404).send("El gasto fue eliminado");
     }
 
-    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado", 
-    // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
-     if (gasto.estado === "eliminado") {
-        return res.status(404).json({
-            mensaje: "El gasto fue eliminado"
-        });
-    }
-
     res.render("detalle-gasto", { gasto });
 };
 

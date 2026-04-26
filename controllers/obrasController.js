@@ -14,7 +14,12 @@ const obtenerObrasJson = (req, res) => {
 
 const obtenerObras = (req, res) => {
     const obras = leerArchivo("obras.json");
-    res.render("obras", { obras });
+
+    const obrasActivas = obras.filter(
+        obra => obra.estado !== "eliminada"
+    );
+
+    res.render("obras", { obrasActivas });
 };
 
 const obtenerObraPorId = (req, res) => {
@@ -23,6 +28,10 @@ const obtenerObraPorId = (req, res) => {
 
     if (!obra) {
         return res.status(404).send("Obra no encontrada");
+    }
+
+    if (obra.estado === "eliminada") {
+        return res.status(404).send("La obra fue eliminada");
     }
 
     res.status(200).render("detalle-obra", { obra });
@@ -78,6 +87,10 @@ const editarObra = (req, res) => {
     if (!obra) {
         return res.status(404).send("Obra no encontrada");
     }
+
+        const obrasActivas = obras.filter(
+        obra => obra.estado !== "eliminada"
+    );
 
     const { nombre, ubicacion, presupuesto, estado } = req.body;
 
