@@ -55,7 +55,7 @@ const crearGasto = (req, res) => {
     const obra = obras.find(o => o.id === parseInt(idObra));
 
     if (!obra) {
-        return res.status(404).json({mensaje: "Obra no ecnontrada"});
+        return res.status(404).send("Obra no ecnontrada");
     }
     //---------------------------------------------------------------
 
