@@ -44,7 +44,7 @@
     "idObra": 2,
     "descripcion": "Compra de herramientas",
     "monto": 150000,
-    "estado": "pendiente",
+    "estado": "eliminado",
     "fecha": "2026-04-23"
   },
   {

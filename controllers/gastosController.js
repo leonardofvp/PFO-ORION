@@ -80,14 +80,11 @@ const crearGasto = (req, res) => {
     } else {
         return res.status(409).json("¡Ya existe un gasto asociado al id!");
     }
-    //---------------------------------------------------------------
-
-   
+    //---------------------------------------------------------------   
 };
 
 
 //put
-
 const formularioEditarGasto = (req, res) => {
         const id = parseInt(req.params.id);
         const gastos = leerArchivo("gastos.json");
@@ -140,7 +137,7 @@ const eliminarGasto = (req, res) => {
         gasto.estado = "eliminado";
         escribirArchivo("gastos.json", gastos);
         
-        res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
+        res.redirect(303, `/gastos/detalle-gasto/${gasto.id}`);
     }
 };
 
