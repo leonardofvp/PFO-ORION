@@ -10,7 +10,7 @@ const Gasto = require("../models/Gasto");
 const Obra = require("../models/Obra");
     
 // get
-const obtenerGastosJson = (req, res) => {
+const obtenerGastos = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     // para no mostrar los gastos eliminados, se filtran los gastos que tienen el estado "eliminado".
     const gastosActivos = gastos.filter(
