@@ -8,9 +8,9 @@ const Gasto = require("../models/Gasto");
 
 // Se incluye para validaciones, ya que los gastos estan asociados a las obras
 const Obra = require("../models/Obra");
-
+    
 // get
-const obtenerGastos = (req, res) => {
+const obtenerGastosJson = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     // para no mostrar los gastos eliminados, se filtran los gastos que tienen el estado "eliminado".
     const gastosActivos = gastos.filter(
@@ -33,6 +33,14 @@ const obtenerGastoPorId = (req, res) => {
     // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
      if (gasto.estado === "eliminado") {
         return res.status(404).send("El gasto fue eliminado");
+    }
+
+    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado", 
+    // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
+     if (gasto.estado === "eliminado") {
+        return res.status(404).json({
+            mensaje: "El gasto fue eliminado"
+        });
     }
 
     res.render("detalle-gasto", { gasto });
@@ -102,30 +110,35 @@ const formularioEditarGasto = (req, res) => {
 
 const editarGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
-    
+    const obras = leerArchivo("obras.json");
+
+    // Buscar el gasto por id
     const id = parseInt(req.params.id);
     const gasto = gastos.find(g => g.id === id);
-  
+
+    //validar si existe el gasto
     if (!gasto) {
         return res.status(404).send("Gasto no encontrado");
     }
 
-    const { descripcion, monto, estado, idObra, fecha } = req.body;
+    const { descripcion, montoTotal, estado, idObra, fecha } = req.body;
 
     gasto.id = gasto.id;
     gasto.descripcion = descripcion ?? gasto.descripcion;
-    gasto.monto = monto ?? gasto.monto;
+    gasto.montoTotal = montoTotal ?? gasto.montoTotal;
     gasto.estado = estado ?? gasto.estado;
     gasto.idObra = idObra ?? gasto.idObra;
     gasto.fecha = fecha ?? gasto.fecha;
-    
+
     escribirArchivo("gastos.json", gastos);
     
     res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
 };
 
 
-//delete 
+//delete implementamos un borrado logico, cambiando el estado del gasto a "eliminado", 
+// de esta forma no se borra el gasto del archivo json, 
+// pero se marca como eliminado para que no se muestre en las consultas.
 const eliminarGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
     const id = parseInt(req.params.id);

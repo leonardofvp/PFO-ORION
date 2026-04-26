@@ -23,7 +23,7 @@
   {
     "id": 4,
     "nombre": "Maison Alvear",
-    "ubicacion": "Vuelta de Obligado 1900, Nuñez",
+    "ubicacion": "Avenida Alvear 1900, Recoleta",
     "presupuesto": 45000000,
     "estado": "iniciando"
   },
@@ -37,7 +37,7 @@
   {
     "id": 6,
     "nombre": "Jardines de Arroyo",
-    "ubicacion": "Camino de los Remeros, Tigre",
+    "ubicacion": "Arroyo 900, Retiro",
     "presupuesto": 350000000,
     "estado": "activa"
   },
