@@ -12,8 +12,8 @@ const {
 router.get("/", obtenerGastosJson);
 router.get("/:id", obtenerGastoPorId);
 router.post("/", crearGasto);
-router.put("/modificar/:id", editarGasto);
-router.delete("/eliminar/:id", eliminarGasto);
+router.put("/:id", editarGasto);
+router.delete("/:id", eliminarGasto);
 
 
 module.exports = router;
