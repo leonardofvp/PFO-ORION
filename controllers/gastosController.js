@@ -12,7 +12,12 @@ const Obra = require("../models/Obra");
 // get
 const obtenerGastos = (req, res) => {
     const gastos = leerArchivo("gastos.json");
-    res.render("gastos", { gastos });
+    // para no mostrar los gastos eliminados, se filtran los gastos que tienen el estado "eliminado".
+    const gastosActivos = gastos.filter(
+        gasto => gasto.estado !== "eliminado"
+    );
+
+    res.render("gastos", { gastosActivos });
 };
 
 // get por id
@@ -21,7 +26,13 @@ const obtenerGastoPorId = (req, res) => {
     const gasto = gastos.find(g => g.id === parseInt(req.params.id));
 
     if (!gasto) {
-        return res.status(404).json({mensaje: "Gasto no encontrado"});
+        return res.status(404).send("Gasto no encontrado");
+    }
+
+    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado", 
+    // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
+     if (gasto.estado === "eliminado") {
+        return res.status(404).send("El gasto fue eliminado");
     }
 
     res.render("detalle-gasto", { gasto });
