@@ -22,10 +22,10 @@ const obtenerObraPorId = (req, res) => {
     const obra = obras.find(o => o.id === parseInt(req.params.id));
 
     if (!obra) {
-        return res.status(404).json({mensaje: "Obra no ecnontrada"});
+        return res.status(404).send("Obra no encontrada");
     }
 
-    res.render("detalle-obra", { obra });
+    res.status(200).render("detalle-obra", { obra });
 };
 
 const formularioCrearObra = (req, res) => {
@@ -51,9 +51,7 @@ const crearObra = (req, res) => {
 
     escribirArchivo("obras.json", obras);
     
-    res.status(201);
-
-    res.redirect("/obras");
+    res.redirect(303, "/obras");
 };
 
 const formularioEditarObra = (req, res) => {
@@ -83,7 +81,6 @@ const editarObra = (req, res) => {
 
     const { nombre, ubicacion, presupuesto, estado } = req.body;
 
-    obra.id = obra.id;
     obra.nombre = nombre ?? obra.nombre;
     obra.ubicacion = ubicacion ?? obra.ubicacion;
     obra.presupuesto = presupuesto ?? obra.presupuesto;
@@ -91,25 +88,21 @@ const editarObra = (req, res) => {
     
     escribirArchivo("obras.json", obras);
     
-    res.redirect(`/obras/detalle-obra/${obra.id}`);
+    res.redirect(303, `/obras/detalle-obra/${obra.id}`);
 };
 
 const eliminarObra = (req, res) => {
     const obras = leerArchivo("obras.json");
-    const gastos = leerArchivo("gastos.json"); // <-- Necesario para saber si la obra tiene gastos asociados
     const id = parseInt(req.params.id);
 
-    const tieneGastos = gastos.some(g => parseInt(g.idObra) === id);
-
-    if (tieneGastos) { // Si hay gastos asociados, se hace una baja logica marcandola como inactiva
-        const obra = obras.find(o => o.id === id); 
-        obra.estado = "inactiva";
+    const obra = obras.find(o => o.id === id); 
+    
+    if (!obra) {
+        return res.status(404).send("Obra no encontrada");
+    }else {
+        obra.estado = "eliminada";      // <-- Baja lojica, por si tiene gastos asociados
         escribirArchivo("obras.json", obras);
-        res.redirect(`/obras/detalle-obra/${obra.id}`);
-    }else{ // Si no hay gastos asociados, se elimina
-        const obrasFiltradas = obras.filter(o => o.id !== id);
-        escribirArchivo("obras.json", obrasFiltradas);
-        res.redirect("/obras");
+        res.redirect(303, `/obras/detalle-obra/${obra.id}`);
     }
 }
 

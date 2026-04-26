@@ -32,7 +32,7 @@ block content
         label Estado:
         select(name="estado")
             option(value="iniciando" selected= !obra.estado || obra.estado === "iniciando") iniciando
-            option(value="activa" selected= obra.estado === "en_ejecucion") activa
+            option(value="activa" selected= obra.estado === "activa") activa
             option(value="finalizada" selected= obra.estado === "finalizada") finalizada
 
         br

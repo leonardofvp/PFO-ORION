@@ -18,6 +18,6 @@ router.get("/nueva-obra", formularioCrearObra);
 router.post("/nueva-obra", crearObra);
 router.get("/editar-obra/:id", formularioEditarObra);
 router.put("/editar-obra/:id", editarObra);
-router.get("/eliminar-obra/:id", eliminarObra);
+router.delete("/eliminar-obra/:id", eliminarObra);
 
 module.exports = router;

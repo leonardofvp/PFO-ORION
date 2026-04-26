@@ -1,4 +1,55 @@
 extends layout
 
 block content
-    h2 Nueva obra
+    h2= editable ? "Editar gasto" : "Nuevo gasto"
+
+    form(method="POST", action= editable ? `/gastos/editar-gasto/${gasto.id}?_method=PUT` : `/gastos/nuevo-gasto`)
+            
+        label ID :
+        input(type="number", name="id" value= gasto.id || "", readonly=editable, required)
+
+        br
+        br
+
+        label ID Obra:
+        input(type="number", name="idObra", value= gasto.idObra || "", readonly=editable, required)
+
+        br
+        br
+
+        label Descripcion:
+        input(type="text", name="descripcion", value= gasto.descripcion || "", required)
+
+        br
+        br
+
+        label Monto:
+        input(type="number", name="monto", value= gasto.monto || "", required)
+
+        br
+        br
+
+        label Estado:
+        select(name="estado")
+            option(value="pendiente" selected= !gasto.estado || gasto.estado === "pendiente") pendiente
+            option(value="pagado" selected= gasto.estado === "pagado") pagado
+            option(value="rechazado" selected= gasto.estado === "rechazado") rechazado
+
+        br
+        br
+
+        label Fecha:
+        input(type="date", name="fecha", value= gasto.fecha || "", required)
+
+        br
+        br
+
+        button(type="submit")= editable ? "Guardar cambios" : "Crear gasto"
+
+        br
+        br
+
+        if editable
+            a(href=`/gastos/detalle-gasto/${gasto.id}`) Cancelar
+        else 
+            a(href="/gastos") Volver al listado
