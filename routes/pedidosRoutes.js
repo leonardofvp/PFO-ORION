@@ -14,7 +14,7 @@ const {
 
 router.get("/", obtenerPedidos);
 router.get("/detalle-pedido/:id", obtenerPedidoPorId);
-router.get("/nueva-pedido", formularioCrearPedido);
+router.get("/nuevo-pedido", formularioCrearPedido);
 router.post("/nuevo-pedido", crearPedido);
 router.get("/editar-pedido/:id", formularioEditarPedido);
 router.put("/editar-pedido/:id", editarPedido);

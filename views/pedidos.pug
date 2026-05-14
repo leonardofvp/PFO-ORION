@@ -12,6 +12,7 @@ block content
             tr
                 th Fecha
                 th Obra
+                Th Tipo
                 th Descripción
                 th Cantidad
                 th Estado
@@ -21,6 +22,7 @@ block content
                 tr
                     td= new Date(pedido.fecha).toLocaleDateString('es-AR')
                     td= pedido.idObra
+                    td= pedido.tipo
                     td= pedido.descripcion
                     td= `${pedido.cantidad} ${pedido.unidad}`
                     td= pedido.estado

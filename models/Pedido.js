@@ -1,5 +1,5 @@
 class Pedido {
-    constructor(id, idObra, idUsuario, tipo, descripcion, cantidad, unidad) {
+    constructor(id, idObra, idUsuario, tipo, descripcion, cantidad, unidad, observaciones = "") {
         this.id = id;
         this.idObra = idObra;
         this.idUsuario = idUsuario; // Quién lo solicita (Capataz/Jefe de Obra)
@@ -12,6 +12,8 @@ class Pedido {
         this.unidad = unidad; // Ej: "bolsas", "m3", "viajes"
 
         this.estado = "pendiente"; // Estados: pendiente, aprobado, entregado, rechazado
-        this.observaciones = "";
+        this.observaciones = observaciones;
     }
 }
+
+module.exports = Pedido;

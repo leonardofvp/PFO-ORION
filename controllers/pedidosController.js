@@ -48,15 +48,16 @@ const formularioCrearPedido = (req, res) => {
 const crearPedido = (req, res) => {
     const pedidos = leerArchivo("pedidos.json");
 
-    const { id, nombre, apellido, email, password, rol, estado } = req.body;
+    const { id, idObra, idUsuario, tipo, descripcion, cantidad, unidad, observaciones } = req.body;
     const nuevoPedido = new Pedido(
         parseInt(id),
-        nombre,
-        apellido,
-        email,
-        password,
-        rol,
-        estado
+        parseInt(idObra),
+        parseInt(idUsuario),
+        tipo,
+        descripcion,
+        parseInt(cantidad),
+        unidad,
+        observaciones
     );
 
     pedidos.push(nuevoPedido);
@@ -95,20 +96,15 @@ const editarPedido = (req, res) => {
         pedido => pedido.estado !== "eliminado"
     );
 
-    // Desestructuramos los campos que vienen del formulario de pedidos
-    const { idObra, descripcion, cantidad, unidad, estado, observaciones } = req.body;
+    const { idObra, tipo, descripcion, cantidad, unidad, estado, observaciones } = req.body;
 
-    // Usamos el operador ?? para actualizar solo si el campo viene en el body
-    // Si no viene (es null o undefined), mantiene el valor que ya tenía el pedido
     pedido.idObra = idObra ?? pedido.idObra;
+    pedido.tipo = tipo ?? pedido.tipo;
     pedido.descripcion = descripcion ?? pedido.descripcion;
     pedido.cantidad = cantidad ?? pedido.cantidad;
     pedido.unidad = unidad ?? pedido.unidad;
     pedido.estado = estado ?? pedido.estado;
     pedido.observaciones = observaciones ?? pedido.observaciones;
-
-    // Nota: La fecha y el idUsuario (el capataz) generalmente no se cambian
-    // una vez creado el pedido, para mantener la trazabilidad.
 
     escribirArchivo("pedidos.json", pedidos);
 

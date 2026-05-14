@@ -17,6 +17,14 @@ block content
         br
         br
 
+        label Estado:
+        select(name="tipo")
+            option(value="material" selected= pedido.estado === "material") Material
+            option(value="servicio" selected= pedido.estado === "servicio") Servicio
+
+        br
+        br
+
         label Descripción:
         input(type="text", name="descripcion", value= pedido.descripcion || "", placeholder="Ej: Arena o Electricista", required)
 
