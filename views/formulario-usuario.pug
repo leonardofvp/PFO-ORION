@@ -1,0 +1,55 @@
+extends layout
+
+block content
+    h2= editable ? "Editar usuario" : "Nuevo usuario"
+
+    form(method="POST", action= editable ? `/usuarios/editar-usuario/${usuario.id}?_method=PUT` : `/usuarios/nuevo-usuario`)
+
+        label ID :
+        input(type="number", name="id" value= usuario.id || "", readonly=editable, required)
+
+        br
+        br
+
+        label Nombre:
+        input(type="text", name="nombre", value= usuario.nombre || "", required)
+
+        br
+        br
+
+        label Apellido:
+        input(type="text", name="apellido", value= usuario.apellido || "", required)
+
+        br
+        br
+
+        label Email:
+        input(type="email", name="email", value= usuario.email || "", readonly=editable, required)
+
+        br
+        br
+
+        label Password:
+        input(type="password", name="password", value= usuario.password || "", required)
+
+
+        br
+        br
+
+        label Rol:
+        select(name="rol")
+            each role in ROLES
+                option(value=role.id selected= usuario.rol === role.id)= role.label
+
+        br
+        br
+
+        button(type="submit")= editable ? "Guardar cambios" : "Crear usuario"
+
+        br
+        br
+
+        if editable
+            a(href=`/usuarios/detalle-usuario/${usuario.id}`) Cancelar
+        else
+            a(href="/usuarios") Volver al listado

@@ -1,0 +1,26 @@
+extends layout
+
+block content
+    div.container.mt-5
+        h2 Detalle de Pedido
+        ul.list-group
+            li.list-group-item ID Pedido: #{pedido.id}
+            li.list-group-item Obra: #{pedido.idObra}
+            li.list-group-item Descripción: #{pedido.descripcion}
+            li.list-group-item Cantidad: #{pedido.cantidad} #{pedido.unidad}
+            li.list-group-item Estado: #{pedido.estado}
+            li.list-group-item Observaciones: #{pedido.observaciones || "Sin observaciones"}
+            li.list-group-item Fecha de Solicitud: #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
+
+        br
+
+        div.actions
+            button.btn.btn-warning(type="button" onclick=`window.location.href='/pedidos/editar-pedido/${pedido.id}'`) Editar
+            | &nbsp;|&nbsp;
+            form(action=`/pedidos/eliminar-pedido/${pedido.id}?_method=DELETE`, method="POST", style="display:inline")
+                button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de eliminar este pedido?')") Eliminar
+
+        br
+        br
+
+        a.btn.btn-secondary.mt-3(href="/pedidos") Volver atrás

@@ -8,7 +8,7 @@ const Gasto = require("../models/Gasto");
 
 // Se incluye para validaciones, ya que los gastos estan asociados a las obras
 const Obra = require("../models/Obra");
-    
+
 // get
 const obtenerGastos = (req, res) => {
     const gastos = leerArchivo("gastos.json");
@@ -29,7 +29,7 @@ const obtenerGastoPorId = (req, res) => {
         return res.status(404).send("Gasto no encontrado");
     }
 
-    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado", 
+    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado",
     // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
      if (gasto.estado === "eliminado") {
         return res.status(404).send("El gasto fue eliminado");
@@ -75,12 +75,12 @@ const crearGasto = (req, res) => {
         gastos.push(nuevoGasto);
 
         escribirArchivo("gastos.json", gastos);
-        
+
         res.redirect("/gastos");
     } else {
         return res.status(409).json("¡Ya existe un gasto asociado al id!");
     }
-    //---------------------------------------------------------------   
+    //---------------------------------------------------------------
 };
 
 
@@ -123,13 +123,13 @@ const editarGasto = (req, res) => {
     gasto.fecha = fecha ?? gasto.fecha;
 
     escribirArchivo("gastos.json", gastos);
-    
+
     res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
 };
 
 
-//delete implementamos un borrado logico, cambiando el estado del gasto a "eliminado", 
-// de esta forma no se borra el gasto del archivo json, 
+//delete implementamos un borrado logico, cambiando el estado del gasto a "eliminado",
+// de esta forma no se borra el gasto del archivo json,
 // pero se marca como eliminado para que no se muestre en las consultas.
 const eliminarGasto = (req, res) => {
     const gastos = leerArchivo("gastos.json");
@@ -141,8 +141,8 @@ const eliminarGasto = (req, res) => {
     }else {
         gasto.estado = "eliminado";
         escribirArchivo("gastos.json", gastos);
-        
-        res.redirect(303, `/gastos/detalle-gasto/${gasto.id}`);
+
+        res.redirect(303, `/gastos`);
     }
 };
 

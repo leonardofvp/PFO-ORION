@@ -1,0 +1,22 @@
+extends layout
+
+block content
+
+    h2 Login
+
+    form(action="/login", method="POST")
+
+        label Email
+        input(type="email", name="email", required)
+
+        br
+        br
+
+        label Pssword
+        input(type="password", name="password", required)
+
+        br
+        br
+
+        button(type="submit") Iniciar sesión
+

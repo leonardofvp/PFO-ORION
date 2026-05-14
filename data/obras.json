@@ -39,20 +39,20 @@
     "nombre": "Jardines de Arroyo",
     "ubicacion": "Arroyo 900, Retiro",
     "presupuesto": 350000000,
-    "estado": "activa"
+    "estado": "iniciando"
   },
   {
     "id": 7,
     "nombre": "Petit Hotel Voltaire",
     "ubicacion": "Av. Figueroa Alcorta 3300, Palermo Chico",
     "presupuesto": 40000000,
-    "estado": "eliminada"
+    "estado": "iniciando"
   },
   {
     "id": 8,
     "nombre": "Torre Sky View",
     "ubicacion": "Barrio Santa Bárbara, Tigre",
     "presupuesto": "65000000",
-    "estado": "eliminada"
+    "estado": "iniciando"
   }
 ]

@@ -46,20 +46,20 @@ const formularioCrearObra = (req, res) => {
 
 const crearObra = (req, res) => {
     const obras = leerArchivo("obras.json");
-  
+
     const { id, nombre, ubicacion, presupuesto, estado } = req.body;
     const nuevaObra = new Obra(
-        parseInt(id), 
-        nombre, 
-        ubicacion, 
+        parseInt(id),
+        nombre,
+        ubicacion,
         parseFloat(presupuesto), // <--- El prespuesto deberia ser el calculo de los gastos
-        estado 
+        estado
     );
 
     obras.push(nuevaObra);
 
     escribirArchivo("obras.json", obras);
-    
+
     res.redirect(303, "/obras");
 };
 
@@ -80,10 +80,10 @@ const formularioEditarObra = (req, res) => {
 
 const editarObra = (req, res) => {
     const obras = leerArchivo("obras.json");
-    
+
     const id = parseInt(req.params.id);
     const obra = obras.find(o => o.id === id);
-  
+
     if (!obra) {
         return res.status(404).send("Obra no encontrada");
     }
@@ -97,10 +97,10 @@ const editarObra = (req, res) => {
     obra.nombre = nombre ?? obra.nombre;
     obra.ubicacion = ubicacion ?? obra.ubicacion;
     obra.presupuesto = presupuesto ?? obra.presupuesto;
-    obra.estado = estado ?? obra.estado;    
-    
+    obra.estado = estado ?? obra.estado;
+
     escribirArchivo("obras.json", obras);
-    
+
     res.redirect(303, `/obras/detalle-obra/${obra.id}`);
 };
 
@@ -108,14 +108,14 @@ const eliminarObra = (req, res) => {
     const obras = leerArchivo("obras.json");
     const id = parseInt(req.params.id);
 
-    const obra = obras.find(o => o.id === id); 
-    
+    const obra = obras.find(o => o.id === id);
+
     if (!obra) {
         return res.status(404).send("Obra no encontrada");
     }else {
         obra.estado = "eliminada";      // <-- Baja lojica, por si tiene gastos asociados
         escribirArchivo("obras.json", obras);
-        res.redirect(303, `/obras/detalle-obra/${obra.id}`);
+        res.redirect(303, `/obras`);
     }
 }
 

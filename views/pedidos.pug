@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    h2 Gestión de Pedidos
+
+    div
+        a(href="/pedidos/nuevo-pedido") Agregar nuevo pedido
+
+    h3 Lista de pedidos
+    table(border = 1)
+        thead
+            tr
+                th Fecha
+                th Obra
+                th Descripción
+                th Cantidad
+                th Estado
+                th Acciones
+        tbody
+            each pedido in pedidosActivos
+                tr
+                    td= new Date(pedido.fecha).toLocaleDateString('es-AR')
+                    td= pedido.idObra
+                    td= pedido.descripcion
+                    td= `${pedido.cantidad} ${pedido.unidad}`
+                    td= pedido.estado
+                    td
+                        a(href=`/pedidos/detalle-pedido/${pedido.id}`) Ver detalle

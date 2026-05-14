@@ -1,0 +1,61 @@
+extends layout
+
+block content
+    h2= editable ? "Editar Pedido" : "Nuevo Pedido"
+
+    form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
+
+        label ID Pedido:
+        input(type="number", name="id" value= pedido.id || "" readonly=editable required)
+
+        br
+        br
+
+        label ID Obra:
+        input(type="number", name="idObra" value= pedido.id || "" readonly=editable required)
+
+        br
+        br
+
+        label Descripción:
+        input(type="text", name="descripcion", value= pedido.descripcion || "", placeholder="Ej: Arena o Electricista", required)
+
+        br
+        br
+
+        label Cantidad:
+        input(type="number", name="cantidad", value= pedido.cantidad || "", required)
+
+        br
+        br
+
+        label Unidad:
+        input(type="text", name="unidad", value= pedido.unidad || "", placeholder="Ej: m3, unidades, jornadas", required)
+
+        br
+        br
+
+        label Estado:
+        select(name="estado")
+            option(value="pendiente" selected= pedido.estado === "pendiente") Pendiente
+            option(value="aprobado" selected= pedido.estado === "aprobado") Aprobado
+            option(value="entregado" selected= pedido.estado === "entregado") Entregado
+
+        br
+        br
+
+        label Observaciones:
+        textarea(name="observaciones")= pedido.observaciones || ""
+
+        br
+        br
+
+        button(type="submit")= editable ? "Guardar cambios" : "Crear pedido"
+
+        br
+        br
+
+        if editable
+            a(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
+        else
+            a(href="/pedidos") Volver al listado

@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "idObra": "1",
+    "idUsuario": 12,
+    "descripcion": "Cemento Avellaneda (bolsas)",
+    "cantidad": "50",
+    "unidad": "unidades",
+    "estado": "pendiente",
+    "observaciones": "Para el hormigonado de la losa del primer piso y el segundo.",
+    "fecha": "2026-05-10T10:30:00Z"
+  },
+  {
+    "id": 2,
+    "idObra": 1,
+    "idUsuario": 12,
+    "descripcion": "Arena fina",
+    "cantidad": 5,
+    "unidad": "m3",
+    "estado": "aprobado",
+    "observaciones": "Pedir al corralón 'El Constructor'.",
+    "fecha": "2026-05-11T09:15:00Z"
+  },
+  {
+    "id": 3,
+    "idObra": 3,
+    "idUsuario": 15,
+    "descripcion": "Servicio de Electricista - Tablero Central",
+    "cantidad": 1,
+    "unidad": "jornada",
+    "estado": "entregado",
+    "observaciones": "Instalación del tablero principal en planta baja.",
+    "fecha": "2026-05-12T14:00:00Z"
+  },
+  {
+    "id": 4,
+    "idObra": 2,
+    "idUsuario": 12,
+    "descripcion": "Alquiler de Volqueta",
+    "cantidad": 2,
+    "unidad": "unidades",
+    "estado": "pendiente",
+    "observaciones": "Retirar las llenas el viernes antes de las 17hs.",
+    "fecha": "2026-05-14T08:00:00Z"
+  }
+]
