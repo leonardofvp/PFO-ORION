@@ -1,3 +1,5 @@
+// Manejador de las rutas del index
+
 const express = require("express");
 const router = express.Router();
 

@@ -2,6 +2,9 @@
 
 const express = require("express");
 const router = express.Router();
+const { verificarRol } = require("../middlewares/auth");
+const ROLES = require('../utils/roles');
+
 const {
     obtenerPedidos,
     obtenerPedidoPorId,
@@ -11,6 +14,8 @@ const {
     editarPedido,
     eliminarPedido
 } = require("../controllers/pedidosController");
+
+router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_OBRA.id, ROLES.CAPATAZ.id]));
 
 router.get("/", obtenerPedidos);
 router.get("/detalle-pedido/:id", obtenerPedidoPorId);

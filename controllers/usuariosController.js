@@ -25,7 +25,7 @@ const obtenerUsuarios = (req, res) => {
 const obtenerUsuarioPorId = (req, res) => {
     const usuarios = leerArchivo("usuarios.json");
     const usuario = usuarios.find(u => u.id === parseInt(req.params.id));
-    //console.log(usuario.id);
+
     if (!usuario) {
         return res.status(404).send("Usuario no encontrado");
         console.log("Usuario no encontrado con ID:", id);

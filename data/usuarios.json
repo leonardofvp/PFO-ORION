@@ -1,6 +1,15 @@
 [
-  {
+   {
     "id": 1,
+    "nombre": "admin",
+    "apellido": "admin",
+    "email": "admin@admin.com",
+    "password": "admin",
+    "rol": "admin",
+    "estado": "activo"
+  },
+  {
+    "id": 2,
     "nombre": "Ricardo",
     "apellido": "Gareca",
     "email": "ricardo@cimientos.com.ar",
@@ -9,7 +18,7 @@
     "estado": "activo"
   },
   {
-    "id": 2,
+    "id": 3,
     "nombre": "Marta",
     "apellido": "Sánchez",
     "email": "marta@cimientos.com.ar",
@@ -18,7 +27,7 @@
     "estado": "activo"
   },
   {
-    "id": 3,
+    "id": 4,
     "nombre": "Carlos",
     "apellido": "Pérez",
     "email": "carlos@cimientos.com.ar",
@@ -27,7 +36,7 @@
     "estado": "activo"
   },
   {
-    "id": 4,
+    "id": 5,
     "nombre": "Juan",
     "apellido": "López",
     "email": "juan@cimientos.com.ar",
@@ -36,7 +45,7 @@
     "estado": "eliminado"
   },
   {
-    "id": 5,
+    "id": 6,
     "nombre": "Esteban",
     "apellido": "Gomez",
     "email": "gomez@cimientos.com.ar",

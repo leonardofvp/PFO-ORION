@@ -1,5 +1,9 @@
+// Manejador de las rutas de los gastos
+
 const express = require("express");
 const router = express.Router();
+const { verificarRol } = require("../middlewares/auth");
+const ROLES = require('../utils/roles');
 
 const {
     obtenerGastos,
@@ -10,6 +14,8 @@ const {
     editarGasto,
     eliminarGasto
 } = require("../controllers/gastosController");
+
+router.use(verificarRol([ROLES.ADMIN.id, ROLES.ADMINISTRACION_CENTRAL.id]));
 
 router.get("/", obtenerGastos);
 router.get("/detalle-gasto/:id", obtenerGastoPorId);
