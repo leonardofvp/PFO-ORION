@@ -1,10 +1,10 @@
 // Controller de usuarios, aca van las funciones para el CRUD de las usuarios
-const {
+import {
     leerArchivo,
     escribirArchivo
-} = require("../utils/jsonHelper");
+} from "../utils/jsonHelper.js";
 
-const Usuario = require("../models/Usuario");
+import Usuario from "../models/Usuario.js";
 
 // CRUD
 const obtenerUsuariosJson = (req, res) => {
@@ -124,7 +124,7 @@ const eliminarUsuario = (req, res) => {
     }
 }
 
-module.exports = {
+export {
     obtenerUsuarios,
     obtenerUsuarioPorId,
     formularioCrearUsuario,

@@ -1,13 +1,13 @@
 // Controller de gastos, aca van las funciones para el CRUD de los gastos
-const {
+import {
     leerArchivo,
     escribirArchivo
-} = require("../utils/jsonHelper");
+} from "../utils/jsonHelper.js";
 
-const Gasto = require("../models/Gasto");
+import Gasto from "../models/Gasto.js";
 
 // Se incluye para validaciones, ya que los gastos estan asociados a las obras
-const Obra = require("../models/Obra");
+import Obra from "../models/Obra.js";
 
 // get
 const obtenerGastos = (req, res) => {
@@ -146,7 +146,7 @@ const eliminarGasto = (req, res) => {
     }
 };
 
-module.exports = {
+export {
     obtenerGastos,
     obtenerGastoPorId,
     formularioCrearGasto,

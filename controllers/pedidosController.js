@@ -1,10 +1,10 @@
 // Controller de pedidos, aca van las funciones para el CRUD de las pedidos
-const {
+import {
     leerArchivo,
     escribirArchivo
-} = require("../utils/jsonHelper");
+} from "../utils/jsonHelper.js";
 
-const Pedido = require("../models/Pedido");
+import Pedido from "../models/Pedido.js";
 
 // CRUD
 const obtenerPedidosJson = (req, res) => {
@@ -126,7 +126,7 @@ const eliminarPedido = (req, res) => {
     }
 }
 
-module.exports = {
+export {
     obtenerPedidos,
     obtenerPedidoPorId,
     formularioCrearPedido,

@@ -1,10 +1,10 @@
 // Controller de obras, aca van las funciones para el CRUD de las obras
-const {
+import {
     leerArchivo,
     escribirArchivo
-} = require("../utils/jsonHelper");
+} from "../utils/jsonHelper.js";
 
-const Obra = require("../models/Obra");
+import Obra from "../models/Obra.js";
 
 // CRUD
 const obtenerObrasJson = (req, res) => {
@@ -119,7 +119,7 @@ const eliminarObra = (req, res) => {
     }
 }
 
-module.exports = {
+export {
     obtenerObras,
     obtenerObraPorId,
     formularioCrearObra,

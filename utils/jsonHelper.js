@@ -1,7 +1,12 @@
 // Funciones para leer y escribir en archivos json
 
-const fs = require("fs");
-const path = require("path");
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url"; // 1. Importamos la herramienta de URL
+
+// 2. RECREAMOS __dirname PARA ES MODULES
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /**
  * Lee un archivo JSON y lo convierte en un objeto/array de JavaScript.
@@ -11,15 +16,15 @@ const path = require("path");
 const leerArchivo = (nombreArchivo) => {
     try {
         const ruta = path.join(__dirname, "..", "data", nombreArchivo);
-        const datos = fs.readFileSync(ruta, "utf-8");      
-        
+        const datos = fs.readFileSync(ruta, "utf-8");
+
         return datos ? JSON.parse(datos) : [];
 
     } catch (error) {
         console.error(`Error leyendo ${nombreArchivo}:`, error);
-        
+
         return [];
-    }   
+    }
 };
 
 /**
@@ -35,7 +40,7 @@ const escribirArchivo = (nombreArchivo, contenido) => {
         fs.writeFileSync(ruta, datos, "utf-8");
 
         return true;
-        
+
     } catch (error) {
         console.log(`Error escribiendo en ${nombreArchivo}:`, error)
 
@@ -43,7 +48,7 @@ const escribirArchivo = (nombreArchivo, contenido) => {
     }
 };
 
-module.exports = {
+export {
     leerArchivo,
     escribirArchivo
 }

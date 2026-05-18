@@ -1,17 +1,19 @@
-require("dotenv").config();
+import express from"express";
+import dotenv from "dotenv";
+import methodOverride from "method-override";
+import indexRoutes from "./routes/indexRoutes.js";
+import obrasRoutes from "./routes/obrasRoutes.js";
+import gastosRoutes from "./routes/gastosRoutes.js";
+import loginRoutes from "./routes/loginRoutes.js";
+import usuariosRoutes from "./routes/usuariosRoutes.js";
+import pedidosRoutes from "./routes/pedidosRoutes.js";
+import { conectarDB } from "./config/db.js"
+import ROLES from "./utils/roles.js";
 
-const methodOverride = require('method-override');
-const express = require("express");
+dotenv.config();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
-
-const indexRoutes = require("./routes/indexRoutes");
-const obrasRoutes = require("./routes/obrasRoutes");
-const gastosRoutes = require("./routes/gastosRoutes");
-const loginRoutes = require("./routes/loginRoutes");
-const usuariosRoutes = require("./routes/usuariosRoutes");
-const pedidosRoutes = require("./routes/pedidosRoutes")
-const ROLES = require('./utils/roles');
 
 app.locals.ROLES = ROLES;
 
@@ -28,6 +30,8 @@ app.use("/gastos", gastosRoutes);
 app.use("/login", loginRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/pedidos", pedidosRoutes);
+
+
 
 // Se guarda la ejecución en la constante server
 const server = app.listen(PORT, () => {

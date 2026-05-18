@@ -1,11 +1,9 @@
 // Manejador de las rutas de los pedidos
 
-const express = require("express");
-const router = express.Router();
-const { verificarRol } = require("../middlewares/auth");
-const ROLES = require('../utils/roles');
-
-const {
+import express from "express";
+import { verificarRol } from "../middlewares/auth.js";
+import ROLES from '../utils/roles.js';
+import {
     obtenerPedidos,
     obtenerPedidoPorId,
     formularioCrearPedido,
@@ -13,8 +11,9 @@ const {
     formularioEditarPedido,
     editarPedido,
     eliminarPedido
-} = require("../controllers/pedidosController");
+} from "../controllers/pedidosController.js";
 
+const router = express.Router();
 router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_OBRA.id, ROLES.CAPATAZ.id]));
 
 router.get("/", obtenerPedidos);
@@ -25,4 +24,4 @@ router.get("/editar-pedido/:id", formularioEditarPedido);
 router.put("/editar-pedido/:id", editarPedido);
 router.delete("/eliminar-pedido/:id", eliminarPedido);
 
-module.exports = router;
+export default router;

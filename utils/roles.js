@@ -6,4 +6,4 @@ const ROLES = Object.freeze({
     CAPATAZ: { id: "capataz", label: "Capataz" }
 });
 
-module.exports = ROLES;
+export default ROLES;

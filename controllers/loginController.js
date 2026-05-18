@@ -1,9 +1,9 @@
-const {
+import {
     leerArchivo,
     escribirArchivo
-} = require("../utils/jsonHelper");
+} from "../utils/jsonHelper.js";
 
-const Usuario = require("../models/Usuario");
+import Usuario from "../models/Usuario.js";
 
 const formularioLogin = (req, res) => {
     res.render("formulario-login");
@@ -24,7 +24,7 @@ const obtenerUsuario = (req, res) =>{
 	}
 }
 
-module.exports = {
+export {
     formularioLogin,
 	obtenerUsuario
 };

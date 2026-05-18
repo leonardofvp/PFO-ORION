@@ -1,11 +1,9 @@
 // Manejador de las rutas de las obras
 
-const express = require("express");
-const router = express.Router();
-const { verificarRol } = require("../middlewares/auth");
-const ROLES = require('../utils/roles');
-
-const {
+import express from "express";
+import { verificarRol } from "../middlewares/auth.js";
+import ROLES from '../utils/roles.js';
+import {
     obtenerObras,
     obtenerObraPorId,
     formularioCrearObra,
@@ -13,7 +11,9 @@ const {
     formularioEditarObra,
     editarObra,
     eliminarObra
-} = require("../controllers/obrasController");
+} from "../controllers/obrasController.js";
+
+const router = express.Router();
 
 router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id]));
 
@@ -25,4 +25,4 @@ router.get("/editar-obra/:id", formularioEditarObra);
 router.put("/editar-obra/:id", editarObra);
 router.delete("/eliminar-obra/:id", eliminarObra);
 
-module.exports = router;
+export default router;

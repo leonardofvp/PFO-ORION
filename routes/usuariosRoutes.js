@@ -1,11 +1,10 @@
 // Manejador de las rutas de los usuarios
 
-const express = require("express");
-const router = express.Router();
-const { verificarRol } = require("../middlewares/auth");
-const ROLES = require('../utils/roles');
+import express from "express";
+import { verificarRol } from "../middlewares/auth.js";
+import ROLES from '../utils/roles.js';
 
-const {
+import {
     obtenerUsuarios,
     obtenerUsuarioPorId,
     formularioCrearUsuario,
@@ -13,7 +12,9 @@ const {
     formularioEditarUsuario,
     editarUsuario,
     eliminarUsuario
-} = require("../controllers/usuariosController");
+} from "../controllers/usuariosController.js";
+
+const router = express.Router();
 
 router.use(verificarRol([ROLES.ADMIN.id]));
 
@@ -25,4 +26,4 @@ router.get("/editar-usuario/:id", formularioEditarUsuario);
 router.put("/editar-usuario/:id", editarUsuario);
 router.delete("/eliminar-usuario/:id", eliminarUsuario);
 
-module.exports = router;
+export default router;

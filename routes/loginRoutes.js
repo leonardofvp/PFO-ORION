@@ -1,14 +1,14 @@
 // Manejador de las rutas del login
 
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const {
+import {
     formularioLogin,
 	obtenerUsuario
-} = require("../controllers/loginController");
+} from "../controllers/loginController.js";
 
 router.get("/", formularioLogin);
 router.post("/", obtenerUsuario);
 
-module.exports = router;
+export default router;
