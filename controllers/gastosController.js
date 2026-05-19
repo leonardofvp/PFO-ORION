@@ -1,4 +1,4 @@
-// Controller de gastos, aca van las funciones para el CRUD de los gastos
+// Controller de gastos, aca van las funciones para el CRUD de las gastos
 import {
     leerArchivo,
     escribirArchivo
@@ -6,146 +6,97 @@ import {
 
 import Gasto from "../models/Gasto.js";
 
-// Se incluye para validaciones, ya que los gastos estan asociados a las obras
-import Obra from "../models/Obra.js";
-
-// get
-const obtenerGastos = (req, res) => {
+// CRUD
+const obtenerGastosJson = (req, res) => {
     const gastos = leerArchivo("gastos.json");
-    // para no mostrar los gastos eliminados, se filtran los gastos que tienen el estado "eliminado".
-    const gastosActivos = gastos.filter(
-        gasto => gasto.estado !== "eliminado"
-    );
-
-    res.render("gastos", { gastosActivos });
+    res.json(gastos);
 };
 
-// get por id
-const obtenerGastoPorId = (req, res) => {
-    const gastos = leerArchivo("gastos.json");
-    const gasto = gastos.find(g => g.id === parseInt(req.params.id));
-
-    if (!gasto) {
-        return res.status(404).send("Gasto no encontrado");
+const obtenerGastos = async (req, res) => {
+    try {
+        const gastosActivos= await Gasto.find({ estado: { $ne: "eliminado" } });
+        res.status(200).render("gastos", { gastosActivos });
+    } catch (error) {
+        res.status(500).send("Error al cargar la vista");
     }
 
-    // para no mostrar los gastos eliminados, se verifica si el gasto tiene el estado "eliminado",
-    // si es asi, se retorna un mensaje indicando que el gasto fue eliminado.
-     if (gasto.estado === "eliminado") {
-        return res.status(404).send("El gasto fue eliminado");
-    }
-
-    res.render("detalle-gasto", { gasto });
 };
 
-// post
-const formularioCrearGasto = (req, res) => {
+const obtenerGastoPorId = async (req, res) => {
+    try {
+        const gasto = await Gasto.findById(req.params.id);
+        if (!gasto || gasto.estado === "eliminado") {
+            return res.status(404).send("Gasto no encontrada")
+        }
+        res.status(200).render("detalle-gasto", { gasto });
+    } catch (error) {
+        res.status(500).send("Error al buscar gasto");
+    }
+};
+
+const formularioCrearGasto = async (req, res) => {
     res.render("formulario-gasto", {
         editable: false,
         gasto: {}
     });
 };
 
-const crearGasto = (req, res) => {
-    const gastos = leerArchivo("gastos.json");
-    const { id, idObra, descripcion, monto, estado, fecha } = req.body;
-
-    //validar que la obra existe
-    const obras = leerArchivo("obras.json");
-    const obra = obras.find(o => o.id === parseInt(idObra));
-
-    if (!obra) {
-        return res.status(404).send("Obra no ecnontrada");
+const crearGasto = async (req, res) => {
+    try {
+        const nuevaGasto = new Gasto(req.body)
+        await nuevaGasto.save();
+        res.redirect(303, "/gastos");
+    } catch (error) {
+        res.status(500).send("Error al crear gasto" );
+        console.error(error);
     }
-    //---------------------------------------------------------------
 
-    // validar que el id del nuevo gasto no exista
-    const gasto = gastos.find(g => g.id === parseInt(id));
-
-    if (!gasto) {
-        const nuevoGasto = new Gasto(
-        parseInt(id),
-        parseInt(idObra),
-        descripcion,
-        parseFloat(monto),
-        estado,
-        fecha
-        );
-
-        gastos.push(nuevoGasto);
-
-        escribirArchivo("gastos.json", gastos);
-
-        res.redirect("/gastos");
-    } else {
-        return res.status(409).json("¡Ya existe un gasto asociado al id!");
-    }
-    //---------------------------------------------------------------
 };
 
-
-//put
-const formularioEditarGasto = (req, res) => {
-        const id = parseInt(req.params.id);
-        const gastos = leerArchivo("gastos.json");
-        const gasto = gastos.find(g => g.id === id);
-
-        if (!gasto) {
-            return res.status(404).send("Gasto no encontrado");
+const formularioEditarGasto = async (req, res) => {
+    try {
+        const gasto = await Gasto.findById(req.params.id);
+        if (!gasto || gasto.estado === "eliminado") {
+            return res.status(404).send("Gasto no encontrada")
         }
-
         res.render("formulario-gasto", {
         editable: true,
         gasto: gasto
-    });
-};
-
-const editarGasto = (req, res) => {
-    const gastos = leerArchivo("gastos.json");
-    const obras = leerArchivo("obras.json");
-
-    // Buscar el gasto por id
-    const id = parseInt(req.params.id);
-    const gasto = gastos.find(g => g.id === id);
-
-    //validar si existe el gasto
-    if (!gasto) {
-        return res.status(404).send("Gasto no encontrado");
+        });
+    } catch (error) {
+        res.status(500).send("Error al buscar gasto");
     }
-
-    const { descripcion, montoTotal, estado, idObra, fecha } = req.body;
-
-    gasto.id = gasto.id;
-    gasto.descripcion = descripcion ?? gasto.descripcion;
-    gasto.montoTotal = montoTotal ?? gasto.montoTotal;
-    gasto.estado = estado ?? gasto.estado;
-    gasto.idObra = idObra ?? gasto.idObra;
-    gasto.fecha = fecha ?? gasto.fecha;
-
-    escribirArchivo("gastos.json", gastos);
-
-    res.redirect(`/gastos/detalle-gasto/${gasto.id}`);
 };
 
+const editarGasto = async (req, res) => {
+    try {
+        const gasto = await Gasto.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { returnDocument: "after" }
+        );
+        res.redirect(303, `/gastos/detalle-gasto/${gasto.id}`);
+    } catch (error) {
+        res.status(500).send("Error al actualizar gasto");
+    }
+};
 
-//delete implementamos un borrado logico, cambiando el estado del gasto a "eliminado",
-// de esta forma no se borra el gasto del archivo json,
-// pero se marca como eliminado para que no se muestre en las consultas.
-const eliminarGasto = (req, res) => {
-    const gastos = leerArchivo("gastos.json");
-    const id = parseInt(req.params.id);
-    const gasto = gastos.find(g => g.id === id);
-
-    if (!gasto) {
-        return res.status(404).send("Gasto no encontrado");
-    }else {
-        gasto.estado = "eliminado";
-        escribirArchivo("gastos.json", gastos);
-
+const eliminarGasto = async (req, res) => {
+    try {
+        const gasto = await Gasto.findByIdAndUpdate(
+            req.params.id,
+            { estado: "eliminado" },
+            { returnDocument: "after" }
+        )
+        if (!gasto) {
+            return res.status(404).send("Gasto no encontrada");
+        }
         res.redirect(303, `/gastos`);
-    }
-};
 
+    } catch (error) {
+        res.status(500).send("Error al eliminar gasto");
+    }
+}
 export {
     obtenerGastos,
     obtenerGastoPorId,
@@ -155,3 +106,4 @@ export {
     editarGasto,
     eliminarGasto
 };
+

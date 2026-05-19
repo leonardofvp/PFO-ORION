@@ -1,4 +1,4 @@
-// Controller de pedidos, aca van las funciones para el CRUD de las pedidos
+// Controller de pedidos, aca van las funciones para el CRUD de los pedidos
 import {
     leerArchivo,
     escribirArchivo
@@ -12,120 +12,91 @@ const obtenerPedidosJson = (req, res) => {
     res.json(pedidos);
 };
 
-const obtenerPedidos = (req, res) => {
-    const pedidos = leerArchivo("pedidos.json");
-
-    const pedidosActivos = pedidos.filter(
-        pedido => pedido.estado !== "eliminado"
-    );
-
-    res.render("pedidos", { pedidosActivos });
-};
-
-const obtenerPedidoPorId = (req, res) => {
-    const pedidos = leerArchivo("pedidos.json");
-    const pedido = pedidos.find(u => u.id === parseInt(req.params.id));
-    //console.log(pedido.id);
-    if (!pedido) {
-        return res.status(404).send("Pedido no encontrado");
-        console.log("Pedido no encontrado con ID:", id);
+const obtenerPedidos = async (req, res) => {
+    try {
+        const pedidosActivos= await Pedido.find({ estado: { $ne: "eliminado" } });
+        res.status(200).render("pedidos", { pedidosActivos });
+    } catch (error) {
+        res.status(500).send("Error al cargar la vista");
     }
 
-    if (pedido.estado === "eliminado") {
-        return res.status(404).send("La pedido fue eliminado");
-    }
-
-    res.status(200).render("detalle-pedido", { pedido });
 };
 
-const formularioCrearPedido = (req, res) => {
+const obtenerPedidoPorId = async (req, res) => {
+    try {
+        const pedido = await Pedido.findById(req.params.id);
+        if (!pedido || pedido.estado === "eliminado") {
+            return res.status(404).send("Pedido no encontrada")
+        }
+        res.status(200).render("detalle-pedido", { pedido });
+    } catch (error) {
+        res.status(500).send("Error al buscar pedido");
+    }
+};
+
+const formularioCrearPedido = async (req, res) => {
     res.render("formulario-pedido", {
         editable: false,
         pedido: {}
     });
 };
 
-const crearPedido = (req, res) => {
-    const pedidos = leerArchivo("pedidos.json");
+const crearPedido = async (req, res) => {
+    try {
+        const nuevaPedido = new Pedido(req.body)
+        await nuevaPedido.save();
+        res.redirect(303, "/pedidos");
+    } catch (error) {
+        res.status(500).send("Error al crear pedido" );
+        console.error(error);
+    }
 
-    const { id, idObra, idUsuario, tipo, descripcion, cantidad, unidad, observaciones } = req.body;
-    const nuevoPedido = new Pedido(
-        parseInt(id),
-        parseInt(idObra),
-        parseInt(idUsuario),
-        tipo,
-        descripcion,
-        parseInt(cantidad),
-        unidad,
-        observaciones
-    );
-
-    pedidos.push(nuevoPedido);
-
-    escribirArchivo("pedidos.json", pedidos);
-
-    res.redirect(303, "/pedidos");
 };
 
-const formularioEditarPedido = (req, res) => {
-        const id = parseInt(req.params.id);
-        const pedidos = leerArchivo("pedidos.json");
-        const pedido = pedidos.find(o => o.id === id);
-
-        if (!pedido) {
-            return res.status(404).send("Pedido no encontrada");
+const formularioEditarPedido = async (req, res) => {
+    try {
+        const pedido = await Pedido.findById(req.params.id);
+        if (!pedido || pedido.estado === "eliminado") {
+            return res.status(404).send("Pedido no encontrada")
         }
-
         res.render("formulario-pedido", {
         editable: true,
         pedido: pedido
-    });
-};
-
-const editarPedido = (req, res) => {
-    const pedidos = leerArchivo("pedidos.json");
-
-    const id = parseInt(req.params.id);
-    const pedido = pedidos.find(o => o.id === id);
-
-    if (!pedido) {
-        return res.status(404).send("Pedido no encontrada");
+        });
+    } catch (error) {
+        res.status(500).send("Error al buscar pedido");
     }
-
-        const obrasActivas = pedidos.filter(
-        pedido => pedido.estado !== "eliminado"
-    );
-
-    const { idObra, tipo, descripcion, cantidad, unidad, estado, observaciones } = req.body;
-
-    pedido.idObra = idObra ?? pedido.idObra;
-    pedido.tipo = tipo ?? pedido.tipo;
-    pedido.descripcion = descripcion ?? pedido.descripcion;
-    pedido.cantidad = cantidad ?? pedido.cantidad;
-    pedido.unidad = unidad ?? pedido.unidad;
-    pedido.estado = estado ?? pedido.estado;
-    pedido.observaciones = observaciones ?? pedido.observaciones;
-
-    escribirArchivo("pedidos.json", pedidos);
-
-    res.redirect(303, `/pedidos/detalle-pedido/${pedido.id}`);
 };
 
-const eliminarPedido = (req, res) => {
-    const pedidos = leerArchivo("pedidos.json");
-    const id = parseInt(req.params.id);
+const editarPedido = async (req, res) => {
+    try {
+        const pedido = await Pedido.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { returnDocument: "after" }
+        );
+        res.redirect(303, `/pedidos/detalle-pedido/${pedido.id}`);
+    } catch (error) {
+        res.status(500).send("Error al actualizar pedido");
+    }
+};
 
-    const pedido = pedidos.find(o => o.id === id);
-
-    if (!pedido) {
-        return res.status(404).send("Pedido no encontrada");
-    }else {
-        pedido.estado = "eliminado";      // <-- Baja lojica, por si tiene gastos asociados
-        escribirArchivo("pedidos.json", pedidos);
+const eliminarPedido = async (req, res) => {
+    try {
+        const pedido = await Pedido.findByIdAndUpdate(
+            req.params.id,
+            { estado: "eliminado" },
+            { returnDocument: "after" }
+        )
+        if (!pedido) {
+            return res.status(404).send("Pedido no encontrada");
+        }
         res.redirect(303, `/pedidos`);
+
+    } catch (error) {
+        res.status(500).send("Error al eliminar pedido");
     }
 }
-
 export {
     obtenerPedidos,
     obtenerPedidoPorId,

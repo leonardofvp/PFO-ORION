@@ -5,6 +5,8 @@ import {
 } from "../utils/jsonHelper.js";
 
 import Obra from "../models/Obra.js";
+import Usuario from "../models/Usuario.js";
+import ROLES from "../utils/roles.js";
 
 // CRUD
 const obtenerObrasJson = (req, res) => {
@@ -96,7 +98,39 @@ const eliminarObra = async (req, res) => {
     } catch (error) {
         res.status(500).send("Error al eliminar obra");
     }
-}
+};
+
+const renderizarAsignacion = async (req, res) => {
+    try {
+        const obra = await Obra.findById(req.params.id);
+        const usuariosActivos = await Usuario.find({
+            _id: { $nin: obra.personalAsignado },
+            estado: { $ne: "eliminado" },
+            rol: { $ne: ROLES.ADMIN.id }
+        });
+        res.render("asignar-personal", { obra, usuariosActivos });
+    } catch (error) {
+        console.error(error)
+    }
+};
+
+const asignarPersonal = async (req, res) => {
+    try {
+        const idObra = req.params.id;
+        const idUsuario = req.body.idUsuario
+        const resultado = await Obra.findByIdAndUpdate(
+            idObra,
+            { $addToSet: { personalAsignado: idUsuario } }
+        );
+        if (!resultado) {
+            res.status(500).send("Error al actualizar el personal asignado");
+        }
+        res.redirect(303, `/obras/detalle-obra/${idObra}`);
+    } catch (error) {
+        console.error(error)
+    }
+};
+
 export {
     obtenerObras,
     obtenerObraPorId,
@@ -104,6 +138,8 @@ export {
     crearObra,
     formularioEditarObra,
     editarObra,
-    eliminarObra
+    eliminarObra,
+    renderizarAsignacion,
+    asignarPersonal
 };
 

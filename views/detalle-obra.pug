@@ -17,23 +17,31 @@ block content
         br
         hr
 
-        h2.mb-3 Personal asignado
+        h2 Personal asignado
         if obra.personalAsignado && obra.personalAsignado.length > 0
-            div.table-responsive
-                table.table.table-striped.table-bordered
-                    thead.table-dark
+            table(border = 1)
+                thead
+                    tr
+                        th Nombre
+                        th Apellido
+                        th Email
+                        th Rol
+                tbody
+                    each usuario in obra.personalAsignado
                         tr
-                            th Nombre
-                            th Apellido
-                            th Email
-                    tbody
-                        each usuario in obra.personalAsignado
-                            tr
-                                td #{usuario.nombre}
-                                td #{usuario.apellido}
-                                td #{usuario.email}
+                            td= usuario.nombre
+                            td= usuario.apellido
+                            td= usuario.email
+                            td= ROLES[usuario.rol.toUpperCase()].label
         else
-            div.alert.alert-info No hay personal asignado a esta obra actualmente.
+            p No hay personal asignado a esta obra actualmente.
 
         br
-        a.btn.btn-primary.mt-3(href="/obras") Volver atras
+        br
+
+        a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
+
+        br
+        br
+
+        a(href="/obras") Volver a la lista de obras

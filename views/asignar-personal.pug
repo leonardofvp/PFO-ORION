@@ -1,0 +1,24 @@
+extends layout
+
+block content
+    h2 Asignar personal a la obra: #{obra.nombre}
+
+    h3 Lista de personal
+    table(border = 1)
+        thead
+            tr
+                th Nombre
+                th Apellido
+                th Rol
+                th Acciones
+        tbody
+            each usuario in usuariosActivos
+                tr
+
+                    td= usuario.nombre
+                    td= usuario.apellido
+                    td= ROLES[usuario.rol.toUpperCase()] ? ROLES[usuario.rol.toUpperCase()].label : usuario.rol
+                    td
+                        form(action=`/obras/asignar-personal/${obra.id}`, method="POST")
+                            input(type="hidden", name="idUsuario", value=usuario.id)
+                            button(type="submit") Asignar a la obra

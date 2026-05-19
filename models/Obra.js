@@ -23,7 +23,7 @@ const obraSchema = new mongoose.Schema({
     },
     personalAsignado: [{
         type: mongoose.Schema.Types.ObjectId,
-        Ref: "Usuario"
+        ref: "Usuario"
     }]
 }, {
     timestamps: true// agrega fechas de creación y modificación de documentos
