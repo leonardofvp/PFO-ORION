@@ -4,9 +4,6 @@ block content
     h2= editable ? "Editar obra" : "Nueva obra"
 
     form(method="POST", action= editable ? `/obras/editar-obra/${obra.id}?_method=PUT` : `/obras/nueva-obra`)
-            
-        label ID :
-        input(type="number", name="id" value= obra.id || "", readonly=editable, required)
 
         br
         br
@@ -23,7 +20,7 @@ block content
         br
         br
 
-        label Presupuesto:
+        label Presupuesto inicial: USD
         input(type="number", name="presupuesto", value= obra.presupuesto || "", required)
 
         br
@@ -45,5 +42,5 @@ block content
 
         if editable
             a(href=`/obras/detalle-obra/${obra.id}`) Cancelar
-        else 
+        else
             a(href="/obras") Volver al listado

@@ -5,12 +5,6 @@ block content
 
     form(method="POST", action= editable ? `/usuarios/editar-usuario/${usuario.id}?_method=PUT` : `/usuarios/nuevo-usuario`)
 
-        label ID :
-        input(type="number", name="id" value= usuario.id || "", readonly=editable, required)
-
-        br
-        br
-
         label Nombre:
         input(type="text", name="nombre", value= usuario.nombre || "", required)
 

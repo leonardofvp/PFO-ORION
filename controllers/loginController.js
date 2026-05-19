@@ -20,7 +20,7 @@ const obtenerUsuario = (req, res) =>{
 		res.status(404).send("Usuario y/o contraseña incorrectos");
 	} else {
         global.usuarioLogueado = usuario;
-		res.status(200).send(`Bienbenido: ${usuario.nombre} ${usuario.apellido}`);
+		res.redirect(303, "/");
 	}
 }
 

@@ -20,3 +20,15 @@ block content
 
         button(type="submit") Iniciar sesión
 
+        button#btnAdmin(type="button" style="margin-left: 10px;") Cargar Admin
+
+        script.
+            document.getElementById('btnAdmin').addEventListener("click", () => {
+                const inputUser = document.querySelector('input[name="email"]');
+                const inputPass = document.querySelector('input[name="password"]');
+
+                if (inputUser && inputPass) {
+                    inputUser.value = "admin@admin.com";
+                    inputPass.value = "admin";
+                }
+            });

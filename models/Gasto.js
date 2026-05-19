@@ -1,8 +1,6 @@
 import mongoose from "mongoose";
 
-// 1. DEFINICIÓN DEL ESQUEMA (El molde de los datos)
 const gastoSchema = new mongoose.Schema({
-    // El 'id' manual desaparece porque MongoDB maneja el '_id' automático.
     idObra: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Obra', // Vincula este gasto directamente con el modelo de Obra
@@ -31,8 +29,6 @@ const gastoSchema = new mongoose.Schema({
     timestamps: true// agrega fechas de creación y modificación de documentos
 });
 
-// 2. CREACIÓN DEL MODELO (La línea que genera la estructura en memoria)
 const Gasto = mongoose.model("Gasto", gastoSchema);
 
-// 3. EXPORTACIÓN MODERNA
 export default Gasto;

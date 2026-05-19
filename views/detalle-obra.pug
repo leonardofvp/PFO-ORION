@@ -1,19 +1,39 @@
-extends layout 
+extends layout
 
 block content
     div.container.mt-5
         h2 Detalle de: #{obra.nombre}
         ul.list-group
-            li.list-group-item ID: #{obra.id}
             li.list-group-item Ubicación: #{obra.ubicacion}
-            li.list-group-item Presupuesto: USD #{obra.presupuesto}
+            li.list-group-item Presupuesto inicial: USD #{obra.presupuesto}
             li.list-group-item Estado: #{obra.estado}
-        button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar        
-        | &nbsp;|&nbsp;
-        form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST", style="display:inline")
-            button(type="submit") Eliminar
+
+        div.mt-3
+            button.btn.btn-warning(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
+            | &nbsp;
+            form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST", style="display:inline")
+                button.btn.btn-danger(type="submit") Eliminar
 
         br
-        br  
+        hr
 
+        h2.mb-3 Personal asignado
+        if obra.personalAsignado && obra.personalAsignado.length > 0
+            div.table-responsive
+                table.table.table-striped.table-bordered
+                    thead.table-dark
+                        tr
+                            th Nombre
+                            th Apellido
+                            th Email
+                    tbody
+                        each usuario in obra.personalAsignado
+                            tr
+                                td #{usuario.nombre}
+                                td #{usuario.apellido}
+                                td #{usuario.email}
+        else
+            div.alert.alert-info No hay personal asignado a esta obra actualmente.
+
+        br
         a.btn.btn-primary.mt-3(href="/obras") Volver atras

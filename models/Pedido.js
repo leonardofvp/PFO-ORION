@@ -1,9 +1,6 @@
 import mongoose from "mongoose";
 
-// 1. DEFINICIÓN DEL ESQUEMA
 const pedidoSchema = new mongoose.Schema({
-    // El 'id' manual desaparece; MongoDB genera su propio '_id' automáticamente
-
     idObra: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Obra', // Vincula obligatoriamente el pedido al ID de la obra para asegurar la trazabilidad financiera
@@ -60,8 +57,6 @@ const pedidoSchema = new mongoose.Schema({
     timestamps: true// agrega fechas de creación y modificación de documentos
 });
 
-// 2. CREACIÓN DEL MODELO
 const Pedido = mongoose.model("Pedido", pedidoSchema);
 
-// 3. EXPORTACIÓN MODERNA
 export default Pedido;

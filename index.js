@@ -38,6 +38,12 @@ const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);
 });
 
+try {
+    await conectarDB();
+} catch (error) {
+    console.error("Error al iniciar:", error);
+}
+
 // Para ver posibles errores
 server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {

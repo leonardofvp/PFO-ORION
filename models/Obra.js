@@ -1,6 +1,5 @@
 import mongoose from "mongoose";
 
-// 1. DEFINICIÓN DEL ESQUEMA
 const obraSchema = new mongoose.Schema({
     nombre: {
         type: String,
@@ -21,13 +20,15 @@ const obraSchema = new mongoose.Schema({
         type: String,
         default: "activa",
         trim: true
-    }
+    },
+    personalAsignado: [{
+        type: mongoose.Schema.Types.ObjectId,
+        Ref: "Usuario"
+    }]
 }, {
     timestamps: true// agrega fechas de creación y modificación de documentos
 });
 
-// 2. CREACIÓN DEL MODELO
 const Obra = mongoose.model("Obra", obraSchema);
 
-// 3. EXPORTACIÓN
 export default Obra;

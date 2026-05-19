@@ -1,4 +1,9 @@
 extends layout
 
-block content 
+block content
     h2 Empresa de constucciones
+
+    if usuarioLogueado
+        p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
+    else
+        p Debe iniciar sesión
