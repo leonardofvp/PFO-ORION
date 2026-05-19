@@ -1,5 +1,4 @@
-# Proyecto Web Equipo Orión - TP2 Desarrollo de Sistemas Web (Back End)
-# Sistema de Gestión de Obras y Gastos - Empresa de Desarrollo Orión para Cimientos Sólidos S.A.
+# Proyecto Web Equipo Orión - TP2 Desarrollo de Sistemas Web (Back End) - Sistema de Gestión de Obras y Gastos - Empresa de Desarrollo Orión para Cimientos Sólidos S.A.
 
 Este proyecto corresponde al **Trabajo Práctico N° 2** de la materia **Desarrollo de Sistemas Web (Back End)** 
 
