@@ -4,7 +4,7 @@ Este proyecto corresponde al **Trabajo Práctico N° 2** de la materia **Desarro
 
 Para el mismo se realizó una aplicación que consiste en una API REST  desarrollada en **Node.js** y **Express**, que migra la persistencia de datos original basada en archivos estáticos JSON hacia una base de datos NoSQL **MongoDB** gestionada a través de la librería **Mongoose**. El sistema implementa una arquitectura modular profesional, controladores asincrónicos mediante `async/await`, validaciones estrictas y manejo centralizado de errores.
 
-## Repositorio y enlace al Proyecto Desplegado
+## Repositorio
 
 - [x] Repositorio en GitHub creado
 
