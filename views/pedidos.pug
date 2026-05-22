@@ -10,8 +10,8 @@ block content
     table(border = 1)
         thead
             tr
+                th Nombre de obra
                 th Fecha
-                th Obra
                 Th Tipo
                 th Descripción
                 th Cantidad
@@ -20,8 +20,8 @@ block content
         tbody
             each pedido in pedidosActivos
                 tr
+                    td= pedido.idObra.nombre
                     td= new Date(pedido.fecha).toLocaleDateString('es-AR')
-                    td= pedido.idObra
                     td= pedido.tipo
                     td= pedido.descripcion
                     td= `${pedido.cantidad} ${pedido.unidad}`

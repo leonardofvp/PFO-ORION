@@ -14,7 +14,7 @@ import {
 } from "../controllers/pedidosController.js";
 
 const router = express.Router();
-router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_OBRA.id, ROLES.CAPATAZ.id]));
+router.use(verificarRol([ROLES.ADMIN.id, ROLES.ADMINISTRACION_CENTRAL.id, ROLES.DIRECTOR_OBRA.id, ROLES.CAPATAZ.id]));
 
 router.get("/", obtenerPedidos);
 router.get("/detalle-pedido/:id", obtenerPedidoPorId);

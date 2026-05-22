@@ -5,6 +5,7 @@ import {
 } from "../utils/jsonHelper.js";
 
 import Pedido from "../models/Pedido.js";
+import Obra from "../models/Obra.js";
 
 // CRUD
 const obtenerPedidosJson = (req, res) => {
@@ -14,19 +15,18 @@ const obtenerPedidosJson = (req, res) => {
 
 const obtenerPedidos = async (req, res) => {
     try {
-        const pedidosActivos= await Pedido.find({ estado: { $ne: "eliminado" } });
+        const pedidosActivos= await Pedido.find({ estado: { $ne: "eliminado" } }).populate("idObra");
         res.status(200).render("pedidos", { pedidosActivos });
     } catch (error) {
         res.status(500).send("Error al cargar la vista");
     }
-
 };
 
 const obtenerPedidoPorId = async (req, res) => {
     try {
-        const pedido = await Pedido.findById(req.params.id);
+        const pedido = await Pedido.findById(req.params.id).populate("idObra");
         if (!pedido || pedido.estado === "eliminado") {
-            return res.status(404).send("Pedido no encontrada")
+            return res.status(404).send("Pedido no encontrado")
         }
         res.status(200).render("detalle-pedido", { pedido });
     } catch (error) {
@@ -35,15 +35,25 @@ const obtenerPedidoPorId = async (req, res) => {
 };
 
 const formularioCrearPedido = async (req, res) => {
+    const usuario = global.usuarioLogueado;
+    const obras = await Obra.find(
+        { personalAsignado: usuario.id }
+    );
     res.render("formulario-pedido", {
         editable: false,
-        pedido: {}
+        pedido: {},
+        obras
     });
 };
 
 const crearPedido = async (req, res) => {
     try {
-        const nuevaPedido = new Pedido(req.body)
+        const usuario = global.usuarioLogueado;
+        const datosCompletos = {
+            ...req.body,
+            idUsuario: usuario.id
+        }
+        const nuevaPedido = new Pedido(datosCompletos)
         await nuevaPedido.save();
         res.redirect(303, "/pedidos");
     } catch (error) {
@@ -55,13 +65,14 @@ const crearPedido = async (req, res) => {
 
 const formularioEditarPedido = async (req, res) => {
     try {
-        const pedido = await Pedido.findById(req.params.id);
+        const pedido = await Pedido.findById(req.params.id).populate("idObra");
         if (!pedido || pedido.estado === "eliminado") {
             return res.status(404).send("Pedido no encontrada")
         }
         res.render("formulario-pedido", {
-        editable: true,
-        pedido: pedido
+            editable: true,
+            pedido: pedido,
+            obras: {}
         });
     } catch (error) {
         res.status(500).send("Error al buscar pedido");

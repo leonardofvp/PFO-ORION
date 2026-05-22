@@ -5,14 +5,13 @@ block content
 
     form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
 
-        label ID Pedido:
-        input(type="number", name="id" value= pedido.id || "" readonly=editable required)
-
-        br
-        br
-
-        label ID Obra:
-        input(type="number", name="idObra" value= pedido.id || "" readonly=editable required)
+        label Nombre de obra:
+        if !editable
+            select(name="idObra")
+                each obra in obras
+                    option(value=obra.id selected= obra.id === obra.id) #{obra.nombre}
+        else
+            input(type="text", name="nombreObra", value= pedido.idObra.nombre readonly)
 
         br
         br

@@ -106,7 +106,7 @@ const renderizarAsignacion = async (req, res) => {
         const usuariosActivos = await Usuario.find({
             _id: { $nin: obra.personalAsignado },
             estado: { $ne: "eliminado" },
-            rol: { $ne: ROLES.ADMIN.id }
+            rol: { $nin: [ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id] }
         });
         res.render("asignar-personal", { obra, usuariosActivos });
     } catch (error) {
