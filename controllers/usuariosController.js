@@ -18,6 +18,7 @@ const obtenerUsuarios = async (req, res) => {
         res.status(200).render("usuarios", { usuariosActivos });
     } catch (error) {
         res.status(500).send("Error al cargar la vista");
+        console.error(error);
     }
 
 };
@@ -34,7 +35,7 @@ const obtenerUsuarioPorId = async (req, res) => {
     }
 };
 
-const formularioCrearUsuario = async (req, res) => {
+const formularioCrearUsuario = (req, res) => {
     res.render("formulario-usuario", {
         editable: false,
         usuario: {}
@@ -45,7 +46,7 @@ const crearUsuario = async (req, res) => {
     try {
         const nuevaUsuario = new Usuario(req.body)
         await nuevaUsuario.save();
-        res.redirect(303, "/usuarios");
+        res.redirect(303, "/");
     } catch (error) {
         res.status(500).send("Error al crear usuario" );
         console.error(error);
@@ -60,11 +61,12 @@ const formularioEditarUsuario = async (req, res) => {
             return res.status(404).send("Usuario no encontrada")
         }
         res.render("formulario-usuario", {
-        editable: true,
-        usuario: usuario
+            editable: true,
+            usuario: usuario
         });
     } catch (error) {
         res.status(500).send("Error al buscar usuario");
+        console.error(error);
     }
 };
 
@@ -78,6 +80,7 @@ const editarUsuario = async (req, res) => {
         res.redirect(303, `/usuarios/detalle-usuario/${usuario.id}`);
     } catch (error) {
         res.status(500).send("Error al actualizar usuario");
+        console.error(error);
     }
 };
 
@@ -95,6 +98,7 @@ const eliminarUsuario = async (req, res) => {
 
     } catch (error) {
         res.status(500).send("Error al eliminar usuario");
+        console.error(error);
     }
 }
 export {

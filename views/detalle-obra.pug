@@ -1,23 +1,29 @@
 extends layout
 
 block content
-    div.container.mt-5
+    div
         h2 Detalle de: #{obra.nombre}
-        ul.list-group
-            li.list-group-item Ubicación: #{obra.ubicacion}
-            li.list-group-item Presupuesto inicial: USD #{obra.presupuesto}
-            li.list-group-item Estado: #{obra.estado}
+        ul
+            li Ubicación: #{obra.ubicacion}
+            li Presupuesto inicial: USD #{obra.presupuesto}
+            li Estado: #{obra.estado}
 
-        div.mt-3
-            button.btn.btn-warning(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
+        div
+            button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
             | &nbsp;
             form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST", style="display:inline")
-                button.btn.btn-danger(type="submit") Eliminar
+                button(type="submit") Eliminar
 
         br
         hr
 
         h2 Personal asignado
+
+        a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
+
+        br
+        br
+
         if obra.personalAsignado && obra.personalAsignado.length > 0
             table(border = 1)
                 thead
@@ -37,9 +43,34 @@ block content
             p No hay personal asignado a esta obra actualmente.
 
         br
+        hr
+
+        h2 Subcontratistas asignados
+
+        a(href=`/obras/asignar-subcontratista/${obra.id}`) Asignar subcontratista
+
+        br
         br
 
-        a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
+        if obra.subcontratistasAsignados && obra.subcontratistasAsignados.length > 0
+            table(border = 1)
+                thead
+                    tr
+                        th Nombre o Razón Social
+                        th CUIT
+                        th Especialidad
+                        th Teléfono
+                        th Email
+                tbody
+                    each subcontratista in obra.subcontratistasAsignados
+                        tr
+                            td= subcontratista.nombre
+                            td= subcontratista.cuit
+                            td= subcontratista.especialidad
+                            td= subcontratista.telefono
+                            td= subcontratista.email
+        else
+            p No hay subcontratistas asignados a esta obra actualmente.
 
         br
         br

@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import methodOverride from "method-override";
 import indexRoutes from "./routes/indexRoutes.js";
 import obrasRoutes from "./routes/obrasRoutes.js";
+import subcontratistasRoutes from "./routes/subcontratistasRoutes.js"
 import gastosRoutes from "./routes/gastosRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
@@ -26,6 +27,7 @@ app.set("views", "./views");
 
 app.use("/", indexRoutes);
 app.use("/obras", obrasRoutes);
+app.use("/subcontratistas", subcontratistasRoutes);
 app.use("/gastos", gastosRoutes);
 app.use("/login", loginRoutes);
 app.use("/usuarios", usuariosRoutes);

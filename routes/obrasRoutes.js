@@ -11,8 +11,10 @@ import {
     formularioEditarObra,
     editarObra,
     eliminarObra,
-    renderizarAsignacion,
-    asignarPersonal
+    renderizarAsignacionPersonal,
+    asignarPersonal,
+    renderizarAsignacionSubcontratista,
+    asignarSubcontratista
 } from "../controllers/obrasController.js";
 
 const router = express.Router();
@@ -26,7 +28,9 @@ router.post("/nueva-obra", crearObra);
 router.get("/editar-obra/:id", formularioEditarObra);
 router.put("/editar-obra/:id", editarObra);
 router.delete("/eliminar-obra/:id", eliminarObra);
-router.get("/asignar-personal/:id", renderizarAsignacion);
+router.get("/asignar-personal/:id", renderizarAsignacionPersonal);
 router.post("/asignar-personal/:id", asignarPersonal);
+router.get("/asignar-subcontratista/:id", renderizarAsignacionSubcontratista);
+router.post("/asignar-subcontratista/:id", asignarSubcontratista);
 
 export default router;

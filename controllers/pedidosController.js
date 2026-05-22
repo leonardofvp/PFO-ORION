@@ -19,6 +19,7 @@ const obtenerPedidos = async (req, res) => {
         res.status(200).render("pedidos", { pedidosActivos });
     } catch (error) {
         res.status(500).send("Error al cargar la vista");
+        console.error(error);
     }
 };
 
@@ -31,6 +32,7 @@ const obtenerPedidoPorId = async (req, res) => {
         res.status(200).render("detalle-pedido", { pedido });
     } catch (error) {
         res.status(500).send("Error al buscar pedido");
+        console.error(error);
     }
 };
 
@@ -60,7 +62,6 @@ const crearPedido = async (req, res) => {
         res.status(500).send("Error al crear pedido" );
         console.error(error);
     }
-
 };
 
 const formularioEditarPedido = async (req, res) => {
@@ -76,6 +77,7 @@ const formularioEditarPedido = async (req, res) => {
         });
     } catch (error) {
         res.status(500).send("Error al buscar pedido");
+        console.error(error);
     }
 };
 
@@ -89,6 +91,7 @@ const editarPedido = async (req, res) => {
         res.redirect(303, `/pedidos/detalle-pedido/${pedido.id}`);
     } catch (error) {
         res.status(500).send("Error al actualizar pedido");
+        console.error(error);
     }
 };
 
@@ -106,6 +109,7 @@ const eliminarPedido = async (req, res) => {
 
     } catch (error) {
         res.status(500).send("Error al eliminar pedido");
+        console.error(error);
     }
 }
 export {

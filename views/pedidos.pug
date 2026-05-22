@@ -20,7 +20,7 @@ block content
         tbody
             each pedido in pedidosActivos
                 tr
-                    td= pedido.idObra.nombre
+                    td= pedido.idObra ? pedido.idObra.nombre : 'Obra no encontrada'
                     td= new Date(pedido.fecha).toLocaleDateString('es-AR')
                     td= pedido.tipo
                     td= pedido.descripcion

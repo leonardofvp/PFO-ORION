@@ -1,4 +1,4 @@
-extend layout 
+extend layout
 
 block  content
     h2 Gestión de gastos
@@ -10,14 +10,15 @@ block  content
     table(border = 1)
         thead
             tr
-                th ID Obra
+                th Nombre de obra
                 th Detalle
                 th Fecha
+                th Acciones
         tbody
             each gasto in gastosActivos
                 tr
-                    td= gasto.idObra
+                    td= gasto.idObra.nombre
                     td= gasto.descripcion
-                    td= gasto.fecha 
+                    td= td= new Date(gasto.fecha).toLocaleDateString('es-AR')
                     td
                         a(href=`/gastos/detalle-gasto/${gasto.id}`) Ver detalle

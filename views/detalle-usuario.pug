@@ -1,14 +1,14 @@
 extends layout
 
 block content
-    div.container.mt-5
+    div
         h2 Detalle de usuario
-        ul.list-group
-            li.list-group-item Nombre: #{usuario.nombre}
-            li.list-group-item Apellido #{usuario.apellido}
-            li.list-group-item Email #{usuario.email}
-            li.list-group-item Rol: #{ROLES[usuario.rol.toUpperCase()].label}
-            li.list-group-item Estado: #{usuario.estado}
+        ul
+            li Nombre: #{usuario.nombre}
+            li Apellido #{usuario.apellido}
+            li Email #{usuario.email}
+            li Rol: #{ROLES[usuario.rol.toUpperCase()].label}
+            li Estado: #{usuario.estado}
         button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
         | &nbsp;|&nbsp;
         form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST", style="display:inline")
@@ -17,4 +17,4 @@ block content
         br
         br
 
-        a.btn.btn-primary.mt-3(href="/usuarios") Volver atras
+        a(href="/") Volver al inicio

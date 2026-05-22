@@ -22,6 +22,11 @@ block content
 
         button#btnAdmin(type="button" style="margin-left: 10px;") Cargar Admin
 
+        br
+        br
+
+        a(href="/usuarios/nuevo-usuario") Registrarse
+
         script.
             document.getElementById('btnAdmin').addEventListener("click", () => {
                 const inputUser = document.querySelector('input[name="loginEmail"]');

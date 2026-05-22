@@ -1,6 +1,6 @@
 [
   {
-    "idObra": { "$oid": "6a0c845c1b5f51379e01e979" },
+    "idObra": { "$oid": "6a10b8a2abec84a052348783" },
     "idUsuario": { "$oid": "6a0bbba81acb5eeb11b6379e" },
     "tipo": "material",
     "descripcion": "Cemento Avellaneda (bolsas)",
@@ -11,7 +11,7 @@
     "fecha": { "$date": "2026-05-10T10:30:00Z" }
   },
   {
-    "idObra": { "$oid": "6a0c845c1b5f51379e01e979" },
+    "idObra": { "$oid": "6a10b8a2abec84a052348783" },
     "idUsuario": { "$oid": "6a0bbba81acb5eeb11b6379e" },
     "tipo": "material",
     "descripcion": "Arena fina",
@@ -22,7 +22,7 @@
     "fecha": { "$date": "2026-05-11T09:15:00Z" }
   },
   {
-    "idObra": { "$oid": "6a0c845c1b5f51379e01e979" },
+    "idObra": { "$oid": "6a10b8a2abec84a052348783" },
     "idUsuario": { "$oid": "6a0bbba81acb5eeb11b6379e" },
     "tipo": "servicio",
     "descripcion": "Servicio de Electricista - Tablero Central",
@@ -33,7 +33,7 @@
     "fecha": { "$date": "2026-05-12T14:00:00Z" }
   },
   {
-    "idObra": { "$oid": "6a0c845c1b5f51379e01e97a" },
+    "idObra": { "$oid": "6a10b8a2abec84a052348784" },
     "idUsuario": { "$oid": "6a0bbba81acb5eeb11b6379e" },
     "tipo": "servicio",
     "descripcion": "Alquiler de Volqueta",
@@ -44,7 +44,7 @@
     "fecha": { "$date": "2026-05-14T08:00:00Z" }
   },
   {
-    "idObra": { "$oid": "6a0c845c1b5f51379e01e97a" },
+    "idObra": { "$oid": "6a10b8a2abec84a052348784" },
     "idUsuario": { "$oid": "6a0bbba81acb5eeb11b6379e" },
     "fecha": { "$date": "2026-05-14T18:16:23.018Z" },
     "tipo": "material",

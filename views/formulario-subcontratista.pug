@@ -1,0 +1,46 @@
+extends layout
+
+block content
+    h2= editable ? "Editar subcontratista" : "Nuevo subcontratista"
+
+    form(method="POST", action= editable ? `/subcontratistas/editar-subcontratista/${subcontratista.id}?_method=PUT` : `/subcontratistas/nuevo-subcontratista`)
+
+        label Nombre o Razón Social:
+        input(type="text", name="nombre", value= subcontratista ? subcontratista.nombre : "", required)
+
+        br
+        br
+
+        label CUIT:
+        input(type="text", name="cuit", value= subcontratista ? subcontratista.cuit : "", readonly=editable, required)
+
+        br
+        br
+
+        label Especialidad:
+        input(type="text", name="especialidad", value= subcontratista ? subcontratista.especialidad : "", required)
+
+        br
+        br
+
+        label Teléfono:
+        input(type="text", name="telefono", value= subcontratista ? subcontratista.telefono : "", required)
+
+        br
+        br
+
+        label Email:
+        input(type="email", name="email", value= subcontratista ? subcontratista.email : "", required)
+
+        br
+        br
+
+        button(type="submit")= editable ? "Guardar cambios" : "Crear subcontratista"
+
+        br
+        br
+
+        if editable
+            a(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Cancelar
+        else
+            a(href="/subcontratistas") Volver al listado

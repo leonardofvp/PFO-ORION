@@ -24,6 +24,10 @@ const obraSchema = new mongoose.Schema({
     personalAsignado: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Usuario"
+    }],
+    subcontratistasAsignados: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Subcontratista"
     }]
 }, {
     timestamps: true// agrega fechas de creación y modificación de documentos

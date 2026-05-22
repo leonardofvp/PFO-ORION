@@ -14,27 +14,29 @@ const obtenerGastosJson = (req, res) => {
 
 const obtenerGastos = async (req, res) => {
     try {
-        const gastosActivos= await Gasto.find({ estado: { $ne: "eliminado" } });
+        const gastosActivos= await Gasto.find({ estado: { $ne: "eliminado" } }).populate("idObra");
         res.status(200).render("gastos", { gastosActivos });
     } catch (error) {
         res.status(500).send("Error al cargar la vista");
+        console.error(error);
     }
 
 };
 
 const obtenerGastoPorId = async (req, res) => {
     try {
-        const gasto = await Gasto.findById(req.params.id);
+        const gasto = await Gasto.findById(req.params.id).populate("idObra");;
         if (!gasto || gasto.estado === "eliminado") {
             return res.status(404).send("Gasto no encontrada")
         }
         res.status(200).render("detalle-gasto", { gasto });
     } catch (error) {
         res.status(500).send("Error al buscar gasto");
+        console.error(error);
     }
 };
 
-const formularioCrearGasto = async (req, res) => {
+const formularioCrearGasto = (req, res) => {
     res.render("formulario-gasto", {
         editable: false,
         gasto: {}
@@ -60,11 +62,12 @@ const formularioEditarGasto = async (req, res) => {
             return res.status(404).send("Gasto no encontrada")
         }
         res.render("formulario-gasto", {
-        editable: true,
-        gasto: gasto
+            editable: true,
+            gasto: gasto
         });
     } catch (error) {
         res.status(500).send("Error al buscar gasto");
+        console.error(error);
     }
 };
 
@@ -78,6 +81,7 @@ const editarGasto = async (req, res) => {
         res.redirect(303, `/gastos/detalle-gasto/${gasto.id}`);
     } catch (error) {
         res.status(500).send("Error al actualizar gasto");
+        console.error(error);
     }
 };
 
@@ -95,6 +99,7 @@ const eliminarGasto = async (req, res) => {
 
     } catch (error) {
         res.status(500).send("Error al eliminar gasto");
+        console.error(error);
     }
 }
 export {

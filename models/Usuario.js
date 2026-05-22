@@ -39,7 +39,7 @@ const usuarioSchema = new mongoose.Schema({
         type: String,
         default: "activo",
         enum: {
-            values: ["activo", "inactivo"],
+            values: ["activo", "eliminado"],
             message: "{VALUE} no es un estado válido"
         },
         trim: true

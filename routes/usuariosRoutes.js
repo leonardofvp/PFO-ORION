@@ -16,12 +16,13 @@ import {
 
 const router = express.Router();
 
+router.get("/nuevo-usuario", formularioCrearUsuario);
+router.post("/nuevo-usuario", crearUsuario);
+
 router.use(verificarRol([ROLES.ADMIN.id]));
 
 router.get("/", obtenerUsuarios);
 router.get("/detalle-usuario/:id", obtenerUsuarioPorId);
-router.get("/nueva-usuario", formularioCrearUsuario);
-router.post("/nuevo-usuario", crearUsuario);
 router.get("/editar-usuario/:id", formularioEditarUsuario);
 router.put("/editar-usuario/:id", editarUsuario);
 router.delete("/eliminar-usuario/:id", eliminarUsuario);
