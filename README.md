@@ -40,6 +40,7 @@ PFO-ORION/
 │   ├── loginController.js
 │   ├── obrasController.js
 │   ├── pedidosController.js
+│   ├── subcontratistasController.js
 │   └── usuariosController.js
 ├── data/
 │   ├── gastos.json
@@ -53,6 +54,7 @@ PFO-ORION/
 │   ├── Gasto.js
 │   ├── Obra.js
 │   ├── Pedido.js
+│   ├── Subcontratista.js
 │   └── Usuario.js
 ├── package-lock.json
 ├── package.json
@@ -63,25 +65,29 @@ PFO-ORION/
 │   ├── loginRoutes.js
 │   ├── obrasRoutes.js
 │   ├── pedidosRoutes.js
+│   ├── subcontratistasRoutes.js
 │   └── usuariosRoutes.js
 ├── utils/
 │   ├── jsonHelper.js
 │   └── roles.js
 └── views/
     ├── asignar-personal.pug
+    ├── asignar-subcontratista.pug
     ├── detalle-gasto.pug
     ├── detalle-obra.pug
     ├── detalle-pedido.pug
+    ├── detalle-subcontratista.pug
     ├── detalle-usuario.pug
     ├── formulario-gasto.pug
     ├── formulario-login.pug
     ├── formulario-obra.pug
     ├── formulario-pedido.pug
+    ├── formulario-subcontratista.pug
     ├── formulario-usuario.pug
     ├── gastos.pug
     ├── index.pug
     ├── layout.pug
     ├── obras.pug
     ├── pedidos.pug
+    ├── subcontratistas.pug
     └── usuarios.pug
-
