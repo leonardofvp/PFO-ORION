@@ -135,42 +135,42 @@ PFO-ORION/
 - │   ├── jsonHelper.js
 - -- │   └── roles.js
 - └── views/
--     ├── asignar-personal.pug
--     ├── asignar-subcontratista.pug
--     ├── detalle-gasto.pug
--     ├── detalle-obra.pug
--     ├── detalle-pedido.pug
--     ├── detalle-subcontratista.pug
--     ├── detalle-usuario.pug
--     ├── formulario-gasto.pug
--     ├── formulario-login.pug
--     ├── formulario-obra.pug
--     ├── formulario-pedido.pug
--     ├── formulario-subcontratista.pug
--     ├── formulario-usuario.pug
--     ├── gastos.pug
--     ├── index.pug
--     ├── layout.pug
--     ├── obras.pug
--     ├── pedidos.pug
--     ├── subcontratistas.pug
--     └── usuarios.pug
+-    ├── asignar-personal.pug
+-    ├── asignar-subcontratista.pug
+-    ├── detalle-gasto.pug
+-    ├── detalle-obra.pug
+-    ├── detalle-pedido.pug
+-    ├── detalle-subcontratista.pug
+-    ├── detalle-usuario.pug
+-    ├── formulario-gasto.pug
+-    ├── formulario-login.pug
+-    ├── formulario-obra.pug
+-    ├── formulario-pedido.pug
+-    ├── formulario-subcontratista.pug
+-    ├── formulario-usuario.pug
+-    ├── gastos.pug
+-    ├── index.pug
+-    ├── layout.pug
+-    ├── obras.pug
+-    ├── pedidos.pug
+-    ├── subcontratistas.pug
+-    └── usuarios.pug
 
  # 🧱 Modelado de Datos
-- 🏢 Obra
+🏢 Obra
 -   Nombre
 -    Ubicación
 -    Presupuesto
 -    Estado
 -    Personal asignado
 -    Subcontratistas asociados
-- 💰 Gasto
+💰 Gasto
 -    Obra asociada
 -    Descripción
 -    Monto
 -    Estado
 -    Fecha
--📦 Pedido
+📦 Pedido
 -    Obra asociada
 -    Usuario solicitante
 -    Tipo de pedido
@@ -178,13 +178,13 @@ PFO-ORION/
 -    Unidad
 -    Estado
 -    Observaciones
--👷 Subcontratista
+👷 Subcontratista
 -    Nombre/Razón social
 -    CUIT
 -    Especialidad
 -    Contacto
 -    Estado
--👤 Usuario
+-    👤 Usuario
 -    Nombre y apellido
 -    Email único
 -    Contraseña
@@ -194,11 +194,11 @@ PFO-ORION/
 
 # 🚀 Instalación y Ejecución
 
--1️⃣ Clonar el repositorio
+1️⃣ Clonar el repositorio
 -git clone https://github.com/leonardofvp/PFO-ORION.git
--2️⃣ Instalar dependencias
+2️⃣ Instalar dependencias
 -npm install
--3️⃣ Ejecutar el proyecto
+3️⃣ Ejecutar el proyecto
 -npm run dev
--4️⃣ Abrir en el navegador
+4️⃣ Abrir en el navegador
 -http://localhost:3000
