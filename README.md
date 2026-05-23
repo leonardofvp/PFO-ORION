@@ -23,9 +23,8 @@ Para el mismo se realizó una aplicación que consiste en una API REST  desarrol
 - [x] **Persistencia NoSQL:** Integración completa de **MongoDB** mediante **Mongoose** con validaciones nativas de esquemas.
 - [x] **Controladores Asincrónicos:** Implementación de la lógica de negocio utilizando sintaxis de programación asincrónica `async/await`.
 - [x] **Integridad Referencial:** Validación estricta para asegurar que todo gasto esté asociado obligatoriamente a una obra existente y activa.
-- [x] **Reglas de Negocio Complejas (Borrado Lógico):** - Las obras con gastos asociados no se eliminan, sino que conmutan automáticamente su estado a `"eliminada"`.
-  - Los gastos eliminados pasan al estado `"eliminado"`, preservando la trazabilidad financiera e historial contable sin mostrarse en las consultas.
-- [x] **Manejo Centralizado de Errores:** Middleware global encargado de capturar excepciones, errores de formato en IDs y fallos de validación, respondiendo siempre con estructuras JSON limpias y códigos de estado HTTP semánticos (200, 201, 400, 404, 500).
+- [x] **Reglas de Negocio Complejas (Borrado Lógico):** Las obras, gastos, usuarios, subcontratistas y pedidos no se borran físicamente de la base de datos. Se les cambia el estado a "eliminado" para conservar el historial operativo y contable. El sistema también bloquea el inicio de sesión a los usuarios que tengan este estado.
+- [x] **Manejo Local de Errores y Flujo HTTP:** Implementación de bloques try-catch directamente en los controladores para capturar excepciones y fallos de base de datos. El sistema responde con códigos de estado HTTP semánticos (como 404 para datos incorrectos) y gestiona la navegación mediante redirecciones seguras (código 303) tras guardar datos, evitando el reenvío duplicado de formularios.
 
 ## Estructura Organizacional del Proyecto
 
