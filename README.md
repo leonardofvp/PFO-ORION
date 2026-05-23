@@ -9,39 +9,39 @@ La aplicación consiste en un sistema web orientado a la gestión administrativa
 
 # El sistema fue desarrollado utilizando:
 
-⚙️ Node.js
-🚀 Express.js
-🍃 MongoDB
-🧩 Mongoose
-🎨 Pug
-🎯 Arquitectura modular MVC
+- ⚙️ Node.js
+- 🚀 Express.js
+- 🍃 MongoDB
+- 🧩 Mongoose
+- 🎨 Pug
+- 🎯 Arquitectura modular MVC
 
 La solución migra la persistencia original basada en archivos JSON hacia una base de datos NoSQL MongoDB, implementando validaciones robustas, relaciones entre entidades, controladores asincrónicos y manejo estructurado de errores.
 
 # ✨ Funcionalidades Principales:
 
-🏢 Gestión de Obras
+- 🏢 Gestión de Obras
     Alta, baja lógica y modificación de obras
     Asignación de personal
     Asociación de subcontratistas
     Gestión de presupuesto y estado
-💰 Gestión de Gastos
+- 💰 Gestión de Gastos
     Registro de gastos asociados a obras
     Control de estados
     Validación de integridad referencial
-📦 Gestión de Pedidos
+- 📦 Gestión de Pedidos
     Solicitud de materiales y servicios
     Asociación con usuarios y obras
     Seguimiento de estados del pedido
-👷 Gestión de Subcontratistas
+-👷 Gestión de Subcontratistas
     Registro y administración de proveedores externos
     Validación de CUIT único
     Especialidades y datos de contacto
-👤 Gestión de Usuarios
+-  Gestión de Usuarios
     Administración de usuarios del sistema
     Roles organizacionales
     Borrado lógico de usuarios
-🔐 Login Básico
+- 🔐 Login Básico
     Inicio de sesión simple
     Control de acceso inicial
 
