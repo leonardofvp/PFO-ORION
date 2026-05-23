@@ -8,7 +8,7 @@
 - Gabriela Gonzalez
 - Leonardo Vargas
 
-#📚 Materia
+# 📚 Materia
 Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 2
 
 # 📄 Licencia
@@ -207,3 +207,14 @@ PFO-ORION/
 
 4️⃣ Abrir en el navegador
 -http://localhost:3000
+
+# 🌐 Rutas Principales
+
+Ruta	             Descripción
+- /	                Página principal
+- /login          	Inicio de sesión
+- /obras	            Gestión de obras
+- /gastos          	Gestión de gastos
+- /pedidos    	    Gestión de pedidos
+- /usuarios	        Gestión de usuarios
+- /subcontratistas	Gestión de subcontratistas
