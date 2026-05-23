@@ -131,7 +131,7 @@ PFO-ORION/
 - │   └── usuariosRoutes.js
 - ├── utils/
 - │   ├── jsonHelper.js
-- -- │   └── roles.js
+- │   └── roles.js
 - └── views/
 -    ├── asignar-personal.pug
 -    ├── asignar-subcontratista.pug
