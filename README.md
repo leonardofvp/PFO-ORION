@@ -20,61 +20,59 @@ La solución migra la persistencia original basada en archivos JSON hacia una ba
 
 # ✨ Funcionalidades Principales:
 
-- 🏢 Gestión de Obras
+- 🏢 Gestión de Obras: 
     Alta, baja lógica y modificación de obras
     Asignación de personal
     Asociación de subcontratistas
     Gestión de presupuesto y estado
-- 💰 Gestión de Gastos
+- 💰 Gestión de Gastos:
     Registro de gastos asociados a obras
     Control de estados
     Validación de integridad referencial
-- 📦 Gestión de Pedidos
+- 📦 Gestión de Pedidos:
     Solicitud de materiales y servicios
     Asociación con usuarios y obras
     Seguimiento de estados del pedido
--👷 Gestión de Subcontratistas
+- 👷 Gestión de Subcontratistas:
     Registro y administración de proveedores externos
     Validación de CUIT único
     Especialidades y datos de contacto
--  Gestión de Usuarios
+-  Gestión de Usuarios:
     Administración de usuarios del sistema
     Roles organizacionales
     Borrado lógico de usuarios
-- 🔐 Login Básico
+- 🔐 Login Básico: 
     Inicio de sesión simple
     Control de acceso inicial
 
 # 🧠 Reglas de Negocio Implementadas
-✅ Borrado lógico de entidades
-✅ Validación estricta de datos mediante Mongoose
-✅ Relación obligatoria entre gastos/pedidos y obras
-✅ Restricción de roles válidos
-✅ Estados controlados mediante enums
-✅ Manejo centralizado de errores
-✅ Arquitectura desacoplada y modular   
-
+- ✅ Borrado lógico de entidades
+- ✅ Validación estricta de datos mediante Mongoose
+- ✅ Relación obligatoria entre gastos/pedidos y obras
+- ✅ Restricción de roles válidos
+- ✅ Estados controlados mediante enums
+- ✅ Manejo centralizado de errores
+- ✅ Arquitectura desacoplada y modular   
 
 
 # 📦 Repositorio 
 🔗 https://github.com/leonardofvp/PFO-ORION.git
 
-#👨‍💻 Integrantes — Equipo Orión
+# 👨‍💻 Integrantes — Equipo Orión
 
-Carolina Corradi
-Manuel Espíndola
-Leandro Ferrero
-Gabriela Gonzalez
-Leonardo Vargas
+- Carolina Corradi
+- Manuel Espíndola
+- Leandro Ferrero
+- Gabriela Gonzalez
+- Leonardo Vargas
 
 #📚 Materia
-
 Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 2
 
 # 📄 Licencia
 Proyecto académico realizado con fines educativos.
 
-## Requerimientos del Trabajo Práctico Cumplidos
+# Requerimientos del Trabajo Práctico Cumplidos
 
 - [x] **Arquitectura Modular y Organizada:** Estructuración del proyecto separando responsabilidades en carpetas específicas (`models`, `controllers`, `routes`, `middlewares`, `config`).
 - [x] **Persistencia NoSQL:** Integración completa de **MongoDB** mediante **Mongoose** con validaciones nativas de esquemas.
@@ -86,121 +84,121 @@ Proyecto académico realizado con fines educativos.
 
 # 🏛️ Arquitectura del Proyecto
 El sistema implementa una arquitectura basada en separación de responsabilidades:
-controllers/   → Lógica de negocio
-models/        → Modelos Mongoose
-routes/        → Endpoints y navegación
-views/         → Plantillas Pug
-config/        → Configuración general
-middlewares/   → Middlewares personalizados
-utils/         → Utilidades y constantes
+- controllers/   → Lógica de negocio
+- models/        → Modelos Mongoose
+- routes/        → Endpoints y navegación
+- views/         → Plantillas Pug
+- config/        → Configuración general
+- middlewares/   → Middlewares personalizados
+- utils/         → Utilidades y constantes
 
 # 🗂️ Estructura del Proyecto
 
 PFO-ORION/
-├── .env
-├── .gitignore
-├── config/
-│   └── db.js
-├── controllers/
-│   ├── gastosController.js
-│   ├── loginController.js
-│   ├── obrasController.js
-│   ├── pedidosController.js
-│   ├── subcontratistasController.js
-│   └── usuariosController.js
-├── data/
-│   ├── gastos.json
-│   ├── obras.json
-│   ├── pedidos.json
-│   └── usuarios.json
-├── index.js
-├── middlewares/
-│   └── auth.js
-├── models/
-│   ├── Gasto.js
-│   ├── Obra.js
-│   ├── Pedido.js
-│   ├── Subcontratista.js
-│   └── Usuario.js
-├── package-lock.json
-├── package.json
-├── README.md
-├── routes/
-│   ├── gastosRoutes.js
-│   ├── indexRoutes.js
-│   ├── loginRoutes.js
-│   ├── obrasRoutes.js
-│   ├── pedidosRoutes.js
-│   ├── subcontratistasRoutes.js
-│   └── usuariosRoutes.js
-├── utils/
-│   ├── jsonHelper.js
-│   └── roles.js
-└── views/
-    ├── asignar-personal.pug
-    ├── asignar-subcontratista.pug
-    ├── detalle-gasto.pug
-    ├── detalle-obra.pug
-    ├── detalle-pedido.pug
-    ├── detalle-subcontratista.pug
-    ├── detalle-usuario.pug
-    ├── formulario-gasto.pug
-    ├── formulario-login.pug
-    ├── formulario-obra.pug
-    ├── formulario-pedido.pug
-    ├── formulario-subcontratista.pug
-    ├── formulario-usuario.pug
-    ├── gastos.pug
-    ├── index.pug
-    ├── layout.pug
-    ├── obras.pug
-    ├── pedidos.pug
-    ├── subcontratistas.pug
-    └── usuarios.pug
+- ├── .env
+- ├── .gitignore
+- ├── config/
+- │   └── db.js
+- ├── controllers/
+- │   ├── gastosController.js
+- │   ├── loginController.js
+- │   ├── obrasController.js
+- │   ├── pedidosController.js
+- │   ├── subcontratistasController.js
+- │   └── usuariosController.js
+- ├── data/
+- │   ├── gastos.json
+- │   ├── obras.json
+- │   ├── pedidos.json
+- │   └── usuarios.json
+- ├── index.js
+- ├── middlewares/
+- │   └── auth.js
+- ├── models/
+- │   ├── Gasto.js
+- │   ├── Obra.js
+- │   ├── Pedido.js
+- │   ├── Subcontratista.js
+- │   └── Usuario.js
+- ├── package-lock.json
+- ├── package.json
+- ├── README.md
+- ├── routes/
+- │   ├── gastosRoutes.js
+- │   ├── indexRoutes.js
+- │   ├── loginRoutes.js
+- │   ├── obrasRoutes.js
+- │   ├── pedidosRoutes.js
+- │   ├── subcontratistasRoutes.js
+- │   └── usuariosRoutes.js
+- ├── utils/
+- │   ├── jsonHelper.js
+- -- │   └── roles.js
+- └── views/
+-     ├── asignar-personal.pug
+-     ├── asignar-subcontratista.pug
+-     ├── detalle-gasto.pug
+-     ├── detalle-obra.pug
+-     ├── detalle-pedido.pug
+-     ├── detalle-subcontratista.pug
+-     ├── detalle-usuario.pug
+-     ├── formulario-gasto.pug
+-     ├── formulario-login.pug
+-     ├── formulario-obra.pug
+-     ├── formulario-pedido.pug
+-     ├── formulario-subcontratista.pug
+-     ├── formulario-usuario.pug
+-     ├── gastos.pug
+-     ├── index.pug
+-     ├── layout.pug
+-     ├── obras.pug
+-     ├── pedidos.pug
+-     ├── subcontratistas.pug
+-     └── usuarios.pug
 
  # 🧱 Modelado de Datos
-🏢 Obra
-    Nombre
-    Ubicación
-    Presupuesto
-    Estado
-    Personal asignado
-    Subcontratistas asociados
-💰 Gasto
-    Obra asociada
-    Descripción
-    Monto
-    Estado
-    Fecha
-📦 Pedido
-    Obra asociada
-    Usuario solicitante
-    Tipo de pedido
-    Cantidad
-    Unidad
-    Estado
-    Observaciones
-👷 Subcontratista
-    Nombre/Razón social
-    CUIT
-    Especialidad
-    Contacto
-    Estado
-👤 Usuario
-    Nombre y apellido
-    Email único
-    Contraseña
-    Rol
-    Estado
+- 🏢 Obra
+-   Nombre
+-    Ubicación
+-    Presupuesto
+-    Estado
+-    Personal asignado
+-    Subcontratistas asociados
+- 💰 Gasto
+-    Obra asociada
+-    Descripción
+-    Monto
+-    Estado
+-    Fecha
+-📦 Pedido
+-    Obra asociada
+-    Usuario solicitante
+-    Tipo de pedido
+-    Cantidad
+-    Unidad
+-    Estado
+-    Observaciones
+-👷 Subcontratista
+-    Nombre/Razón social
+-    CUIT
+-    Especialidad
+-    Contacto
+-    Estado
+-👤 Usuario
+-    Nombre y apellido
+-    Email único
+-    Contraseña
+-    Rol
+-    Estado
 
 
 # 🚀 Instalación y Ejecución
 
-1️⃣ Clonar el repositorio
-git clone https://github.com/leonardofvp/PFO-ORION.git
-2️⃣ Instalar dependencias
-npm install
-3️⃣ Ejecutar el proyecto
-npm run dev
-4️⃣ Abrir en el navegador
-http://localhost:3000
+-1️⃣ Clonar el repositorio
+-git clone https://github.com/leonardofvp/PFO-ORION.git
+-2️⃣ Instalar dependencias
+-npm install
+-3️⃣ Ejecutar el proyecto
+-npm run dev
+-4️⃣ Abrir en el navegador
+-http://localhost:3000
