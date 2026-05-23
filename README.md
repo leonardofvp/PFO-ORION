@@ -1,13 +1,13 @@
 # Proyecto Web Equipo Orión - TP2 Desarrollo de Sistemas Web (Back End) - Sistema de Gestión de Obras y Gastos para la empresa Cimientos Sólidos S.A.
 
 
-📖 Descripción
+# 📖 Descripción
 
 Este proyecto corresponde al Trabajo Práctico N.º 2 de la materia Desarrollo de Sistemas Web (Back End).
 
 La aplicación consiste en un sistema web orientado a la gestión administrativa y operativa de obras para la empresa ficticia Cimientos Sólidos S.A.
 
-El sistema fue desarrollado utilizando:
+# El sistema fue desarrollado utilizando:
 
 ⚙️ Node.js
 🚀 Express.js
@@ -18,7 +18,7 @@ El sistema fue desarrollado utilizando:
 
 La solución migra la persistencia original basada en archivos JSON hacia una base de datos NoSQL MongoDB, implementando validaciones robustas, relaciones entre entidades, controladores asincrónicos y manejo estructurado de errores.
 
-✨ Funcionalidades Principales:
+# ✨ Funcionalidades Principales:
 
 🏢 Gestión de Obras
     Alta, baja lógica y modificación de obras
@@ -45,7 +45,7 @@ La solución migra la persistencia original basada en archivos JSON hacia una ba
     Inicio de sesión simple
     Control de acceso inicial
 
-🧠 Reglas de Negocio Implementadas
+# 🧠 Reglas de Negocio Implementadas
 ✅ Borrado lógico de entidades
 ✅ Validación estricta de datos mediante Mongoose
 ✅ Relación obligatoria entre gastos/pedidos y obras
@@ -56,10 +56,10 @@ La solución migra la persistencia original basada en archivos JSON hacia una ba
 
 
 
-📦 Repositorio 
+# 📦 Repositorio 
 🔗 https://github.com/leonardofvp/PFO-ORION.git
 
-👨‍💻 Integrantes — Equipo Orión
+#👨‍💻 Integrantes — Equipo Orión
 
 Carolina Corradi
 Manuel Espíndola
@@ -67,11 +67,11 @@ Leandro Ferrero
 Gabriela Gonzalez
 Leonardo Vargas
 
-📚 Materia
+#📚 Materia
 
 Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 2
 
-📄 Licencia
+# 📄 Licencia
 Proyecto académico realizado con fines educativos.
 
 ## Requerimientos del Trabajo Práctico Cumplidos
@@ -84,7 +84,7 @@ Proyecto académico realizado con fines educativos.
 - [x] **Manejo Local de Errores y Flujo HTTP:** Implementación de bloques try-catch directamente en los controladores para capturar excepciones y fallos de base de datos. El sistema responde con códigos de estado HTTP semánticos (como 404 para datos incorrectos) y gestiona la navegación mediante redirecciones seguras (código 303) tras guardar datos, evitando el reenvío duplicado de formularios.
 
 
-🏛️ Arquitectura del Proyecto
+# 🏛️ Arquitectura del Proyecto
 El sistema implementa una arquitectura basada en separación de responsabilidades:
 controllers/   → Lógica de negocio
 models/        → Modelos Mongoose
@@ -94,7 +94,7 @@ config/        → Configuración general
 middlewares/   → Middlewares personalizados
 utils/         → Utilidades y constantes
 
-🗂️ Estructura del Proyecto
+# 🗂️ Estructura del Proyecto
 
 PFO-ORION/
 ├── .env
@@ -158,7 +158,7 @@ PFO-ORION/
     ├── subcontratistas.pug
     └── usuarios.pug
 
-    🧱 Modelado de Datos
+ # 🧱 Modelado de Datos
 🏢 Obra
     Nombre
     Ubicación
@@ -194,7 +194,7 @@ PFO-ORION/
     Estado
 
 
-🚀 Instalación y Ejecución
+# 🚀 Instalación y Ejecución
 
 1️⃣ Clonar el repositorio
 git clone https://github.com/leonardofvp/PFO-ORION.git
