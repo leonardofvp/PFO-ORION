@@ -24,7 +24,10 @@ block content
         br
 
         label Password:
-        input(type="password", name="password", value= usuario.password || "", required)
+        if editable
+            input(type="password", name="password", placeholder="Dejar en blanco para no cambiar")
+        else
+            input(type="password", name="password", required)
 
 
         br

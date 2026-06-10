@@ -1,6 +1,6 @@
 # Proyecto Web Equipo Orión - TP2 Desarrollo de Sistemas Web (Back End) - Sistema de Gestión de Obras y Gastos para la empresa Cimientos Sólidos S.A.
 
-# 👨‍💻 Integrantes — Equipo Orión
+# Integrantes — Equipo Orión
 
 - Carolina Corradi
 - Manuel Espíndola
@@ -8,10 +8,10 @@
 - Gabriela Gonzalez
 - Leonardo Vargas
 
-# 📚 Materia
+# Materia
 Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 2
 
-# 📄 Licencia
+# Licencia
 Proyecto académico realizado con fines educativos.
 
 # Requerimientos del Trabajo Práctico Cumplidos
@@ -23,10 +23,10 @@ Proyecto académico realizado con fines educativos.
 - [x] **Reglas de Negocio Complejas (Borrado Lógico):** Las obras, gastos, usuarios, subcontratistas y pedidos no se borran físicamente de la base de datos. Se les cambia el estado a "eliminado" para conservar el historial operativo y contable. El sistema también bloquea el inicio de sesión a los usuarios que tengan este estado.
 - [x] **Manejo Local de Errores y Flujo HTTP:** Implementación de bloques try-catch directamente en los controladores para capturar excepciones y fallos de base de datos. El sistema responde con códigos de estado HTTP semánticos (como 404 para datos incorrectos) y gestiona la navegación mediante redirecciones seguras (código 303) tras guardar datos, evitando el reenvío duplicado de formularios.
 
-# 📦 Repositorio 
+# Repositorio
 🔗 https://github.com/leonardofvp/PFO-ORION.git
 
-# 📖 Descripción
+# Descripción
 
 Este proyecto corresponde al Trabajo Práctico N.º 2 de la materia Desarrollo de Sistemas Web (Back End).
 
@@ -34,31 +34,31 @@ La aplicación consiste en un sistema web orientado a la gestión administrativa
 
 # El sistema fue desarrollado utilizando:
 
-- ⚙️ Node.js
-- 🚀 Express.js
-- 🍃 MongoDB
-- 🧩 Mongoose
-- 🎨 Pug
-- 🎯 Arquitectura modular MVC
+- Node.js
+- Express.js
+- MongoDB
+- Mongoose
+- Pug
+- Arquitectura modular MVC
 
 La solución migra la persistencia original basada en archivos JSON hacia una base de datos NoSQL MongoDB, implementando validaciones robustas, relaciones entre entidades, controladores asincrónicos y manejo estructurado de errores.
 
-# ✨ Funcionalidades Principales:
+# Funcionalidades Principales:
 
-- 🏢 Gestión de Obras: 
+- Gestión de Obras:
     Alta, baja lógica y modificación de obras
     Asignación de personal
     Asociación de subcontratistas
     Gestión de presupuesto y estado
-- 💰 Gestión de Gastos:
+- Gestión de Gastos:
     Registro de gastos asociados a obras
     Control de estados
     Validación de integridad referencial
-- 📦 Gestión de Pedidos:
+- Gestión de Pedidos:
     Solicitud de materiales y servicios
     Asociación con usuarios y obras
     Seguimiento de estados del pedido
-- 👷 Gestión de Subcontratistas:
+- Gestión de Subcontratistas:
     Registro y administración de proveedores externos
     Validación de CUIT único
     Especialidades y datos de contacto
@@ -66,21 +66,21 @@ La solución migra la persistencia original basada en archivos JSON hacia una ba
     Administración de usuarios del sistema
     Roles organizacionales
     Borrado lógico de usuarios
-- 🔐 Login Básico: 
+- Login Básico:
     Inicio de sesión simple
     Control de acceso inicial
 
-# 🧠 Reglas de Negocio Implementadas
-- ✅ Borrado lógico de entidades
-- ✅ Validación estricta de datos mediante Mongoose
-- ✅ Relación obligatoria entre gastos/pedidos y obras
-- ✅ Restricción de roles válidos
-- ✅ Estados controlados mediante enums
-- ✅ Manejo centralizado de errores
-- ✅ Arquitectura desacoplada y modular   
+# Reglas de Negocio Implementadas
+- Borrado lógico de entidades
+- Validación estricta de datos mediante Mongoose
+- Relación obligatoria entre gastos/pedidos y obras
+- Restricción de roles válidos
+- Estados controlados mediante enums
+- Manejo centralizado de errores
+- Arquitectura desacoplada y modular
 
 
-# 🏛️ Arquitectura del Proyecto
+# Arquitectura del Proyecto
 El sistema implementa una arquitectura basada en separación de responsabilidades:
 - controllers/   → Lógica de negocio
 - models/        → Modelos Mongoose
@@ -90,7 +90,7 @@ El sistema implementa una arquitectura basada en separación de responsabilidade
 - middlewares/   → Middlewares personalizados
 - utils/         → Utilidades y constantes
 
-# 🗂️ Estructura del Proyecto
+# Estructura del Proyecto
 
 PFO-ORION/
 - ├── .env
@@ -154,8 +154,8 @@ PFO-ORION/
 -    ├── subcontratistas.pug
 -    └── usuarios.pug
 
- # 🧱 Modelado de Datos
-🏢 Obra
+ # Modelado de Datos
+Obra
 -   Nombre
 -    Ubicación
 -    Presupuesto
@@ -163,14 +163,14 @@ PFO-ORION/
 -    Personal asignado
 -    Subcontratistas asociados
 
-💰 Gasto
+Gasto
 -    Obra asociada
 -    Descripción
 -    Monto
 -    Estado
 -    Fecha
-     
-📦 Pedido
+
+Pedido
 -    Obra asociada
 -    Usuario solicitante
 -    Tipo de pedido
@@ -178,15 +178,15 @@ PFO-ORION/
 -    Unidad
 -    Estado
 -    Observaciones
-  
-👷 Subcontratista
+
+Subcontratista
 -    Nombre/Razón social
 -    CUIT
 -    Especialidad
 -    Contacto
 -    Estado
--    
- 👤 Usuario
+-
+Usuario
 -    Nombre y apellido
 -    Email único
 -    Contraseña
@@ -194,21 +194,21 @@ PFO-ORION/
 -    Estado
 
 
-# 🚀 Instalación y Ejecución
+# Instalación y Ejecución
 
-1️⃣ Clonar el repositorio
+  1. Clonar el repositorio
 -git clone https://github.com/leonardofvp/PFO-ORION.git
 
-2️⃣ Instalar dependencias
+ 2. Instalar dependencias
 -npm install
 
-3️⃣ Ejecutar el proyecto
+ 3. Ejecutar el proyecto
 -npm run dev
 
-4️⃣ Abrir en el navegador
+ 4. Abrir en el navegador
 -http://localhost:3000
 
-# 🌐 Rutas Principales
+# Rutas Principales
 
 Ruta	             Descripción
 - /	                Página principal

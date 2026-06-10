@@ -15,7 +15,7 @@ import {
 
 const router = express.Router();
 
-router.use(verificarRol([ROLES.ADMIN.id, ROLES.ADMINISTRACION_CENTRAL.id, ROLES.ADMINISTRACION_CENTRAL.id]));
+router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id, ROLES.ADMINISTRACION_CENTRAL.id]));
 
 router.get("/", obtenerGastos);
 router.get("/detalle-gasto/:id", obtenerGastoPorId);
