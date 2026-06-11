@@ -1,10 +1,8 @@
 import mongoose from "mongoose";
 import ROLES from "../utils/roles.js";
+import crypto from "node:crypto";
 
-const rolesFiltrados = Object.values(ROLES).filter(
-  (rol) => rol.id != ROLES.ADMIN.id,
-);
-const rolesPermitidos = rolesFiltrados.map((rol) => rol.id);
+const roles = Object.values(ROLES).map((rol) => rol.id);
 
 const usuarioSchema = new mongoose.Schema(
   {
@@ -38,7 +36,7 @@ const usuarioSchema = new mongoose.Schema(
       type: String,
       required: [true, "El rol es obligatorio"],
       enum: {
-        values: rolesPermitidos,
+        values: roles,
         message: "{VALUE} no es un rol válido para el sistema",
       },
       trim: true,
@@ -54,11 +52,11 @@ const usuarioSchema = new mongoose.Schema(
     },
   },
   {
-    timestamps: true, // agrega fechas de creación y modificación de documentos
+    timestamps: true,
   },
 );
 
-usuarioSchema.statics.crearPasswordSeguro = function(password) {
+usuarioSchema.statics.crearPasswordSeguro = function (password) {
   const salt = crypto.randomBytes(16).toString("hex");
   const passwordHash = crypto
     .pbkdf2Sync(password, salt, 10000, 64, "sha512")
@@ -67,14 +65,12 @@ usuarioSchema.statics.crearPasswordSeguro = function(password) {
   return { salt, passwordHash };
 };
 
-usuarioSchema.methods.validarPassword = function(password) {
+usuarioSchema.methods.validarPassword = function (password) {
   const hash = crypto
     .pbkdf2Sync(password, this.salt, 10000, 64, "sha512")
     .toString("hex");
   return this.passwordHash === hash;
 };
-
-
 
 const Usuario = mongoose.model("Usuario", usuarioSchema);
 

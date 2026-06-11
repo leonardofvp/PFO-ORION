@@ -4,6 +4,9 @@ block content
     h2 Empresa de constucciones
 
     if usuarioLogueado
-        p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
+        if usuario.rol === 'admin'
+          p Bienvenido/a Administrador
+        else
+          p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
     else
         p Debe iniciar sesión

@@ -36,7 +36,8 @@ block content
         label Rol:
         select(name="rol")
             each role in ROLES
-                option(value=role.id selected= usuario.rol === role.id)= role.label
+                if role.id !== "admin"
+                    option(value=role.id selected=(usuario.rol === role.id))= role.label
 
         br
         br

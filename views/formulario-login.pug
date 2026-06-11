@@ -7,13 +7,13 @@ block content
     form(action="/login", method="POST")
 
         label Email
-        input(type="email", name="loginEmail", required)
+        input(type="email", name="email", required)
 
         br
         br
 
         label Pssword
-        input(type="password", name="loginPassword", required)
+        input(type="password", name="password", required)
 
         br
         br
@@ -29,11 +29,11 @@ block content
 
         script.
             document.getElementById('btnAdmin').addEventListener("click", () => {
-                const inputUser = document.querySelector('input[name="loginEmail"]');
-                const inputPass = document.querySelector('input[name="loginPassword"]');
+                const inputUser = document.querySelector('input[name="email"]');
+                const inputPass = document.querySelector('input[name="password"]');
 
                 if (inputUser && inputPass) {
-                    inputUser.value = "admin@admin.com";
+                    inputUser.value = "admin@cimientos.com";
                     inputPass.value = "admin";
                 }
             });

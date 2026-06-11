@@ -8,15 +8,14 @@ const formularioLogin = (req, res) => {
 
 const obtenerUsuario = async (req, res) => {
   try {
-    const { loginEmail, loginPassword } = req.body;
+    const { email, password } = req.body;
     const usuario = await Usuario.findOne({
-      email: loginEmail,
-      password: loginPassword,
+      email,
     });
     if (
       !usuario ||
       usuario.estado == "eliminado" ||
-      !usuario.validarUsuario(loginPassword)
+      !usuario.validarPassword(password)
     ) {
       res.status(404).send("Usuario y/o contraseña incorrectos");
     } else {
