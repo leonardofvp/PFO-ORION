@@ -9,10 +9,15 @@ block content
             li Email #{usuario.email}
             li Rol: #{ROLES[usuario.rol.toUpperCase()].label}
             li Estado: #{usuario.estado}
-        button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
-        | &nbsp;|&nbsp;
-        form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST", style="display:inline")
-            button(type="submit") Eliminar
+            if usuarioLogueado && usuarioLogueado.rol === 'admin'
+
+              if usuario.rol !== 'admin'
+                  button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
+                  | &nbsp;|&nbsp;
+                  form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST", style="display:inline")
+                      button(type="submit") Eliminar
+              else
+                  p El administrador no se puede editar ni eliminar
 
         br
         br

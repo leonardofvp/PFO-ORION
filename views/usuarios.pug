@@ -10,16 +10,15 @@ block  content
     table(border = 1)
         thead
             tr
-                th Nombre
-                th Apellido
-                th Rol
-                th Acciones
+              th Nombre
+              th Apellido
+              th Rol
+              th Acciones
         tbody
             each usuario in usuariosActivos
                 tr
-
-                    td= usuario.nombre
-                    td= usuario.apellido
-                    td= ROLES[usuario.rol.toUpperCase()] ? ROLES[usuario.rol.toUpperCase()].label : usuario.rol
-                    td
-                        a(href=`/usuarios/detalle-usuario/${usuario.id}`) Ver detalle
+                  td= usuario.nombre
+                  td= usuario.apellido
+                  td= ROLES[usuario.rol.toUpperCase()] ? ROLES[usuario.rol.toUpperCase()].label : usuario.rol
+                  td
+                    a(href=`/usuarios/detalle-usuario/${usuario.id}`) Ver detalle
