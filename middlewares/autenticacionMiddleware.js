@@ -1,46 +1,29 @@
 import Usuario from "../models/Usuario.js";
-
-const leerCookies = (req) => {
-  const header = req.headers.cookie;
-
-  if (!header) {
-    return {};
-  }
-
-  const arrayCookies = header.split(";");
-  const cookiesParseadas = arrayCookies.reduce((cookies, cookie) => {
-    const [nombre, valor] = cookie.trim().split("=");
-    cookies[nombre] = decodeURIComponent(valor);
-    return cookies;
-  }, {});
-
-  return cookiesParseadas;
-};
-
-const obtenerUsuarioDeCookie = async (req) => {
-  const cookies = leerCookies(req);
-  const sesionToken = cookies.sesion;
-
-  if (!sesionToken) {
-    return null;
-  }
-
-  const usuario = await Usuario.findOne({ sesionToken });
-
-  return usuario;
-};
+import jwt from "jsonwebtoken";
 
 const protegerRuta = async (req, res, next) => {
-  const usuario = await obtenerUsuarioDeCookie(req);
+  const token = req.cookies.token;
 
-  if (!usuario) {
-    res.clearCookie("sesion");
+  if (!token) {
     return res.redirect("/login");
   }
 
-  req.usuario = usuario;
-  res.locals.usuario = usuario;
-  res.locals.usuarioLogueado = true;
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const usuario = await Usuario.findById(payload.id);
+
+    if (!usuario || usuario.estado === "eliminado") {
+      res.clearCookie("token");
+      return res.redirect("/login");
+    }
+
+    req.usuario = usuario;
+    res.locals.usuario = usuario;
+    res.locals.usuarioLogueado = true;
+  } catch (error) {
+    res.clearCookie("token");
+    return res.redirect("/login");
+  }
 
   next();
 };
@@ -49,12 +32,23 @@ const cargarUsuario = async (req, res, next) => {
   res.locals.usuarioLogueado = false;
   res.locals.usuario = null;
 
-  const usuario = await obtenerUsuarioDeCookie(req);
+  const token = req.cookies.token;
 
-  if (usuario) {
-    req.usuario = usuario;
-    res.locals.usuario = usuario;
-    res.locals.usuarioLogueado = true;
+  if (!token) {
+    return next();
+  }
+
+  try {
+    const payload = jwt.verify(token, process.env.JWT_SECRET);
+    const usuario = await Usuario.findById(payload.id);
+
+    if (usuario && usuario.estado !== "eliminado") {
+      req.usuario = usuario;
+      res.locals.usuario = usuario;
+      res.locals.usuarioLogueado = true;
+    }
+  } catch (error) {
+    res.clearCookie("token");
   }
 
   next();

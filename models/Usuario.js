@@ -31,10 +31,6 @@ const usuarioSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    sesionToken: {
-      type: String,
-      default: null,
-    },
     rol: {
       type: String,
       required: [true, "El rol es obligatorio"],
