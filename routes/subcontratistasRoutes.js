@@ -1,21 +1,23 @@
 // Manejador de las rutas de los subcontratistas
 
 import express from "express";
-import { verificarRol } from "../middlewares/auth.js";
-import ROLES from '../utils/roles.js';
+import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
+import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
+import ROLES from "../utils/roles.js";
 
 import {
-    obtenerSubcontratistas,
-    obtenerSubcontratistaPorId,
-    formularioCrearSubcontratista,
-    crearSubcontratista,
-    formularioEditarSubcontratista,
-    editarSubcontratista,
-    eliminarSubcontratista
+  obtenerSubcontratistas,
+  obtenerSubcontratistaPorId,
+  formularioCrearSubcontratista,
+  crearSubcontratista,
+  formularioEditarSubcontratista,
+  editarSubcontratista,
+  eliminarSubcontratista,
 } from "../controllers/subcontratistasController.js";
 
 const router = express.Router();
 
+router.use(protegerRuta);
 router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id]));
 
 router.get("/", obtenerSubcontratistas);

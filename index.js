@@ -33,8 +33,6 @@ app.use("/login", loginRoutes);
 app.use("/usuarios", usuariosRoutes);
 app.use("/pedidos", pedidosRoutes);
 
-
-
 // Se guarda la ejecución en la constante server
 const server = app.listen(PORT, () => {
     console.log(`Servidor escuchando en http://localhost:${PORT}`);

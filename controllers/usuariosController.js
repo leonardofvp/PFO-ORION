@@ -16,7 +16,10 @@ const obtenerUsuarios = async (req, res) => {
       estado: { $ne: "eliminado" },
     });
 
-    res.status(200).render("usuarios", { usuariosActivos });
+    res.status(200).render("usuarios", {
+      usuariosActivos,
+      usuarioSesion: req.usuario,
+    });
   } catch (error) {
     res.status(500).send("Error al cargar la vista");
     console.error(error);
@@ -31,7 +34,7 @@ const obtenerUsuarioPorId = async (req, res) => {
       return res.status(404).send("Usuario no encontrada");
     }
 
-    res.status(200).render("detalle-usuario", { usuario });
+    res.status(200).render("detalle-usuario", { usuarioSesion: req.usuario, usuario });
   } catch (error) {
     res.status(500).send("Error al buscar usuario");
   }
@@ -63,9 +66,11 @@ const crearUsuario = async (req, res) => {
 const formularioEditarUsuario = async (req, res) => {
   try {
     const usuario = await Usuario.findById(req.params.id);
+
     if (!usuario || usuario.estado === "eliminado") {
       return res.status(404).send("Usuario no encontrada");
     }
+
     res.render("formulario-usuario", {
       editable: true,
       usuario: usuario,

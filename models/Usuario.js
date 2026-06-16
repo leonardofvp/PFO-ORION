@@ -27,10 +27,13 @@ const usuarioSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-
     salt: {
       type: String,
       required: true,
+    },
+    sesionToken: {
+      type: String,
+      default: null,
     },
     rol: {
       type: String,

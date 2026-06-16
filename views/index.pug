@@ -8,5 +8,9 @@ block content
           p Bienvenido/a Administrador
         else
           p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
+
+        form(action="/login/logout", method="POST")
+          button(type="submit") Cerrar sesión
+
     else
         p Debe iniciar sesión

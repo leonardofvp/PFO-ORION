@@ -37,7 +37,7 @@ const obtenerPedidoPorId = async (req, res) => {
 };
 
 const formularioCrearPedido = async (req, res) => {
-    const usuario = global.usuarioLogueado;
+    const usuario = req.usuario;
     const obras = await Obra.find(
         { personalAsignado: usuario.id }
     );
@@ -50,7 +50,7 @@ const formularioCrearPedido = async (req, res) => {
 
 const crearPedido = async (req, res) => {
     try {
-        const usuario = global.usuarioLogueado;
+        const usuario = req.usuario;
         const datosCompletos = {
             ...req.body,
             idUsuario: usuario.id

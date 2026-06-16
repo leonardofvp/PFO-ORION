@@ -1,7 +1,8 @@
 // Manejador de las rutas de los gastos
 
 import express from "express";
-import { verificarRol } from "../middlewares/auth.js";
+import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
+import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
 import ROLES from "../utils/roles.js";
 import {
     obtenerGastos,
@@ -15,6 +16,7 @@ import {
 
 const router = express.Router();
 
+router.use(protegerRuta);
 router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id, ROLES.ADMINISTRACION_CENTRAL.id]));
 
 router.get("/", obtenerGastos);

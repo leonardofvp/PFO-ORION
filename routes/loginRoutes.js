@@ -2,13 +2,16 @@
 
 import express from "express";
 const router = express.Router();
+import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
 
 import {
-    formularioLogin,
-	obtenerUsuario
+  formularioLogin,
+  iniciarSesion,
+  cerrarSesion,
 } from "../controllers/loginController.js";
 
 router.get("/", formularioLogin);
-router.post("/", obtenerUsuario);
+router.post("/", iniciarSesion);
+router.post("/logout", protegerRuta, cerrarSesion);
 
 export default router;

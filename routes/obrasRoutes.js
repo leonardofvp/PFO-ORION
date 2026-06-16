@@ -1,24 +1,26 @@
 // Manejador de las rutas de las obras
 
 import express, { Router } from "express";
-import { verificarRol } from "../middlewares/auth.js";
-import ROLES from '../utils/roles.js';
+import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
+import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
+import ROLES from "../utils/roles.js";
 import {
-    obtenerObras,
-    obtenerObraPorId,
-    formularioCrearObra,
-    crearObra,
-    formularioEditarObra,
-    editarObra,
-    eliminarObra,
-    renderizarAsignacionPersonal,
-    asignarPersonal,
-    renderizarAsignacionSubcontratista,
-    asignarSubcontratista
+  obtenerObras,
+  obtenerObraPorId,
+  formularioCrearObra,
+  crearObra,
+  formularioEditarObra,
+  editarObra,
+  eliminarObra,
+  renderizarAsignacionPersonal,
+  asignarPersonal,
+  renderizarAsignacionSubcontratista,
+  asignarSubcontratista,
 } from "../controllers/obrasController.js";
 
 const router = express.Router();
 
+router.use(protegerRuta);
 router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id]));
 
 router.get("/", obtenerObras);

@@ -1,7 +1,8 @@
 // Manejador de las rutas de los usuarios
 
 import express from "express";
-import { verificarRol } from "../middlewares/auth.js";
+import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
+import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
 import ROLES from '../utils/roles.js';
 
 import {
@@ -19,6 +20,7 @@ const router = express.Router();
 router.get("/nuevo-usuario", formularioCrearUsuario);
 router.post("/nuevo-usuario", crearUsuario);
 
+router.use(protegerRuta);
 router.use(verificarRol([ROLES.ADMIN.id]));
 
 router.get("/", obtenerUsuarios);
