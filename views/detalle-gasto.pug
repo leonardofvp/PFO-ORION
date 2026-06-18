@@ -1,20 +1,22 @@
 extends layout
 
+block titulo_seccion
+  h2 Detalle de gasto
+
 block content
-    div
-        h2 Detalle de gasto
-        ul
-            li Nombre de obra: #{gasto.idObra.nombre}
-            li Descripción: #{gasto.descripcion}
-            li Monto: #{gasto.monto}
-            li Estado: #{gasto.estado}
-            li Fecha: #{new Date(gasto.fecha).toLocaleDateString('es-AR')}
-        button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${gasto.id}'`) Editar
-        | &nbsp;|&nbsp;
-        form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST", style="display:inline")
-            button(type="submit") Eliminar
+  div
+    ul
+      li Nombre de obra: #{gasto.idObra.nombre}
+      li Descripción: #{gasto.descripcion}
+      li Monto: #{gasto.monto}
+      li Estado: #{gasto.estado}
+      li Fecha: #{new Date(gasto.fecha).toLocaleDateString('es-AR')}
+    button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${gasto.id}'`) Editar
+    | &nbsp;|&nbsp;
+    form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST" style="display:inline")
+      button(type="submit") Eliminar
 
-        br
-        br
+    br
+    br
 
-        a(href="/gastos") Volver atras
+    a(href="/gastos") Volver atras

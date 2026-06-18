@@ -8,6 +8,7 @@ import subcontratistasRoutes from "./routes/subcontratistasRoutes.js";
 import gastosRoutes from "./routes/gastosRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js";
 import usuariosRoutes from "./routes/usuariosRoutes.js";
+import certificacionesAvaceRoutes from "./routes/certificacionesAvaceRoutes.js"
 import pedidosRoutes from "./routes/pedidosRoutes.js";
 import { conectarDB } from "./config/db.js";
 import ROLES from "./utils/roles.js";
@@ -30,6 +31,7 @@ app.set("views", "./views");
 app.use("/", indexRoutes);
 app.use("/obras", obrasRoutes);
 app.use("/subcontratistas", subcontratistasRoutes);
+app.use("/certificaciones-avance", certificacionesAvaceRoutes);
 app.use("/gastos", gastosRoutes);
 app.use("/login", loginRoutes);
 app.use("/usuarios", usuariosRoutes);

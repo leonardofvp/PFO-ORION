@@ -1,0 +1,48 @@
+extends layout
+
+block titulo_seccion
+  h2= editable ? "Editar certificación" : "Nueva certificación"
+
+block content
+
+  form(method="POST", action= editable ? `/certificacion-avance/editar-certificacion/${certificacionAvance.id}?_method=PUT` : `/certificacion-avance/nuevo-certivicado`)
+
+    label Obra:
+    select(name="obraId" required)
+        option(value="" disabled selected= !certificacionAvance.obraId) Seleccione Obra...
+        each obra in obras
+            option(value=obra.id selected= certificacionAvance.obraId == obra.id)= obra.nombre
+
+    br
+    br
+
+    label Subcontratista:
+    select(name="subcontratistaId" required)
+        option(value="" disabled selected= !certificacionAvance.subcontratistaId) Seleccione Subcontratista...
+        each sub in subcontratistas
+            option(value=sub.id selected= certificacionAvance.subcontratistaId == sub.id)= sub.nombre
+
+    br
+    br
+
+    label Tarea realizada:
+    input(type="text", name="tareaRealizada", value= certificacionAvance.tareaRealizada || "", required)
+
+    br
+    br
+
+    label % de Avance:
+    input(type="number", name="porcentajeAvance", value= certificacionAvance.porcentajeAvance || "", min="1", max="100", required)
+
+    br
+    br
+
+    button(type="submit")= editable ? "Guardar cambios" : "Registrar avance"
+
+    br
+    br
+
+    if editable
+        a(href=`/certificacions-avance/detalle-certificacion/${certificacionAvance.id}`) Cancelar
+    else
+        a(href="/certificacions-avance") Volver al listado

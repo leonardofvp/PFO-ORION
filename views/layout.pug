@@ -13,10 +13,16 @@ html(lang="es")
                 li: a(href="/login") Iniciar sesión
                 li: a(href="/obras") Ver obras
                 li: a(href="/subcontratistas") Ver subcontratistas
+                li: a(href="/certificaciones-avance") Ver certificaciones de avance
                 li: a(href="/gastos") Ver gastos
                 li: a(href="/pedidos") Ver pedidos
                 li: a(href="/usuarios") Usuarios
         main
+            block titulo_seccion
+
+            if error
+              p=error
+
             block content
         footer
             p Proyecto Cimientos Sólidos S.A. - Grupo Orión -

@@ -1,24 +1,26 @@
 extend layout
 
+block titulo_seccion
+  h2 Gestión de gastos
+
 block  content
-    h2 Gestión de gastos
 
-    div
-        a(href="/gastos/nuevo-gasto") Agregar nuevo gasto
+  div
+    a(href="/gastos/nuevo-gasto") Agregar nuevo gasto
 
-    h3 Lista de gastos
-    table(border = 1)
-        thead
-            tr
-                th Nombre de obra
-                th Detalle
-                th Fecha
-                th Acciones
-        tbody
-            each gasto in gastosActivos
-                tr
-                    td= gasto.idObra.nombre
-                    td= gasto.descripcion
-                    td= td= new Date(gasto.fecha).toLocaleDateString('es-AR')
-                    td
-                        a(href=`/gastos/detalle-gasto/${gasto.id}`) Ver detalle
+  h3 Lista de gastos
+  table(border = 1)
+    thead
+      tr
+        th Nombre de obra
+        th Detalle
+        th Fecha
+        th Acciones
+    tbody
+      each gasto in gastosActivos
+        tr
+          td= gasto.idObra.nombre
+          td= gasto.descripcion
+          td= td= new Date(gasto.fecha).toLocaleDateString('es-AR')
+          td
+            a(href=`/gastos/detalle-gasto/${gasto.id}`) Ver detalle

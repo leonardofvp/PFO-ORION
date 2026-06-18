@@ -1,0 +1,28 @@
+extend layout
+
+block titulo_seccion
+  h2 Gestión de certificaciones de avance
+
+block  content
+
+  div
+    a(href="/certificaciones-avance/nueva-certificacion") Agregar nueva certificación de avance
+
+  h3 Lista de certificaciones
+  table(border = 1)
+    thead
+      tr
+        th Nombre de obra
+        th Subcontratista
+        th Porcentaje de avance
+        th Estado de finanzas
+        th Acciones
+    tbody
+      each certificacionAvance in certificacionesAvanceActivas
+        tr
+          td= certificadosAvance.idObra.nombre
+          td= certificadosAvance.idSubcontratista.nombre
+          td= certificadosAvance.porcentajeAvance
+          td= certificadosAvance.estadoFinanzas
+          td
+            a(href=`/certificados-avance/detalle-certificacion/${certificacionAvance.id}`) Ver detalle

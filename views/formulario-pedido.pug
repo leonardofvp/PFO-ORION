@@ -1,68 +1,69 @@
 extends layout
 
+block titulo_seccion
+  h2= editable ? "Editar Pedido" : "Nuevo Pedido"
+
 block content
-    h2= editable ? "Editar Pedido" : "Nuevo Pedido"
+  form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
 
-    form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
+    label Nombre de obra:
+    if !editable
+        select(name="idObra")
+            each obra in obras
+                option(value=obra.id selected= obra.id === obra.id) #{obra.nombre}
+    else
+        input(type="text", name="nombreObra", value= pedido.idObra.nombre readonly)
 
-        label Nombre de obra:
-        if !editable
-            select(name="idObra")
-                each obra in obras
-                    option(value=obra.id selected= obra.id === obra.id) #{obra.nombre}
-        else
-            input(type="text", name="nombreObra", value= pedido.idObra.nombre readonly)
+    br
+    br
 
-        br
-        br
+    label Estado:
+    select(name="tipo")
+        option(value="material" selected= pedido.estado === "material") Material
+        option(value="servicio" selected= pedido.estado === "servicio") Servicio
 
-        label Estado:
-        select(name="tipo")
-            option(value="material" selected= pedido.estado === "material") Material
-            option(value="servicio" selected= pedido.estado === "servicio") Servicio
+    br
+    br
 
-        br
-        br
+    label Descripción:
+    input(type="text", name="descripcion", value= pedido.descripcion || "", placeholder="Ej: Arena o Electricista", required)
 
-        label Descripción:
-        input(type="text", name="descripcion", value= pedido.descripcion || "", placeholder="Ej: Arena o Electricista", required)
+    br
+    br
 
-        br
-        br
+    label Cantidad:
+    input(type="number", name="cantidad", value= pedido.cantidad || "", required)
 
-        label Cantidad:
-        input(type="number", name="cantidad", value= pedido.cantidad || "", required)
+    br
+    br
 
-        br
-        br
+    label Unidad:
+    input(type="text", name="unidad", value= pedido.unidad || "", placeholder="Ej: m3, unidades, jornadas", required)
 
-        label Unidad:
-        input(type="text", name="unidad", value= pedido.unidad || "", placeholder="Ej: m3, unidades, jornadas", required)
+    br
+    br
 
-        br
-        br
+    label Estado:
+    select(name="estado")
+        option(value="pendiente" selected= pedido.estado === "pendiente") Pendiente
+        option(value="aprobado" selected= pedido.estado === "aprobado") Aprobado
+        option(value="entregado" selected= pedido.estado === "entregado") Entregado
 
-        label Estado:
-        select(name="estado")
-            option(value="pendiente" selected= pedido.estado === "pendiente") Pendiente
-            option(value="aprobado" selected= pedido.estado === "aprobado") Aprobado
-            option(value="entregado" selected= pedido.estado === "entregado") Entregado
+    br
+    br
 
-        br
-        br
+    label Observaciones:
+    textarea(name="observaciones")= pedido.observaciones || ""
 
-        label Observaciones:
-        textarea(name="observaciones")= pedido.observaciones || ""
+    br
+    br
 
-        br
-        br
+    button(type="submit")= editable ? "Guardar cambios" : "Crear pedido"
 
-        button(type="submit")= editable ? "Guardar cambios" : "Crear pedido"
+    br
+    br
 
-        br
-        br
-
-        if editable
-            a(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
-        else
-            a(href="/pedidos") Volver al listado
+    if editable
+        a(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
+    else
+        a(href="/pedidos") Volver al listado

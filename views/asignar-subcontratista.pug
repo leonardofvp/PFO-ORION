@@ -1,23 +1,23 @@
 extends layout
 
 block content
-    h2 Asignar subcontratistas a la obra: : #{obra.nombre}
+  h2 Asignar subcontratistas a la obra: : #{obra.nombre}
 
-    h3 Lista de subcontratistas
-    table(border=1)
-        thead
-            tr
-                th Nombre o Razón Social
-                th CUIT
-                th Especialidad
-                th Acciones
-        tbody
-            each subcontratista in subcontratistasActivos
-                tr
-                    td= subcontratista.nombre
-                    td= subcontratista.cuit
-                    td= subcontratista.especialidad
-                    td
-                        form(action=`/obras/asignar-subcontratista/${obra.id}`, method="POST")
-                            input(type="hidden", name="idSubcontratista", value=subcontratista.id)
-                            button(type="submit") Asignar a la obra
+  h3 Lista de subcontratistas
+  table(border=1)
+    thead
+      tr
+        th Nombre o Razón Social
+        th CUIT
+        th Especialidad
+        th Acciones
+    tbody
+      each subcontratista in subcontratistasActivos
+        tr
+          td= subcontratista.nombre
+          td= subcontratista.cuit
+          td= subcontratista.especialidad
+          td
+            form(action=`/obras/asignar-subcontratista/${obra.id}`, method="POST")
+              input(type="hidden" name="idSubcontratista", value=subcontratista.id)
+              button(type="submit") Asignar a la obra

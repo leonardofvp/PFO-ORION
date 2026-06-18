@@ -1,16 +1,18 @@
 extends layout
 
+block titulo_seccion
+  h2 Empresa de constucciones
+
 block content
-    h2 Empresa de constucciones
 
-    if usuarioLogueado
-        if usuario.rol === 'admin'
-          p Bienvenido/a Administrador
-        else
-          p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
-
-        form(action="/login/logout", method="POST")
-          button(type="submit") Cerrar sesión
-
+  if usuarioLogueado
+    if usuario.rol === 'admin'
+      p Bienvenido/a Administrador
     else
-        p Debe iniciar sesión
+      p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
+
+    form(action="/login/logout" method="POST")
+      button(type="submit") Cerrar sesión
+
+  else
+    p Debe iniciar sesión

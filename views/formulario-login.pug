@@ -1,26 +1,26 @@
 extends layout
 
+block titulo_seccion
+  h2 Login
+
 block content
+  form(action="/login", method="POST")
 
-    h2 Login
+    label Email
+    input(type="email", name="email", required)
 
-    form(action="/login", method="POST")
+    br
+    br
 
-        label Email
-        input(type="email", name="email", required)
+    label Pssword
+    input(type="password", name="password", required)
 
-        br
-        br
+    br
+    br
 
-        label Pssword
-        input(type="password", name="password", required)
+    button(type="submit") Iniciar sesión
 
-        br
-        br
+    br
+    br
 
-        button(type="submit") Iniciar sesión
-
-        br
-        br
-
-        a(href="/usuarios/nuevo-usuario") Registrarse
+    a(href="/usuarios/nuevo-usuario") Registrarse

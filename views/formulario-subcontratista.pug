@@ -1,46 +1,49 @@
 extends layout
 
+block titulo_seccion
+  h2= editable ? "Editar subcontratista" : "Nuevo subcontratista"
+
+block titulo_seccion
+
 block content
-    h2= editable ? "Editar subcontratista" : "Nuevo subcontratista"
+  form(method="POST", action= editable ? `/subcontratistas/editar-subcontratista/${subcontratista.id}?_method=PUT` : `/subcontratistas/nuevo-subcontratista`)
 
-    form(method="POST", action= editable ? `/subcontratistas/editar-subcontratista/${subcontratista.id}?_method=PUT` : `/subcontratistas/nuevo-subcontratista`)
+    label Nombre o Razón Social:
+    input(type="text" name="nombre", value= subcontratista ? subcontratista.nombre : "", required)
 
-        label Nombre o Razón Social:
-        input(type="text", name="nombre", value= subcontratista ? subcontratista.nombre : "", required)
+    br
+    br
 
-        br
-        br
+    label CUIT:
+    input(type="text" name="cuit", value= subcontratista ? subcontratista.cuit : "", readonly=editable, required)
 
-        label CUIT:
-        input(type="text", name="cuit", value= subcontratista ? subcontratista.cuit : "", readonly=editable, required)
+    br
+    br
 
-        br
-        br
+    label Especialidad:
+    input(type="text" name="especialidad", value= subcontratista ? subcontratista.especialidad : "", required)
 
-        label Especialidad:
-        input(type="text", name="especialidad", value= subcontratista ? subcontratista.especialidad : "", required)
+    br
+    br
 
-        br
-        br
+    label Teléfono:
+    input(type="text" name="telefono", value= subcontratista ? subcontratista.telefono : "", required)
 
-        label Teléfono:
-        input(type="text", name="telefono", value= subcontratista ? subcontratista.telefono : "", required)
+    br
+    br
 
-        br
-        br
+    label Email:
+    input(type="email" name="email", value= subcontratista ? subcontratista.email : "", required)
 
-        label Email:
-        input(type="email", name="email", value= subcontratista ? subcontratista.email : "", required)
+    br
+    br
 
-        br
-        br
+    button(type="submit")= editable ? "Guardar cambios" : "Crear subcontratista"
 
-        button(type="submit")= editable ? "Guardar cambios" : "Crear subcontratista"
+    br
+    br
 
-        br
-        br
-
-        if editable
-            a(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Cancelar
-        else
-            a(href="/subcontratistas") Volver al listado
+    if editable
+      a(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Cancelar
+    else
+      a(href="/subcontratistas") Volver al listado

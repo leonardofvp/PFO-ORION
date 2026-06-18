@@ -1,0 +1,22 @@
+extends layout
+
+block content
+    div
+        h2 Detalle de ertificación de avance
+        ul
+            li Nombre de obra: #{certificacionAvance.idObra.nombre}
+            li Subcontratista: #{certificacionAvance.idSubcontratista.descripcion}
+            li Tarea realizada: #{certificacionAvance.tareaRealizada}
+            li PorcenjaeAvance: #{certificacionAvance.porcentajeAvance}
+            li Director de obra: #{certificacionAvance.idDirectorObra.nombre}
+            li Estado de finanza: #{certificacionAvance.estadoFinanzas}
+            li Fecha de certificación: #{certificacionAvance.fechaCertificacion}
+        button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${certificacionAvance.id}'`) Editar
+        | &nbsp;|&nbsp;
+        form(action=`/gastos/eliminar-gasto/${certificacionAvance.id}?_method=DELETE`, method="POST", style="display:inline")
+            button(type="submit") Eliminar
+
+        br
+        br
+
+        a(href="/gastos") Volver atras

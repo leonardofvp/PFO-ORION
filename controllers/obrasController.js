@@ -29,9 +29,11 @@ const obtenerObras = async (req, res) => {
 const obtenerObraPorId = async (req, res) => {
     try {
         const obra = await Obra.findById(req.params.id).populate(["personalAsignado", "subcontratistasAsignados"]);
+
         if (!obra || obra.estado === "eliminada") {
             return res.status(404).send("Obra no encontrada")
         }
+
         res.status(200).render("detalle-obra", { obra });
     } catch (error) {
         res.status(500).send("Error al buscar el gasto");

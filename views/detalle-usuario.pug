@@ -1,25 +1,27 @@
 extends layout
 
+block titulo_seccion
+  h2 Detalle de usuario
+
 block content
-    div
-        h2 Detalle de usuario
-        ul
-            li Nombre: #{usuario.nombre}
-            li Apellido #{usuario.apellido}
-            li Email #{usuario.email}
-            li Rol: #{ROLES[usuario.rol.toUpperCase()].label}
-            li Estado: #{usuario.estado}
-            br
-            if usuarioSesion && usuarioSesion.rol === 'admin'
-              if usuarioSesion.id != usuario.id
-                  button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
-                  | &nbsp;|&nbsp;
-                  form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST", style="display:inline")
-                    button(type="submit") Eliminar
-              else
-                  p El administrador no se puede editar ni eliminar
+  div
+    ul
+      li Nombre: #{usuario.nombre}
+      li Apellido #{usuario.apellido}
+      li Email #{usuario.email}
+      li Rol: #{ROLES[usuario.rol.toUpperCase()].label}
+      li Estado: #{usuario.estado}
+      br
+      if usuarioSesion && usuarioSesion.rol === 'admin'
+        if usuarioSesion.id != usuario.id
+          button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
+          | &nbsp;|&nbsp;
+          form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST" style="display:inline")
+            button(type="submit") Eliminar
+        else
+          p El administrador no se puede editar ni eliminar
 
-        br
-        br
+    br
+    br
 
-        a(href="/") Volver al inicio
+    a(href="/") Volver al inicio

@@ -1,78 +1,80 @@
 extends layout
 
+block titulo_seccion
+  h2 Detalle de: #{obra.nombre}
+
 block content
+  div
+    ul
+      li Ubicación: #{obra.ubicacion}
+      li Presupuesto inicial: USD #{obra.presupuesto}
+      li Estado: #{obra.estado}
+
     div
-        h2 Detalle de: #{obra.nombre}
-        ul
-            li Ubicación: #{obra.ubicacion}
-            li Presupuesto inicial: USD #{obra.presupuesto}
-            li Estado: #{obra.estado}
+      button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
+      | &nbsp;
+      form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST" style="display:inline")
+        button(type="submit") Eliminar
 
-        div
-            button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
-            | &nbsp;
-            form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST", style="display:inline")
-                button(type="submit") Eliminar
+    br
+    hr
 
-        br
-        hr
+    h2 Personal asignado
 
-        h2 Personal asignado
+    a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
 
-        a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
+    br
+    br
 
-        br
-        br
+    if obra.personalAsignado && obra.personalAsignado.length > 0
+      table(border = 1)
+        thead
+          tr
+            th Nombre
+            th Apellido
+            th Email
+            th Rol
+        tbody
+          each usuario in obra.personalAsignado
+            tr
+              td= usuario.nombre
+              td= usuario.apellido
+              td= usuario.email
+              td= ROLES[usuario.rol.toUpperCase()].label
+    else
+      p No hay personal asignado a esta obra actualmente.
 
-        if obra.personalAsignado && obra.personalAsignado.length > 0
-            table(border = 1)
-                thead
-                    tr
-                        th Nombre
-                        th Apellido
-                        th Email
-                        th Rol
-                tbody
-                    each usuario in obra.personalAsignado
-                        tr
-                            td= usuario.nombre
-                            td= usuario.apellido
-                            td= usuario.email
-                            td= ROLES[usuario.rol.toUpperCase()].label
-        else
-            p No hay personal asignado a esta obra actualmente.
+    br
+    hr
 
-        br
-        hr
+    h2 Subcontratistas asignados
 
-        h2 Subcontratistas asignados
+    a(href=`/obras/asignar-subcontratista/${obra.id}`) Asignar subcontratista
 
-        a(href=`/obras/asignar-subcontratista/${obra.id}`) Asignar subcontratista
+    br
+    br
 
-        br
-        br
+    if obra.subcontratistasAsignados && obra.subcontratistasAsignados.length > 0
+      table(border = 1)
+        thead
+          tr
+            th Nombre o Razón Social
+            th CUIT
+            th Especialidad
+            th Teléfono
+            th Email
+        tbody
+          each subcontratista in obra.subcontratistasAsignados
+            tr
+              td= subcontratista.nombre
+              td= subcontratista.cuit
+              td= subcontratista.especialidad
+              td= subcontratista.telefono
+              td= subcontratista.email
+    else
+      p No hay subcontratistas asignados a esta obra actualmente.
 
-        if obra.subcontratistasAsignados && obra.subcontratistasAsignados.length > 0
-            table(border = 1)
-                thead
-                    tr
-                        th Nombre o Razón Social
-                        th CUIT
-                        th Especialidad
-                        th Teléfono
-                        th Email
-                tbody
-                    each subcontratista in obra.subcontratistasAsignados
-                        tr
-                            td= subcontratista.nombre
-                            td= subcontratista.cuit
-                            td= subcontratista.especialidad
-                            td= subcontratista.telefono
-                            td= subcontratista.email
-        else
-            p No hay subcontratistas asignados a esta obra actualmente.
+    br
+    br
 
-        br
-        br
-
-        a(href="/obras") Volver a la lista de obras
+    a(href="/obras") Volver a la lista de obras

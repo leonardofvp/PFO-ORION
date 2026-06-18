@@ -16,6 +16,7 @@ const obtenerPedidos = async (req, res) => {
     const pedidosActivos = await Pedido.find({
       estado: { $ne: "eliminado" },
     }).populate("idObra");
+
     res.status(200).render("pedidos", { pedidosActivos });
   } catch (error) {
     res.status(500).send("Error al cargar la vista");
@@ -26,9 +27,11 @@ const obtenerPedidos = async (req, res) => {
 const obtenerPedidoPorId = async (req, res) => {
   try {
     const pedido = await Pedido.findById(req.params.id).populate("idObra");
+
     if (!pedido || pedido.estado === "eliminado") {
       return res.status(404).send("Pedido no encontrado");
     }
+
     res.status(200).render("detalle-pedido", { pedido });
   } catch (error) {
     res.status(500).send("Error al buscar pedido");

@@ -1,30 +1,32 @@
 extends layout
 
+block titulo_seccion
+  h2 Gestión de Pedidos
+
 block content
-    h2 Gestión de Pedidos
 
-    div
-        a(href="/pedidos/nuevo-pedido") Agregar nuevo pedido
+  div
+    a(href="/pedidos/nuevo-pedido") Agregar nuevo pedido
 
-    h3 Lista de pedidos
-    table(border = 1)
-        thead
-            tr
-                th Nombre de obra
-                th Fecha
-                Th Tipo
-                th Descripción
-                th Cantidad
-                th Estado
-                th Acciones
-        tbody
-            each pedido in pedidosActivos
-                tr
-                    td= pedido.idObra ? pedido.idObra.nombre : 'Obra no encontrada'
-                    td= new Date(pedido.fecha).toLocaleDateString('es-AR')
-                    td= pedido.tipo
-                    td= pedido.descripcion
-                    td= `${pedido.cantidad} ${pedido.unidad}`
-                    td= pedido.estado
-                    td
-                        a(href=`/pedidos/detalle-pedido/${pedido.id}`) Ver detalle
+  h3 Lista de pedidos
+  table(border = 1)
+    thead
+      tr
+        th Nombre de obra
+        th Fecha
+        Th Tipo
+        th Descripción
+        th Cantidad
+        th Estado
+        th Acciones
+    tbody
+      each pedido in pedidosActivos
+        tr
+          td= pedido.idObra ? pedido.idObra.nombre : 'Obra no encontrada'
+          td= new Date(pedido.fecha).toLocaleDateString('es-AR')
+          td= pedido.tipo
+          td= pedido.descripcion
+          td= `${pedido.cantidad} ${pedido.unidad}`
+          td= pedido.estado
+          td
+            a(href=`/pedidos/detalle-pedido/${pedido.id}`) Ver detalle

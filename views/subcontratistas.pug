@@ -1,25 +1,26 @@
 extends layout
 
+block titulo_seccion
+  h2 Gestión de subcontratistas
+
 block content
-    h2 Gestión de subcontratistas
 
-    div
-        a(href="/subcontratistas/nuevo-subcontratista") Agregar nuevo subcontratista
+  div
+    a(href="/subcontratistas/nuevo-subcontratista") Agregar nuevo subcontratista
 
-    h3 Lista de subcontratistas
-    table(border=1)
-        thead
-            tr
-                th Nombre o Razón Social
-                th CUIT
-                th Especialidad
-                th Acciones
-        tbody
-            // Asegurate de que tu controlador pase el array con el nombre "subcontratistas" a la vista
-            each subcontratista in subcontratistasActivos
-                tr
-                    td= subcontratista.nombre
-                    td= subcontratista.cuit
-                    td= subcontratista.especialidad
-                    td
-                        a(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Ver detalle
+  h3 Lista de subcontratistas
+  table(border=1)
+    thead
+      tr
+        th Nombre o Razón Social
+        th CUIT
+        th Especialidad
+        th Acciones
+    tbody
+      each subcontratista in subcontratistasActivos
+        tr
+          td= subcontratista.nombre
+          td= subcontratista.cuit
+          td= subcontratista.especialidad
+          td
+            a(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Ver detalle
