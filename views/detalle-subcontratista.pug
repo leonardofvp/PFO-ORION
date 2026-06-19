@@ -1,26 +1,49 @@
 extends layout
 
 block titulo_seccion
-  h2 Detalle del subcontratista
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+
+    .d-flex.align-items-center
+      a.btn.btn-outline-secondary.me-3(href="/subcontratistas")
+        i.bi.bi-arrow-left
+      h2.mb-0 Detalle del Subcontratista
+
+    .d-flex.gap-2
+      a.btn.btn-warning(href=`/subcontratistas/editar-subcontratista/${subcontratista.id}`)
+        i.bi.bi-pencil-square.me-1
+        | Editar
+
+      form(action=`/subcontratistas/eliminar-subcontratista/${subcontratista.id}?_method=DELETE`, method="POST" style="margin: 0;")
+        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este subcontratista?');")
+          i.bi.bi-trash.me-1
+          | Eliminar
 
 block content
-  div
-    ul
-      li Nombre o Razón Social: #{subcontratista.nombre}
-      li CUIT: #{subcontratista.cuit}
-      li Especialidad: #{subcontratista.especialidad}
-      li Teléfono: #{subcontratista.telefono || 'No registrado'}
-      li Email: #{subcontratista.email || 'No registrado'}
-      li Estado: #{subcontratista.estado}
+  .card.border-primary.shadow-sm.mb-5
+    .card-body.p-4
 
-    br
+      .row.mb-4
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Nombre / Razón Social
+          span.fs-5.fw-bold #{subcontratista.nombre}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 CUIT
+          span.fs-5 #{subcontratista.cuit}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Especialidad
+          span.fs-5 #{subcontratista.especialidad}
 
-    button(type="button" onclick=`window.location.href='/subcontratistas/editar-subcontratista/${subcontratista.id}'`) Editar
-    | &nbsp;|&nbsp;
-    form(action=`/subcontratistas/eliminar-subcontratista/${subcontratista.id}?_method=DELETE`, method="POST" style="display:inline")
-      button(type="submit") Eliminar
+      hr.text-warning.opacity-25.my-4
 
-    br
-    br
+      .row
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Teléfono
+          span.fs-5 #{subcontratista.telefono || 'No registrado'}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Email
+          span.fs-5 #{subcontratista.email || 'No registrado'}
 
-    a(href="/subcontratistas") Volver atrás
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-outline-secondary.mb-5(href="/subcontratistas")
+      i.bi.bi-arrow-left.me-2
+      | Volver a la lista de subcontratistas

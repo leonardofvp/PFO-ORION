@@ -1,25 +1,44 @@
 extends layout
 
 block titulo_seccion
-  h2 Asignar personal a la obra: #{obra.nombre}
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2 Asignar personal a: #{obra.nombre}
 
 block content
-  h3 Lista de personal
-  table(border = 1)
-    thead
-      tr
-        th Nombre
-        th Apellido
-        th Rol
-        th Acciones
-    tbody
-      each usuario in usuariosActivos
-        tr
+  .card.shadow-sm.mb-5.border-primary
+    .card-header.bg-white.py-3
+      h5.mb-0 Lista de personal disponible
 
-          td= usuario.nombre
-          td= usuario.apellido
-          td= ROLES[usuario.rol.toUpperCase()] ? ROLES[usuario.rol.toUpperCase()].label : usuario.rol
-          td
-            form(action=`/obras/asignar-personal/${obra.id}`, method="POST")
-              input(type="hidden" name="idUsuario", value=usuario.id)
-              button(type="submit") Asignar a la obra
+    .card-body.p-0
+      .table-responsive
+        table.table.table-hover.align-middle.mb-0
+          thead.table-light
+            tr
+              th.px-4 Nombre
+              th Apellido
+              th Rol
+              th.text-center Acciones
+
+          tbody
+            each usuario in usuariosActivos
+              tr
+                td.px-4.fw-bold= usuario.nombre
+                td= usuario.apellido
+                td
+                  span.badge.bg-secondary= ROLES[usuario.rol.toUpperCase()] ? ROLES[usuario.rol.toUpperCase()].label : usuario.rol
+                td.text-center
+                  form(action=`/obras/asignar-personal/${obra.id}`, method="POST" style="display:inline")
+                    input(type="hidden" name="idUsuario", value=usuario.id)
+                    button.btn.btn-sm.btn-outline-success(type="submit")
+                      i.bi.bi-person-plus.me-1
+                      | Asignar a la obra
+            else
+              tr
+                td(colspan="4").text-center.py-4.text-muted
+                  i.bi.bi-info-circle.me-2
+                  | No hay subcontratistas activos disponibles para asignar en este momento.
+
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-outline-secondary(href=`/obras/detalle-obra/${obra.id}`)
+      i.bi.bi-arrow-left.me-2
+      | Volver al detalle

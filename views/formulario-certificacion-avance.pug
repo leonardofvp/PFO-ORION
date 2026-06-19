@@ -1,48 +1,45 @@
 extends layout
 
 block titulo_seccion
-  h2= editable ? "Editar certificación" : "Nueva certificación"
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2= editable ? "Editar Certificación" : "Registrar Nueva Certificación"
 
 block content
+  .card.border-info.shadow-sm.mb-5
+    .card-body.p-4
+      form(method="POST", action= editable ? `/certificacion-avance/editar-certificacion/${certificacionAvance.id}?_method=PUT` : `/certificacion-avance/nuevo-certificado`)
 
-  form(method="POST", action= editable ? `/certificacion-avance/editar-certificacion/${certificacionAvance.id}?_method=PUT` : `/certificacion-avance/nuevo-certivicado`)
+        .row.mb-3
+          .col-md-6
+            label.form-label.fw-bold(for="obraId") Obra
+            select#obraId.form-select(name="obraId", required)
+              option(value="", disabled, selected=!certificacionAvance.obraId) Seleccione Obra...
+              each obra in obras
+                option(value=obra.id, selected=(certificacionAvance.obraId == obra.id))= obra.nombre
 
-    label Obra:
-    select(name="obraId" required)
-        option(value="" disabled selected= !certificacionAvance.obraId) Seleccione Obra...
-        each obra in obras
-            option(value=obra.id selected= certificacionAvance.obraId == obra.id)= obra.nombre
+          .col-md-6
+            label.form-label.fw-bold(for="subcontratistaId") Subcontratista
+            select#subcontratistaId.form-select(name="subcontratistaId", required)
+              option(value="", disabled, selected=!certificacionAvance.subcontratistaId) Seleccione Subcontratista...
+              each sub in subcontratistas
+                option(value=sub.id, selected=(certificacionAvance.subcontratistaId == sub.id))= sub.nombre
 
-    br
-    br
+        .row.mb-4
+          .col-md-8
+            label.form-label.fw-bold(for="tareaRealizada") Tarea realizada
+            input#tareaRealizada.form-control(type="text", name="tareaRealizada", value=(certificacionAvance.tareaRealizada || ""), required)
 
-    label Subcontratista:
-    select(name="subcontratistaId" required)
-        option(value="" disabled selected= !certificacionAvance.subcontratistaId) Seleccione Subcontratista...
-        each sub in subcontratistas
-            option(value=sub.id selected= certificacionAvance.subcontratistaId == sub.id)= sub.nombre
+          .col-md-4
+            label.form-label.fw-bold(for="porcentajeAvance") % de Avance
+            .input-group
+              input#porcentajeAvance.form-control(type="number", name="porcentajeAvance", value=(certificacionAvance.porcentajeAvance || ""), min="1", max="100", required)
+              span.input-group-text %
 
-    br
-    br
+        .d-flex.justify-content-end.gap-2
+          if editable
+            a.btn.btn-outline-secondary(href=`/certificacions-avance/detalle-certificacion/${certificacionAvance.id}`) Cancelar
+          else
+            a.btn.btn-outline-secondary(href="/certificacions-avance") Volver al listado
 
-    label Tarea realizada:
-    input(type="text", name="tareaRealizada", value= certificacionAvance.tareaRealizada || "", required)
-
-    br
-    br
-
-    label % de Avance:
-    input(type="number", name="porcentajeAvance", value= certificacionAvance.porcentajeAvance || "", min="1", max="100", required)
-
-    br
-    br
-
-    button(type="submit")= editable ? "Guardar cambios" : "Registrar avance"
-
-    br
-    br
-
-    if editable
-        a(href=`/certificacions-avance/detalle-certificacion/${certificacionAvance.id}`) Cancelar
-    else
-        a(href="/certificacions-avance") Volver al listado
+          button.btn.btn-info.text-white(type="submit")
+            | #{editable ? "Guardar cambios" : "Registrar avance"}

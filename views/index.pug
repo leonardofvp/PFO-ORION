@@ -1,18 +1,80 @@
 extends layout
 
 block titulo_seccion
-  h2 Empresa de constucciones
+  h2.text-center.mt-4 Panel Principal
 
 block content
+  .row.justify-content-center.mt-4
+    .col-12.col-md-10.col-lg-8
 
-  if usuarioLogueado
-    if usuario.rol === 'admin'
-      p Bienvenido/a Administrador
-    else
-      p Bienvenido/a #{usuario.nombre} #{usuario.apellido}
+      if usuarioLogueado
+        .alert.alert-info.text-center.shadow-sm.mb-4
+          if usuario.rol === 'admin'
+            h4.alert-heading ¡Bienvenido/a, Administrador!
+          else
+            h4.alert-heading ¡Bienvenido/a, #{usuario.nombre} #{usuario.apellido}!
+          p.mb-0 Sistema de gestión - Cimientos Sólidos S.A.
 
-    form(action="/login/logout" method="POST")
-      button(type="submit") Cerrar sesión
+        h4.mb-3 Accesos Rápidos
 
-  else
-    p Debe iniciar sesión
+        .row.g-3.mb-4
+
+          //- Tarjeta: Obras
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/obras")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-building.fs-1.text-primary
+                  h5.card-title.mt-2.text-dark Obras
+
+          //- Tarjeta: Usuarios
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/usuarios")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-people.fs-1.text-success
+                  h5.card-title.mt-2.text-dark Usuarios
+
+          //- Tarjeta: Subcontratistas
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/subcontratistas")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-person-vcard.fs-1.text-warning
+                  h5.card-title.mt-2.text-dark Subcontratistas
+
+          //- Tarjeta: Gastos
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/gastos")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-wallet2.fs-1.text-danger
+                  h5.card-title.mt-2.text-dark Gastos
+
+          //- Tarjeta: Certificaciones
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/certificaciones-avance")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-file-earmark-check.fs-1.text-info
+                  h5.card-title.mt-2.text-dark Certificaciones
+
+          //- Tarjeta: Pedidos
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/pedidos")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-box-seam.fs-1.text-secondary
+                  h5.card-title.mt-2.text-dark Pedidos
+
+        .d-flex.justify-content-end.gap-2
+          a.btn.btn-outline-secondary(href=`/usuarios/detalle-usuario/${usuario.id}`) Editar Perfil
+
+          form(action="/login/logout" method="POST")
+            button.btn.btn-outline-danger(type="submit") Cerrar sesión
+
+      else
+        .card.shadow-sm
+          .card-body.p-4.text-center
+            p.lead Debe iniciar sesión para continuar.
+            a.btn.btn-primary.btn-lg(href="/login") Iniciar sesión

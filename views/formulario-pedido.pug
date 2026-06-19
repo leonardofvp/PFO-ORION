@@ -1,69 +1,60 @@
 extends layout
 
 block titulo_seccion
-  h2= editable ? "Editar Pedido" : "Nuevo Pedido"
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2= editable ? "Editar Pedido" : "Registrar Nuevo Pedido"
 
 block content
-  form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
+  .card.border-primary.shadow-sm.mb-5
+    .card-body.p-4
+      form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
 
-    label Nombre de obra:
-    if !editable
-        select(name="idObra")
-            each obra in obras
-                option(value=obra.id selected= obra.id === obra.id) #{obra.nombre}
-    else
-        input(type="text", name="nombreObra", value= pedido.idObra.nombre readonly)
+        .row.mb-3
+          .col-md-6
+            label.form-label.fw-bold(for="idObra") Obra
+            if !editable
+              select#idObra.form-select(name="idObra", required)
+                option(value="", disabled, selected) Seleccione una obra...
+                each obra in obras
+                  option(value=obra.id) #{obra.nombre}
+            else
+              input.form-control(type="text", value=pedido.idObra.nombre, readonly)
+              input(type="hidden", name="idObra", value=pedido.idObra.id)
 
-    br
-    br
+          .col-md-6
+            label.form-label.fw-bold(for="tipo") Tipo
+            select#tipo.form-select(name="tipo", required)
+              option(value="material", selected=(pedido && pedido.tipo === "material")) Material
+              option(value="servicio", selected=(pedido && pedido.tipo === "servicio")) Servicio
 
-    label Estado:
-    select(name="tipo")
-        option(value="material" selected= pedido.estado === "material") Material
-        option(value="servicio" selected= pedido.estado === "servicio") Servicio
+        .mb-3
+          label.form-label.fw-bold(for="descripcion") Descripción
+          input#descripcion.form-control(type="text", name="descripcion", value=(pedido ? pedido.descripcion : ""), placeholder="Ej: Arena, Electricista", required)
 
-    br
-    br
+        .row.mb-3
+          .col-md-4
+            label.form-label.fw-bold(for="cantidad") Cantidad
+            input#cantidad.form-control(type="number", name="cantidad", value=(pedido ? pedido.cantidad : ""), required)
+          .col-md-4
+            label.form-label.fw-bold(for="unidad") Unidad
+            input#unidad.form-control(type="text", name="unidad", value=(pedido ? pedido.unidad : ""), placeholder="Ej: m3, unidades", required)
+          .col-md-4
+            label.form-label.fw-bold(for="estado") Estado
+            select#estado.form-select(name="estado", required)
+              option(value="pendiente", selected=(pedido && pedido.estado === "pendiente")) Pendiente
+              option(value="aprobado", selected=(pedido && pedido.estado === "aprobado")) Aprobado
+              option(value="entregado", selected=(pedido && pedido.estado === "entregado")) Entregado
 
-    label Descripción:
-    input(type="text", name="descripcion", value= pedido.descripcion || "", placeholder="Ej: Arena o Electricista", required)
+        .mb-4
+          label.form-label.fw-bold(for="observaciones") Observaciones
+          textarea#observaciones.form-control(name="observaciones", rows="3")= pedido ? pedido.observaciones : ""
 
-    br
-    br
+        //- Acciones
+        .d-flex.justify-content-end.gap-2
+          if editable
+            a.btn.btn-outline-secondary(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
+          else
+            a.btn.btn-outline-secondary(href="/pedidos") Volver al listado
 
-    label Cantidad:
-    input(type="number", name="cantidad", value= pedido.cantidad || "", required)
-
-    br
-    br
-
-    label Unidad:
-    input(type="text", name="unidad", value= pedido.unidad || "", placeholder="Ej: m3, unidades, jornadas", required)
-
-    br
-    br
-
-    label Estado:
-    select(name="estado")
-        option(value="pendiente" selected= pedido.estado === "pendiente") Pendiente
-        option(value="aprobado" selected= pedido.estado === "aprobado") Aprobado
-        option(value="entregado" selected= pedido.estado === "entregado") Entregado
-
-    br
-    br
-
-    label Observaciones:
-    textarea(name="observaciones")= pedido.observaciones || ""
-
-    br
-    br
-
-    button(type="submit")= editable ? "Guardar cambios" : "Crear pedido"
-
-    br
-    br
-
-    if editable
-        a(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
-    else
-        a(href="/pedidos") Volver al listado
+          button.btn(type="submit", class=editable ? "btn-warning" : "btn-primary")
+            | #{editable ? "Guardar cambios" : "Crear pedido"}

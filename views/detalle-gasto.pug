@@ -1,22 +1,47 @@
 extends layout
 
 block titulo_seccion
-  h2 Detalle de gasto
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+
+    .d-flex.align-items-center
+      a.btn.btn-outline-secondary.me-3(href="/gastos")
+        i.bi.bi-arrow-left
+      h2.mb-0 Detalle del Gasto
+
+    .d-flex.gap-2
+      a.btn.btn-warning(href=`/gastos/editar-gasto/${gasto.id}`)
+        i.bi.bi-pencil-square.me-1
+        | Editar
+
+      form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST" style="margin: 0;")
+        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este gasto?');")
+          i.bi.bi-trash.me-1
+          | Eliminar
 
 block content
-  div
-    ul
-      li Nombre de obra: #{gasto.idObra.nombre}
-      li Descripción: #{gasto.descripcion}
-      li Monto: #{gasto.monto}
-      li Estado: #{gasto.estado}
-      li Fecha: #{new Date(gasto.fecha).toLocaleDateString('es-AR')}
-    button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${gasto.id}'`) Editar
-    | &nbsp;|&nbsp;
-    form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST" style="display:inline")
-      button(type="submit") Eliminar
+  .card.border-danger.shadow-sm.mb-5
+    .card-body.p-4
 
-    br
-    br
+      .row.mb-4
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Obra
+          span.fs-5 #{gasto.idObra ? gasto.idObra.nombre : 'Obra no encontrada'}
 
-    a(href="/gastos") Volver atras
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Monto
+          span.fs-5.fw-bold $ #{gasto.monto.toLocaleString('es-AR')}
+
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Fecha
+          span.fs-5 #{new Date(gasto.fecha).toLocaleDateString('es-AR')}
+
+      hr.text-danger.opacity-25.my-4
+
+      .row
+        .col-md-6
+          span.text-muted.d-block.fw-bold.mb-1 Descripción
+          span.fs-5 #{gasto.descripcion}
+
+        .col-md-6
+          span.text-muted.d-block.fw-bold.mb-1 Estado
+          span.badge.bg-danger.mt-1 #{gasto.estado}

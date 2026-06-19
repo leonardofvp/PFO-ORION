@@ -1,57 +1,48 @@
 extends layout
 
 block titulo_seccion
-  h2= editable ? "Editar gasto" : "Nuevo gasto"
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2= editable ? "Editar Gasto" : "Registrar Nuevo Gasto"
 
 block content
+  .card.border-danger.shadow-sm.mb-5
+    .card-body.p-4
+      form(method="POST", action= editable ? `/gastos/editar-gasto/${gasto.id}?_method=PUT` : `/gastos/nuevo-gasto`)
 
-  form(method="POST", action= editable ? `/gastos/editar-gasto/${gasto.id}?_method=PUT` : `/gastos/nuevo-gasto`)
+        .row.mb-3
+          .col-md-6
+            label.form-label.fw-bold(for="idObra") Obra
+            select#idObra.form-select(name="idObra", required)
+              option(value="", disabled, selected=!gasto.idObra) Seleccione una obra...
+              each obra in obras
+                option(value=obra.id, selected=(gasto.idObra && gasto.idObra.id == obra.id))= obra.nombre
 
-    label ID :
-    input(type="number", name="id" value= gasto.id || "", readonly=editable, required)
+          .col-md-6
+            label.form-label.fw-bold(for="monto") Monto ($)
+            input#monto.form-control(type="number", step="0.01", name="monto", value=(gasto.monto || ""), required)
 
-    br
-    br
+        .mb-3
+          label.form-label.fw-bold(for="descripcion") Descripción
+          input#descripcion.form-control(type="text", name="descripcion", value=(gasto.descripcion || ""), required)
 
-    label ID Obra:
-    input(type="number", name="idObra", value= gasto.idObra || "", readonly=editable, required)
+        .row.mb-4
+          .col-md-6
+            label.form-label.fw-bold(for="estado") Estado
+            select#estado.form-select(name="estado", required)
+              option(value="pendiente", selected=(gasto.estado === "pendiente")) Pendiente
+              option(value="pagado", selected=(gasto.estado === "pagado")) Pagado
+              option(value="rechazado", selected=(gasto.estado === "rechazado")) Rechazado
 
-    br
-    br
+          .col-md-6
+            label.form-label.fw-bold(for="fecha") Fecha
+            input#fecha.form-control(type="date", name="fecha", value=(gasto.fecha ? new Date(gasto.fecha).toISOString().split('T')[0] : ""), required)
 
-    label Descripcion:
-    input(type="text", name="descripcion", value= gasto.descripcion || "", required)
+        .d-flex.justify-content-end.gap-2
+          if editable
+            a.btn.btn-outline-secondary(href=`/gastos/detalle-gasto/${gasto.id}`) Cancelar
+          else
+            a.btn.btn-outline-secondary(href="/gastos") Volver al listado
 
-    br
-    br
-
-    label Monto:
-    input(type="number", name="monto", value= gasto.monto || "", required)
-
-    br
-    br
-
-    label Estado:
-    select(name="estado")
-        option(value="pendiente" selected= !gasto.estado || gasto.estado === "pendiente") pendiente
-        option(value="pagado" selected= gasto.estado === "pagado") pagado
-        option(value="rechazado" selected= gasto.estado === "rechazado") rechazado
-
-    br
-    br
-
-    label Fecha:
-    input(type="date", name="fecha", value= gasto.fecha || "", required)
-
-    br
-    br
-
-    button(type="submit")= editable ? "Guardar cambios" : "Crear gasto"
-
-    br
-    br
-
-    if editable
-        a(href=`/gastos/detalle-gasto/${gasto.id}`) Cancelar
-    else
-        a(href="/gastos") Volver al listado
+          button.btn.btn-danger(type="submit")
+            i.bi(class=editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")
+            | #{editable ? "Guardar cambios" : "Crear gasto"}

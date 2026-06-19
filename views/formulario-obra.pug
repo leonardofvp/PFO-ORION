@@ -1,48 +1,48 @@
 extends layout
 
 block titulo_seccion
-  h2= editable ? "Editar obra" : "Nueva obra"
+  .row.justify-content-center
+    .col-12.col-lg-8
+      h2.mt-4.mb-4= editable ? "Editar Obra: " + obra.nombre : "Registrar Nueva Obra"
 
 block content
+  .row.justify-content-center
+    .col-12.col-lg-8
+      .card.shadow-sm.mb-5
+        .card-body.p-4
 
-  form(method="POST", action= editable ? `/obras/editar-obra/${obra.id}?_method=PUT` : `/obras/nueva-obra`)
+          form(method="POST", action= editable ? `/obras/editar-obra/${obra.id}?_method=PUT` : `/obras/nueva-obra`)
 
-    br
-    br
+            .mb-3
+              label.form-label.fw-bold(for="nombre") Nombre de la obra
+              input#nombre.form-control(type="text", name="nombre", value= obra.nombre || "", required)
 
-    label Nombre:
-    input(type="text", name="nombre", value= obra.nombre || "", required)
+            .mb-3
+              label.form-label.fw-bold(for="ubicacion") Ubicación
+              input#ubicacion.form-control(type="text", name="ubicacion", value= obra.ubicacion || "", required)
 
-    br
-    br
+            .row
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="presupuesto") Presupuesto inicial
+                .input-group
+                  span.input-group-text USD
+                  input#presupuesto.form-control(type="number", name="presupuesto", value= obra.presupuesto || "", required)
 
-    label Ubicacion:
-    input(type="text", name="ubicacion", value= obra.ubicacion || "", required)
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="estado") Estado
+                select#estado.form-select(name="estado")
+                  option(value="iniciando" selected= !obra.estado || obra.estado === "iniciando") Iniciando
+                  option(value="activa" selected= obra.estado === "activa") Activa
+                  option(value="finalizada" selected= obra.estado === "finalizada") Finalizada
 
-    br
-    br
+            hr.my-4
 
-    label Presupuesto inicial: USD
-    input(type="number", name="presupuesto", value= obra.presupuesto || "", required)
+            .d-flex.justify-content-end.gap-2
+              if editable
+                a.btn.btn-outline-secondary(href=`/obras/detalle-obra/${obra.id}`) Cancelar
+              else
+                a.btn.btn-outline-secondary(href="/obras") Cancelar
 
-    br
-    br
-
-    label Estado:
-    select(name="estado")
-        option(value="iniciando" selected= !obra.estado || obra.estado === "iniciando") iniciando
-        option(value="activa" selected= obra.estado === "activa") activa
-        option(value="finalizada" selected= obra.estado === "finalizada") finalizada
-
-    br
-    br
-
-    button(type="submit")= editable ? "Guardar cambios" : "Crear obra"
-
-    br
-    br
-
-    if editable
-        a(href=`/obras/detalle-obra/${obra.id}`) Cancelar
-    else
-        a(href="/obras") Volver al listado
+              button.btn(type="submit" class= editable ? "btn-warning" : "btn-primary")
+                i.bi(class= editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")
+                | #{editable ? "Guardar cambios" : "Crear obra"}

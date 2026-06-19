@@ -1,53 +1,55 @@
 extends layout
 
+block titulo_seccion
+  //- Restringimos el ancho del título para que coincida exactamente con la tarjeta
+  .row.justify-content-center
+    .col-12.col-lg-8
+      h2.mt-4.mb-4= editable ? "Editar Usuario: " + usuario.nombre : "Registrar Nuevo Usuario"
+
 block content
-    h2= editable ? "Editar usuario" : "Nuevo usuario"
+  .row.justify-content-center
+    .col-12.col-lg-8
+      .card.shadow-sm.mb-5
+        .card-body.p-4
 
-    form(method="POST", action= editable ? `/usuarios/editar-usuario/${usuario.id}?_method=PUT` : `/usuarios/nuevo-usuario`)
+          form(method="POST", action= editable ? `/usuarios/editar-usuario/${usuario.id}?_method=PUT` : `/usuarios/nuevo-usuario`)
 
-        label Nombre:
-        input(type="text", name="nombre", value= usuario.nombre || "", required)
+            .row
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="nombre") Nombre
+                input#nombre.form-control(type="text", name="nombre", value= usuario.nombre || "", required)
 
-        br
-        br
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="apellido") Apellido
+                input#apellido.form-control(type="text", name="apellido", value= usuario.apellido || "", required)
 
-        label Apellido:
-        input(type="text", name="apellido", value= usuario.apellido || "", required)
+            .mb-3
+              label.form-label.fw-bold(for="email") Email
+              input#email.form-control(type="email", name="email", value= usuario.email || "", readonly=editable, required)
 
-        br
-        br
+            .row
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="password") Password
+                if editable
+                  input#password.form-control(type="password", name="password", placeholder="Dejar en blanco para no cambiar")
+                else
+                  input#password.form-control(type="password", name="password", required)
 
-        label Email:
-        input(type="email", name="email", value= usuario.email || "", readonly=editable, required)
+              .col-md-6.mb-3
+                label.form-label.fw-bold(for="rol") Rol
+                select#rol.form-select(name="rol")
+                  each role in ROLES
+                    if role.id !== "admin"
+                      option(value=role.id selected=(usuario.rol === role.id))= role.label
 
-        br
-        br
+            hr.my-4
 
-        label Password:
-        if editable
-            input(type="password", name="password", placeholder="Dejar en blanco para no cambiar")
-        else
-            input(type="password", name="password", required)
+            .d-flex.justify-content-end.gap-2
+              if editable
+                a.btn.btn-outline-secondary(href=`/usuarios/detalle-usuario/${usuario.id}`) Cancelar
+              else
+                a.btn.btn-outline-secondary(href="/") Volver al inicio
 
-
-        br
-        br
-
-        label Rol:
-        select(name="rol")
-            each role in ROLES
-                if role.id !== "admin"
-                    option(value=role.id selected=(usuario.rol === role.id))= role.label
-
-        br
-        br
-
-        button(type="submit")= editable ? "Guardar cambios" : "Crear usuario"
-
-        br
-        br
-
-        if editable
-            a(href=`/usuarios/detalle-usuario/${usuario.id}`) Cancelar
-        else
-            a(href="/") Volver al inicio
+              button.btn(type="submit" class= editable ? "btn-warning" : "btn-primary")
+                i.bi(class= editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")
+                | #{editable ? "Guardar cambios" : "Crear usuario"}

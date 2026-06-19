@@ -1,28 +1,46 @@
-extend layout
+extends layout
 
 block titulo_seccion
-  h2 Gestión de certificaciones de avance
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2 Gestión de Certificaciones de Avance
 
-block  content
+    a.btn.btn-primary(href="/certificaciones-avance/nueva-certificacion")
+      i.bi.bi-plus-lg.me-2
+      | Agregar nueva certificación
 
-  div
-    a(href="/certificaciones-avance/nueva-certificacion") Agregar nueva certificación de avance
+block content
+  //- Borde INFO (Celeste) para este módulo
+  .card.border-info.shadow-sm.mb-5.overflow-hidden
 
-  h3 Lista de certificaciones
-  table(border = 1)
-    thead
-      tr
-        th Nombre de obra
-        th Subcontratista
-        th Porcentaje de avance
-        th Estado de finanzas
-        th Acciones
-    tbody
-      each certificacionAvance in certificacionesAvanceActivas
-        tr
-          td= certificadosAvance.idObra.nombre
-          td= certificadosAvance.idSubcontratista.nombre
-          td= certificadosAvance.porcentajeAvance
-          td= certificadosAvance.estadoFinanzas
-          td
-            a(href=`/certificados-avance/detalle-certificacion/${certificacionAvance.id}`) Ver detalle
+    .card-header.bg-white.py-3
+      h5.mb-0 Lista de Certificaciones
+
+    .card-body.p-0
+      .table-responsive
+        table.table.table-hover.align-middle.mb-0
+          thead.table-light
+            tr
+              th.px-4 Nombre de obra
+              th Subcontratista
+              th Porcentaje
+              th Estado Finanzas
+              th.text-center Acciones
+
+          tbody
+            each item in certificacionesAvanceActivas
+              tr
+                td.px-4.fw-bold= item.idObra ? item.idObra.nombre : 'N/A'
+                td= item.idSubcontratista ? item.idSubcontratista.nombre : 'N/A'
+                td
+                  span.badge.bg-info.text-dark= `${item.porcentajeAvance}%`
+                td= item.estadoFinanzas
+                td.text-center
+                  a.btn.btn-sm.btn-outline-primary(href=`/certificaciones-avance/detalle-certificacion/${item.id}`)
+                    i.bi.bi-eye.me-1
+                    | Ver detalle
+
+            else
+              tr
+                td(colspan="5").text-center.py-4.text-muted
+                  i.bi.bi-info-circle.me-2
+                  | No hay certificaciones registradas en el sistema.

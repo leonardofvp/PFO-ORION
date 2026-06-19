@@ -21,12 +21,14 @@ router.get("/nuevo-usuario", formularioCrearUsuario);
 router.post("/nuevo-usuario", crearUsuario);
 
 router.use(protegerRuta);
-router.use(verificarRol([ROLES.ADMIN.id]));
 
-router.get("/", obtenerUsuarios);
 router.get("/detalle-usuario/:id", obtenerUsuarioPorId);
 router.get("/editar-usuario/:id", formularioEditarUsuario);
 router.put("/editar-usuario/:id", editarUsuario);
+
+router.use(verificarRol([ROLES.ADMIN.id]));
+
+router.get("/", obtenerUsuarios);
 router.delete("/eliminar-usuario/:id", eliminarUsuario);
 
 export default router;

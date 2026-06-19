@@ -1,22 +1,51 @@
 extends layout
 
+block titulo_seccion
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    .d-flex.align-items-center
+      a.btn.btn-outline-secondary.me-3(href="/gastos")
+        i.bi.bi-arrow-left
+      h2.mb-0 Detalle de Certificación
+
+    .d-flex.gap-2
+      a.btn.btn-warning(href=`/gastos/editar-gasto/${certificacionAvance.id}`)
+        i.bi.bi-pencil-square.me-1
+        | Editar
+
+      form(action=`/gastos/eliminar-gasto/${certificacionAvance.id}?_method=DELETE`, method="POST" style="margin: 0;")
+        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta certificación?');")
+          i.bi.bi-trash.me-1
+          | Eliminar
+
 block content
-    div
-        h2 Detalle de ertificación de avance
-        ul
-            li Nombre de obra: #{certificacionAvance.idObra.nombre}
-            li Subcontratista: #{certificacionAvance.idSubcontratista.descripcion}
-            li Tarea realizada: #{certificacionAvance.tareaRealizada}
-            li PorcenjaeAvance: #{certificacionAvance.porcentajeAvance}
-            li Director de obra: #{certificacionAvance.idDirectorObra.nombre}
-            li Estado de finanza: #{certificacionAvance.estadoFinanzas}
-            li Fecha de certificación: #{certificacionAvance.fechaCertificacion}
-        button(type="button" onclick=`window.location.href='/gastos/editar-gasto/${certificacionAvance.id}'`) Editar
-        | &nbsp;|&nbsp;
-        form(action=`/gastos/eliminar-gasto/${certificacionAvance.id}?_method=DELETE`, method="POST", style="display:inline")
-            button(type="submit") Eliminar
+  .card.border-info.shadow-sm.mb-5
+    .card-body.p-4
 
-        br
-        br
+      .row.mb-4
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Obra
+          span #{certificacionAvance.idObra.nombre}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Subcontratista
+          span #{certificacionAvance.idSubcontratista.descripcion}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Director de Obra
+          span #{certificacionAvance.idDirectorObra.nombre}
 
-        a(href="/gastos") Volver atras
+      hr.text-info.opacity-25.my-4
+
+      .row.mb-4
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Tarea Realizada
+          span #{certificacionAvance.tareaRealizada}
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Porcentaje de Avance
+          span.badge.bg-info #{certificacionAvance.porcentajeAvance}%
+        .col-md-4
+          span.text-muted.d-block.fw-bold.mb-1 Fecha
+          span #{new Date(certificacionAvance.fechaCertificacion).toLocaleDateString('es-AR')}
+
+      .row
+        .col-12
+          span.text-muted.d-block.fw-bold.mb-1 Estado de Finanzas
+          span.fs-5 #{certificacionAvance.estadoFinanzas}

@@ -1,23 +1,43 @@
 extends layout
 
-block content
-  h2 Asignar subcontratistas a la obra: : #{obra.nombre}
+block titulo_seccion
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2 Asignar subcontratista a: #{obra.nombre}
 
-  h3 Lista de subcontratistas
-  table(border=1)
-    thead
-      tr
-        th Nombre o Razón Social
-        th CUIT
-        th Especialidad
-        th Acciones
-    tbody
-      each subcontratista in subcontratistasActivos
-        tr
-          td= subcontratista.nombre
-          td= subcontratista.cuit
-          td= subcontratista.especialidad
-          td
-            form(action=`/obras/asignar-subcontratista/${obra.id}`, method="POST")
-              input(type="hidden" name="idSubcontratista", value=subcontratista.id)
-              button(type="submit") Asignar a la obra
+    a.btn.btn-outline-secondary(href=`/obras/detalle-obra/${obra.id}`)
+      i.bi.bi-arrow-left.me-2
+      | Volver al detalle
+
+block content
+  .card.shadow-sm.mb-5.border-primary
+    .card-header.bg-white.py-3
+      h5.mb-0 Lista de subcontratistas disponibles
+
+    .card-body.p-0
+      .table-responsive
+        table.table.table-hover.align-middle.mb-0
+          thead.table-light
+            tr
+              th.px-4 Nombre o Razón Social
+              th CUIT
+              th Especialidad
+              th.text-center Acciones
+
+          tbody
+            each subcontratista in subcontratistasActivos
+              tr
+                td.px-4.fw-bold= subcontratista.nombre
+                td= subcontratista.cuit
+                td
+                  span.badge.bg-info.text-dark= subcontratista.especialidad
+                td.text-center
+                  form(action=`/obras/asignar-subcontratista/${obra.id}`, method="POST" style="display:inline")
+                    input(type="hidden" name="idSubcontratista", value=subcontratista.id)
+                    button.btn.btn-sm.btn-outline-success(type="submit")
+                      i.bi.bi-plus-circle.me-1
+                      | Asignar a la obra
+            else
+              tr
+                td(colspan="4").text-center.py-4.text-muted
+                  i.bi.bi-info-circle.me-2
+                  | No hay subcontratistas activos disponibles para asignar en este momento.

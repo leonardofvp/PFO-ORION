@@ -11,6 +11,7 @@ const obtenerUsuariosJson = (req, res) => {
 };
 
 const obtenerUsuarios = async (req, res) => {
+  res.locals.vista = "usuarios"
   try {
     const usuariosActivos = await Usuario.find({
       estado: { $ne: "eliminado" },
@@ -21,8 +22,8 @@ const obtenerUsuarios = async (req, res) => {
       usuarioSesion: req.usuario,
     });
   } catch (error) {
-    res.status(500).send("Error al cargar la vista");
-    console.error(error);
+      res.status(500).send("Error al cargar la vista");
+      console.error(error);
   }
 };
 
@@ -34,7 +35,9 @@ const obtenerUsuarioPorId = async (req, res) => {
       return res.status(404).send("Usuario no encontrada");
     }
 
-    res.status(200).render("detalle-usuario", { usuarioSesion: req.usuario, usuario });
+    res
+      .status(200)
+      .render("detalle-usuario", { usuarioSesion: req.usuario, usuario });
   } catch (error) {
     res.status(500).send("Error al buscar usuario");
   }
@@ -68,12 +71,13 @@ const formularioEditarUsuario = async (req, res) => {
     const usuario = await Usuario.findById(req.params.id);
 
     if (!usuario || usuario.estado === "eliminado") {
-      return res.status(404).send("Usuario no encontrada");
+      return res.status(404).send("Usuario no encontrado");
     }
 
     res.render("formulario-usuario", {
       editable: true,
       usuario: usuario,
+      usuarioSesion: req.usuario,
     });
   } catch (error) {
     res.status(500).send("Error al buscar usuario");

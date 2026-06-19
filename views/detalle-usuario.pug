@@ -1,27 +1,39 @@
 extends layout
 
 block titulo_seccion
-  h2 Detalle de usuario
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2.mb-0 Detalle del Usuario
+
+    if usuarioSesion
+      .d-flex.gap-2
+        if (usuarioSesion.rol === 'admin' && usuarioSesion.id.toString() !== usuario.id.toString()) || (usuarioSesion.rol !== 'admin' && usuarioSesion.id.toString() === usuario.id.toString())
+          a.btn.btn-warning(href=`/usuarios/editar-usuario/${usuario.id}`)
+            i.bi.bi-pencil-square.me-1
+            | Editar
+
+        if usuarioSesion.rol === 'admin' && usuarioSesion.id.toString() !== usuario.id.toString()
+          form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST" style="margin: 0;")
+            button.btn.btn-danger(type="submit")
+              i.bi.bi-trash.me-1
+              | Eliminar
 
 block content
-  div
-    ul
-      li Nombre: #{usuario.nombre}
-      li Apellido #{usuario.apellido}
-      li Email #{usuario.email}
-      li Rol: #{ROLES[usuario.rol.toUpperCase()].label}
-      li Estado: #{usuario.estado}
-      br
-      if usuarioSesion && usuarioSesion.rol === 'admin'
-        if usuarioSesion.id != usuario.id
-          button(type="button" onclick=`window.location.href='/usuarios/editar-usuario/${usuario.id}'`) Editar
-          | &nbsp;|&nbsp;
-          form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST" style="display:inline")
-            button(type="submit") Eliminar
-        else
-          p El administrador no se puede editar ni eliminar
+  .card.shadow-sm.mb-4.border-primary
+    .card-body.p-4
+      .row.mb-3
+        .col-md-4.mb-3.mb-md-0
+          span.text-muted.d-block.fw-bold Nombre
+          span.fs-5 #{usuario.nombre}
+        .col-md-4.mb-3.mb-md-0
+          span.text-muted.d-block.fw-bold Apellido
+          span.fs-5 #{usuario.apellido}
+        .col-md-4
+          span.text-muted.d-block.fw-bold Email
+          span.fs-5 #{usuario.email}
 
-    br
-    br
+      hr.my-4
 
-    a(href="/") Volver al inicio
+      .row
+        .col-md-6.mb-3.mb-md-0
+          span.text-muted.d-block.fw-bold Rol en el sistema
+          span.badge.bg-secondary.fs-6.mt-1 #{ROLES[usuario.rol.toUpperCase()].label}

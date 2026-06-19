@@ -1,26 +1,39 @@
 extends layout
 
-block titulo_seccion
-  h2 Login
+block alertas
 
 block content
-  form(action="/login", method="POST")
+  form.mx-auto.p-4.border.rounded.shadow-sm.bg-light.mt-5(action="/login" method="POST" style="max-width: 400px;")
 
-    label Email
-    input(type="email", name="email", required)
+    h3.text-center.mb-4 Iniciar Sesión
+
+    if error
+      div.alert.alert-danger.p-2.text-center(role="alert")= error
+
+    label.form-label.fw-bold Email
+    div.input-group.mb-3
+      input.form-control(type="email" name="email", required)
+
+    label.form-label.fw-bold Password
+    div.input-group.mb-4
+      input#password.form-control(type="password" name="password", required)
+      button#togglePassword.btn.btn-outline-secondary(type="button")
+        i.bi.bi-eye
+
+    button.btn.btn-primary.w-100(type="submit") Iniciar sesión
 
     br
     br
 
-    label Pssword
-    input(type="password", name="password", required)
+    a.d-block.text-center.text-decoration-none(href="/usuarios/nuevo-usuario") Registrarse
 
-    br
-    br
+  script.
+    const togglePassword = document.querySelector('#togglePassword');
+    const password = document.querySelector('#password');
 
-    button(type="submit") Iniciar sesión
-
-    br
-    br
-
-    a(href="/usuarios/nuevo-usuario") Registrarse
+    togglePassword.addEventListener('click', function () {
+      const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+      password.setAttribute('type', type);
+      this.querySelector('i').classList.toggle('bi-eye');
+      this.querySelector('i').classList.toggle('bi-eye-slash');
+    });

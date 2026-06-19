@@ -1,34 +1,44 @@
 extends layout
 
 block titulo_seccion
-  h2 Detalle de: #{obra.nombre}
-
-block content
-  div
-    ul
-      li Ubicación: #{obra.ubicacion}
-      li Presupuesto inicial: USD #{obra.presupuesto}
-      li Estado: #{obra.estado}
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2 Detalle de Obra: #{obra.nombre}
 
     div
-      button(type="button" onclick=`window.location.href='/obras/editar-obra/${obra.id}'`) Editar
-      | &nbsp;
+      a.btn.btn-warning.me-2(href=`/obras/editar-obra/${obra.id}`)
+        i.bi.bi-pencil-square.me-1
+        | Editar
       form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST" style="display:inline")
-        button(type="submit") Eliminar
+        button.btn.btn-danger(type="submit")
+          i.bi.bi-trash.me-1
+          | Eliminar
 
-    br
-    hr
+block content
 
-    h2 Personal asignado
+  .card.shadow-sm.mb-5.border-primary
+    .card-body
+      .row.text-center
+        .col-md-4.mb-3.mb-md-0
+          span.text-muted.d-block.fw-bold Ubicación
+          span.fs-5 #{obra.ubicacion}
+        .col-md-4.mb-3.mb-md-0
+          span.text-muted.d-block.fw-bold Presupuesto Inicial
+          span.fs-5 USD #{obra.presupuesto}
+        .col-md-4
+          span.text-muted.d-block.fw-bold Estado
+          span.badge.bg-primary.fs-6.mt-1 #{obra.estado}
 
-    a(href=`/obras/asignar-personal/${obra.id}`) Asignar personal
+  //- SECCIÓN: Personal Asignado
+  .d-flex.justify-content-between.align-items-end.mb-3
+    h3.mb-0 Personal asignado
+    a.btn.btn-sm.btn-success(href=`/obras/asignar-personal/${obra.id}`)
+      i.bi.bi-person-plus.me-1
+      | Asignar personal
 
-    br
-    br
-
-    if obra.personalAsignado && obra.personalAsignado.length > 0
-      table(border = 1)
-        thead
+  if obra.personalAsignado && obra.personalAsignado.length > 0
+    .table-responsive.mb-5
+      table.table.table-hover.table-bordered.align-middle
+        thead.table-light
           tr
             th Nombre
             th Apellido
@@ -40,23 +50,24 @@ block content
               td= usuario.nombre
               td= usuario.apellido
               td= usuario.email
-              td= ROLES[usuario.rol.toUpperCase()].label
-    else
-      p No hay personal asignado a esta obra actualmente.
+              td
+                span.badge.bg-secondary= ROLES[usuario.rol.toUpperCase()].label
+  else
+    .alert.alert-light.border.text-muted.text-center.mb-5
+      i.bi.bi-info-circle.me-2
+      | No hay personal asignado a esta obra actualmente.
 
-    br
-    hr
+  //- SECCIÓN: Subcontratistas Asignados
+  .d-flex.justify-content-between.align-items-end.mb-3
+    h3.mb-0 Subcontratistas asignados
+    a.btn.btn-sm.btn-success(href=`/obras/asignar-subcontratista/${obra.id}`)
+      i.bi.bi-plus-circle.me-1
+      | Asignar subcontratista
 
-    h2 Subcontratistas asignados
-
-    a(href=`/obras/asignar-subcontratista/${obra.id}`) Asignar subcontratista
-
-    br
-    br
-
-    if obra.subcontratistasAsignados && obra.subcontratistasAsignados.length > 0
-      table(border = 1)
-        thead
+  if obra.subcontratistasAsignados && obra.subcontratistasAsignados.length > 0
+    .table-responsive.mb-5
+      table.table.table-hover.table-bordered.align-middle
+        thead.table-light
           tr
             th Nombre o Razón Social
             th CUIT
@@ -66,15 +77,17 @@ block content
         tbody
           each subcontratista in obra.subcontratistasAsignados
             tr
-              td= subcontratista.nombre
+              td.fw-bold= subcontratista.nombre
               td= subcontratista.cuit
               td= subcontratista.especialidad
               td= subcontratista.telefono
               td= subcontratista.email
-    else
-      p No hay subcontratistas asignados a esta obra actualmente.
+  else
+    .alert.alert-light.border.text-muted.text-center.mb-5
+      i.bi.bi-info-circle.me-2
+      | No hay subcontratistas asignados a esta obra actualmente.
 
-    br
-    br
-
-    a(href="/obras") Volver a la lista de obras
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-outline-secondary.mb-5(href="/obras")
+      i.bi.bi-arrow-left.me-2
+      | Volver a la lista de obras

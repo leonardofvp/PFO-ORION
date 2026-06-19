@@ -1,27 +1,46 @@
-extend layout
+extends layout
 
 block titulo_seccion
-  h2 Gestión de obras
+  .d-flex.justify-content-between.align-items-center.mt-4.mb-4
+    h2 Gestión de Obras
 
-block  content
+    a.btn.btn-success(href="/obras/nueva-obra")
+      i.bi.bi-plus-lg.me-2
+      | Agregar nueva obra
 
-  div
-    a(href="/obras/nueva-obra") Agregar nueva obra
+block content
+  .card.border-primary.card.shadow-sm.mb-5.overflow-hidden
+    .card-header.bg-white.py-3
+      h5.mb-0 Lista de Obras Activas
 
-  h3 Lista de obras
-  table(border = 1)
-    thead
-      tr
-        th Nombre
-        th Ubicación
-        th Estado
-        th Acciones
-    tbody
-      each obra in obrasActivas
-        tr
-          td
-            strong= obra.nombre
-            td= obra.ubicacion
-            td= obra.estado
-          td
-            a(href=`/obras/detalle-obra/${obra.id}`) Ver detalle
+    .card-body.p-0
+      .table-responsive
+        table.table.table-hover.align-middle.mb-0
+          thead.table-light
+            tr
+              th.px-4 Nombre
+              th Ubicación
+              th Estado
+              th.text-center Acciones
+
+          tbody
+            each obra in obrasActivas
+              tr
+                td.px-4.fw-bold= obra.nombre
+                td= obra.ubicacion
+                td
+                  span.badge.bg-primary= obra.estado
+                td.text-center
+                  a.btn.btn-sm.btn-outline-primary(href=`/obras/detalle-obra/${obra.id}`)
+                    i.bi.bi-eye.me-1
+                    | Ver detalle
+            else
+              tr
+                td(colspan="4").text-center.py-4.text-muted
+                  i.bi.bi-info-circle.me-2
+                  | No hay obras activas registradas en el sistema.
+
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-outline-secondary.mb-5(href="/")
+      i.bi.bi-arrow-left.me-2
+      | Volver al inicio
