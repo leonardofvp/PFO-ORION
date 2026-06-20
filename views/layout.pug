@@ -31,6 +31,15 @@ html(lang="es")
               li.nav-item: a.nav-link(href="/certificaciones-avance") Certificaciones
               li.nav-item: a.nav-link(href="/gastos") Gastos
               li.nav-item: a.nav-link(href="/pedidos") Pedidos
+              li.nav-item: a.nav-link(href="/chat-institucional") Chat
+
+              if usuarioLogueado
+                hr.text-white-50
+                li
+                  a.nav-item: a.nav-link(href=`/usuarios/detalle-usuario/${usuario.id}`) Ver Perfil
+                li
+                  form.m-0.p-0(action="/login/logout" method="POST")
+                    button.dropdown-item.text-danger(type="submit") Cerrar sesión
 
     main.container
       block titulo_seccion

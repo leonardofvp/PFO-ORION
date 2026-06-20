@@ -18,7 +18,10 @@ const iniciarSesion = async (req, res) => {
       usuario.estado == "eliminado" ||
       !usuario.validarPassword(password)
     ) {
-      res.status(401).send("Usuario y/o contraseña incorrectos");
+      return res.status(401).render("formulario-login", {
+        error: "Usuario y/o contraseña incorrectos",
+        email: email
+      });
     } else {
       const token = jwt.sign(
         {
@@ -40,8 +43,7 @@ const iniciarSesion = async (req, res) => {
       res.redirect(303, "/");
     }
   } catch (error) {
-    console.log("Error al iniciar sesión");
-    console.error(error);
+    next(error);
   }
 };
 

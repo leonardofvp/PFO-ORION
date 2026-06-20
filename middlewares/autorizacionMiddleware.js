@@ -1,11 +1,14 @@
 const verificarRol = (rolesPermitidos) => {
   return (req, res, next) => {
+
     if (!req.usuario) {
-      return res.status(401).send("Debe iniciar sesión");
+      return res.redirect(303, "/login");
     }
 
     if (!rolesPermitidos.includes(req.usuario.rol)) {
-      return res.status(403).send("No tiene autorización");
+      const error = new Error("No tiene autorización para ver esta sección");
+      error.status = 403;
+      return next(error);
     }
 
     return next();

@@ -1,0 +1,31 @@
+extends layout
+
+block titulo_seccion
+  h2.text-center.mb-4 Chat Institucional
+
+block content
+  .row.justify-content-center
+    .col-12.col-md-8.col-lg-6
+      .card.shadow-sm.border.border-secondary
+        .card-body
+          // Contenedor de mensajes con borde interno haciendo juego
+          ul#mensajes.list-unstyled(style="height: 350px; overflow-y: auto; border: 1px solid #6c757d; padding: 15px; border-radius: 5px; background-color: #f8f9fa;")
+
+          .input-group.mt-3
+            input#mensaje.form-control.border-secondary(type="text" placeholder="Escriba un mensaje...")
+            button.btn.btn-primary(type="button" onclick="enviarMensaje()") Enviar
+
+      .d-flex.justify-content-end.mt-4.mb-5
+        a.btn.btn-outline-secondary.mb-5(href="/")
+          i.bi.bi-arrow-left.me-2
+          | Volver al inicio
+
+  if usuario
+    script.
+      const NOMBRE_USUARIO = "#{usuario.nombre}";
+  else
+    script.
+      const NOMBRE_USUARIO = "Invitado";
+
+  script(src="/socket.io/socket.io.js")
+  script(src="/js/chatInstitucional.js")

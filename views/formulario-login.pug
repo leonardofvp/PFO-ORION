@@ -1,18 +1,19 @@
 extends layout
 
+block titulo_seccion
+  h2.text-center.mb-4 Iniciar Sesión
+
 block alertas
 
 block content
   form.mx-auto.p-4.border.rounded.shadow-sm.bg-light.mt-5(action="/login" method="POST" style="max-width: 400px;")
-
-    h3.text-center.mb-4 Iniciar Sesión
 
     if error
       div.alert.alert-danger.p-2.text-center(role="alert")= error
 
     label.form-label.fw-bold Email
     div.input-group.mb-3
-      input.form-control(type="email" name="email", required)
+      input.form-control(type="email" name="email", value= email || "", required)
 
     label.form-label.fw-bold Password
     div.input-group.mb-4

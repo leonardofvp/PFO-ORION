@@ -11,7 +11,7 @@ const obtenerPedidosJson = (req, res) => {
   res.json(pedidos);
 };
 
-const obtenerPedidos = async (req, res) => {
+const obtenerPedidos = async (req, res, next) => {
   try {
     const pedidosActivos = await Pedido.find({
       estado: { $ne: "eliminado" },
@@ -19,27 +19,27 @@ const obtenerPedidos = async (req, res) => {
 
     res.status(200).render("pedidos", { pedidosActivos });
   } catch (error) {
-    res.status(500).send("Error al cargar la vista");
-    console.error(error);
+    next(error);
   }
 };
 
-const obtenerPedidoPorId = async (req, res) => {
+const obtenerPedidoPorId = async (req, res, next) => {
   try {
     const pedido = await Pedido.findById(req.params.id).populate("idObra");
 
     if (!pedido || pedido.estado === "eliminado") {
-      return res.status(404).send("Pedido no encontrado");
+      const error = new Error("Pedido no encontrada");
+      error.status = 404;
+      return next(error);
     }
 
     res.status(200).render("detalle-pedido", { pedido });
   } catch (error) {
-    res.status(500).send("Error al buscar pedido");
-    console.error(error);
+    next(error);
   }
 };
 
-const formularioCrearPedido = async (req, res) => {
+const formularioCrearPedido = async (req, res, next) => {
   const usuario = req.usuario;
   let obras;
 
@@ -63,70 +63,82 @@ const formularioCrearPedido = async (req, res) => {
       obras,
     });
   } catch (error) {
-    console.error("Error al cargar el formulario:", error);
-    res.status(500).send("Error al cargar las obras");
+    next(error);
   }
 };
 
-const crearPedido = async (req, res) => {
+const crearPedido = async (req, res, next) => {
   try {
     const usuario = req.usuario;
     const datosCompletos = {
       ...req.body,
       idUsuario: usuario.id,
     };
-    const nuevaPedido = new Pedido(datosCompletos);
-    await nuevaPedido.save();
+
+    const nuevoPedido = new Pedido(datosCompletos);
+    await nuevoPedido.save();
+
     res.redirect(303, "/pedidos");
   } catch (error) {
-    res.status(500).send("Error al crear pedido");
-    console.error(error);
+    next(error);
   }
 };
 
-const formularioEditarPedido = async (req, res) => {
+const formularioEditarPedido = async (req, res, next) => {
   try {
     const pedido = await Pedido.findById(req.params.id).populate("idObra");
+
     if (!pedido || pedido.estado === "eliminado") {
-      return res.status(404).send("Pedido no encontrada");
+      const error = new Error("Pedido no encontrada");
+      error.status = 404;
+      return next(error);
     }
+
     res.render("formulario-pedido", {
       editable: true,
       pedido: pedido,
       obras: {},
     });
   } catch (error) {
-    res.status(500).send("Error al buscar pedido");
-    console.error(error);
+    next(error);
   }
 };
 
-const editarPedido = async (req, res) => {
+const editarPedido = async (req, res, next) => {
   try {
     const pedido = await Pedido.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
     });
+
+    if (!pedido) {
+      const error = new Error("Pedido no encontrado");
+      error.status = 404;
+      return next(error);
+    }
+
     res.redirect(303, `/pedidos/detalle-pedido/${pedido.id}`);
   } catch (error) {
-    res.status(500).send("Error al actualizar pedido");
-    console.error(error);
+    next(error);
   }
 };
 
-const eliminarPedido = async (req, res) => {
+const eliminarPedido = async (req, res, next) => {
   try {
     const pedido = await Pedido.findByIdAndUpdate(
       req.params.id,
       { estado: "eliminado" },
       { returnDocument: "after" },
     );
+
     if (!pedido) {
-      return res.status(404).send("Pedido no encontrada");
+      const error = new Error("Pedido no encontrada");
+      error.status = 404;
+      return next(error);
     }
+
     res.redirect(303, `/pedidos`);
   } catch (error) {
-    res.status(500).send("Error al eliminar pedido");
-    console.error(error);
+    next(error);
   }
 };
 export {

@@ -2,10 +2,9 @@
 
 import express from "express";
 import Usuario from "../models/Usuario.js";
-import { cargarUsuario } from "../middlewares/autenticacionMiddleware.js";
 const router = express.Router();
 
-router.get("/", cargarUsuario, (req, res) => {
+router.get("/", (req, res) => {
   res.render("index", {
   });
 });

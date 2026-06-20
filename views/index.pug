@@ -67,11 +67,13 @@ block content
                   i.bi.bi-box-seam.fs-1.text-secondary
                   h5.card-title.mt-2.text-dark Pedidos
 
-        .d-flex.justify-content-end.gap-2
-          a.btn.btn-outline-secondary(href=`/usuarios/detalle-usuario/${usuario.id}`) Editar Perfil
-
-          form(action="/login/logout" method="POST")
-            button.btn.btn-outline-danger(type="submit") Cerrar sesión
+          //- Tarjeta: Chat Institucional
+          .col-12.col-sm-6.col-md-4
+            a.text-decoration-none(href="/chat-institucional")
+              .card.h-100.shadow-sm.text-center.border-primary
+                .card-body
+                  i.bi.bi-chat-dots.fs-1.text-primary
+                  h5.card-title.mt-2.text-dark Chat
 
       else
         .card.shadow-sm

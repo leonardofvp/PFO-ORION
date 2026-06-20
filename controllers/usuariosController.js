@@ -10,8 +10,8 @@ const obtenerUsuariosJson = (req, res) => {
   res.json(usuarios);
 };
 
-const obtenerUsuarios = async (req, res) => {
-  res.locals.vista = "usuarios"
+const obtenerUsuarios = async (req, res, next) => {
+  res.locals.vista = "usuarios";
   try {
     const usuariosActivos = await Usuario.find({
       estado: { $ne: "eliminado" },
@@ -22,24 +22,25 @@ const obtenerUsuarios = async (req, res) => {
       usuarioSesion: req.usuario,
     });
   } catch (error) {
-      res.status(500).send("Error al cargar la vista");
-      console.error(error);
+    next(error);
   }
 };
 
-const obtenerUsuarioPorId = async (req, res) => {
+const obtenerUsuarioPorId = async (req, res, next) => {
   try {
     const usuario = await Usuario.findById(req.params.id);
 
     if (!usuario || usuario.estado === "eliminado") {
-      return res.status(404).send("Usuario no encontrada");
+      const error = new Error("Usuario no encontrada");
+      error.status = 404;
+      return next(error);
     }
 
     res
       .status(200)
       .render("detalle-usuario", { usuarioSesion: req.usuario, usuario });
   } catch (error) {
-    res.status(500).send("Error al buscar usuario");
+    next(error);
   }
 };
 
@@ -50,7 +51,7 @@ const formularioCrearUsuario = (req, res) => {
   });
 };
 
-const crearUsuario = async (req, res) => {
+const crearUsuario = async (req, res, next) => {
   try {
     const { password, ...datosUsuario } = req.body;
     const passwordLimpio = password?.trim() || "";
@@ -61,17 +62,18 @@ const crearUsuario = async (req, res) => {
     await nuevaUsuario.save();
     res.redirect(303, "/");
   } catch (error) {
-    res.status(500).send("Error al crear usuario");
-    console.error(error);
+    next(error);
   }
 };
 
-const formularioEditarUsuario = async (req, res) => {
+const formularioEditarUsuario = async (req, res, next) => {
   try {
     const usuario = await Usuario.findById(req.params.id);
 
     if (!usuario || usuario.estado === "eliminado") {
-      return res.status(404).send("Usuario no encontrado");
+      const error = new Error("Usuario no encontrada");
+      error.status = 404;
+      return next(error);
     }
 
     res.render("formulario-usuario", {
@@ -80,12 +82,11 @@ const formularioEditarUsuario = async (req, res) => {
       usuarioSesion: req.usuario,
     });
   } catch (error) {
-    res.status(500).send("Error al buscar usuario");
-    console.error(error);
+    next(error);
   }
 };
 
-const editarUsuario = async (req, res) => {
+const editarUsuario = async (req, res, next) => {
   try {
     const { password, ...datosUsuario } = req.body;
 
@@ -103,12 +104,11 @@ const editarUsuario = async (req, res) => {
 
     res.redirect(303, `/usuarios/detalle-usuario/${usuario.id}`);
   } catch (error) {
-    res.status(500).send("Error al actualizar usuario");
-    console.error(error);
+    next(error);
   }
 };
 
-const eliminarUsuario = async (req, res) => {
+const eliminarUsuario = async (req, res, next) => {
   try {
     const usuario = await Usuario.findByIdAndUpdate(
       req.params.id,
@@ -117,15 +117,17 @@ const eliminarUsuario = async (req, res) => {
     );
 
     if (!usuario) {
-      return res.status(404).send("Usuario no encontrada");
+      const error = new Error("Usuario no encontrada");
+      error.status = 404;
+      return next(error);
     }
 
     res.redirect(303, `/usuarios`);
   } catch (error) {
-    res.status(500).send("Error al eliminar usuario");
-    console.error(error);
+    next(error);
   }
 };
+
 export {
   obtenerUsuarios,
   obtenerUsuarioPorId,

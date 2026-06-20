@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  main.container.mt-5
+    div.row.justify-content-center
+      div.col-md-8.text-center
+
+        div.mb-4
+          i.bi.bi-exclamation-triangle-fill.text-danger(style="font-size: 5rem;")
+
+        h1.display-4.mb-3= titulo
+
+        p.lead.text-muted.mb-5= mensaje
+
+        div
+          a.btn.btn-primary.btn-lg(href="/")
+            i.bi.bi-house-door.me-2
+            | Volver al Inicio
