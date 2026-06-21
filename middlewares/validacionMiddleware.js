@@ -70,10 +70,9 @@ const validarSubcontratista = [
     .trim()
     .notEmpty()
     .withMessage("El CUIT es obligatorio.")
+    .customSanitizer((value) => value.replace(/[-\s]/g, ""))
     .matches(/^\d{11}$/)
-    .withMessage(
-      "El CUIT debe contener exactamente 11 números, sin guiones ni espacios.",
-    ),
+    .withMessage("El CUIT debe contener exactamente 11 números."),
 
   body("especialidad")
     .trim()

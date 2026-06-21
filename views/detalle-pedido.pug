@@ -11,34 +11,33 @@ block titulo_seccion
         i.bi.bi-pencil-square.me-1
         | Editar
 
-      form(action=`/pedidos/eliminar-pedido/${pedido.id}?_method=DELETE`, method="POST" style="margin: 0;")
-        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este pedido?');")
-          i.bi.bi-trash.me-1
-          | Eliminar
+      button.btn.btn-danger(type="button" onclick=`confirmarAccion('¿Estás seguro de que deseas eliminar este pedido?', '/pedidos/eliminar-pedido/${pedido.id}')`)
+        i.bi.bi-trash.me-1
+        | Eliminar
 
 block content
   .card.border-secondary.shadow-sm.mb-5
     .card-body.p-4
 
-      .row.mb-3
-        .col-md-4.mb-3.mb-md-0
+      .row.mb-4
+        .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Obra
-          span #{pedido.idObra ? pedido.idObra.nombre : 'Obra no encontrada'}
+          span.fs-5 #{pedido.idObra ? pedido.idObra.nombre : 'Obra no encontrada'}
 
-        .col-md-4.mb-3.mb-md-0
+        .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Fecha de Solicitud
-          span #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
+          span.fs-5 #{new Date(pedido.fecha).toLocaleDateString('es-AR')}
 
         .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Tipo
-          span #{pedido.tipo}
+          span.fs-5 #{pedido.tipo}
 
       hr.my-4
 
       .row.mb-3
-        .col-md-4.mb-3.mb-md-0
+        .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Cantidad
-          span #{pedido.cantidad} #{pedido.unidad}
+          span.fs-5 #{pedido.cantidad} #{pedido.unidad}
 
         .col-md-4.mb-3.mb-md-0
           span.text-muted.d-block.fw-bold.mb-1 Estado del pedido
@@ -46,14 +45,14 @@ block content
 
         .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Descripción
-          span #{pedido.descripcion}
+          span.fs-5 #{pedido.descripcion}
 
       hr.my-4
 
       .row
         .col-12
           span.text-muted.d-block.fw-bold.mb-1 Observaciones
-          span.text-break #{pedido.observaciones || "Sin observaciones registradas"}
+          span.text-break.fs-5 #{pedido.observaciones || "Sin observaciones registradas"}
 
   .d-flex.justify-content-end.mt-4.mb-5
     a.btn.btn-secondary.mb-5(href="/pedidos")

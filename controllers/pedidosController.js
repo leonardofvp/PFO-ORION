@@ -152,7 +152,6 @@ const editarPedido = async (req, res, next) => {
       });
     }
 
-    // 2. Solo si la validación es exitosa, se actualiza el documento
     const pedido = await Pedido.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
     });

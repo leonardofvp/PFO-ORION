@@ -11,10 +11,9 @@ block titulo_seccion
         i.bi.bi-pencil-square.me-1
         | Editar
 
-      form(action=`/subcontratistas/eliminar-subcontratista/${subcontratista.id}?_method=DELETE`, method="POST" style="margin: 0;")
-        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este subcontratista?');")
-          i.bi.bi-trash.me-1
-          | Eliminar
+      button.btn.btn-danger(type="button" onclick=`confirmarAccion('¿Estás seguro de que deseas eliminar este subcontratista?', '/subcontratistas/eliminar-subcontratista/${subcontratista.id}')`)
+        i.bi.bi-trash.me-1
+        | Eliminar
 
 block content
   .card.border-secondary.shadow-sm.mb-5
@@ -23,7 +22,7 @@ block content
       .row.mb-4
         .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 Nombre / Razón Social
-          span.fs-5.fw-bold #{subcontratista.nombre}
+          span.fs-5 #{subcontratista.nombre}
         .col-md-4
           span.text-muted.d-block.fw-bold.mb-1 CUIT
           span.fs-5 #{subcontratista.cuit}

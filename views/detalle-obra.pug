@@ -8,10 +8,10 @@ block titulo_seccion
       a.btn.btn-warning.me-2(href=`/obras/editar-obra/${obra.id}`)
         i.bi.bi-pencil-square.me-1
         | Editar
-      form(action=`/obras/eliminar-obra/${obra.id}?_method=DELETE`, method="POST" style="display:inline")
-        button.btn.btn-danger(type="submit")
-          i.bi.bi-trash.me-1
-          | Eliminar
+
+      button.btn.btn-danger(type="button" onclick=`confirmarAccion('¿Estás seguro de que deseas eliminar esta obra?', '/obras/eliminar-obra/${obra.id}')`)
+        i.bi.bi-trash.me-1
+        | Eliminar
 
 block content
 

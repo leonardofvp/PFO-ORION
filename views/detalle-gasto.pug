@@ -11,10 +11,9 @@ block titulo_seccion
         i.bi.bi-pencil-square.me-1
         | Editar
 
-      form(action=`/gastos/eliminar-gasto/${gasto.id}?_method=DELETE`, method="POST" style="margin: 0;")
-        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar este gasto?');")
-          i.bi.bi-trash.me-1
-          | Eliminar
+      button.btn.btn-danger(type="button" onclick=`confirmarAccion('¿Estás seguro de que deseas eliminar este gasto?', '/gastos/eliminar-gasto/${gasto.id}')`)
+        i.bi.bi-trash.me-1
+        | Eliminar
 
 block content
   .card.border-secondary.shadow-sm.mb-5

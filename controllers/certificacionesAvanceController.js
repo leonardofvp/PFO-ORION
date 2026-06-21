@@ -7,14 +7,8 @@ import { validationResult } from "express-validator";
 // CRUD
 const obtenerCertificacionesAvance = async (req, res, next) => {
   try {
-    let filtroBusqueda = { estado: { $ne: "eliminada" } };
-
-    if (req.usuario.rol === ROLES.DIRECTOR_OBRA.id) {
-      filtroBusqueda.directorObra = req.usuario._id;
-    }
-
     const certificacionesAvanceActivas = await CertificacionAvance.find(
-      filtroBusqueda,
+      {estado: { $ne: "eliminada" }}
     )
       .populate("idObra")
       .populate("idSubcontratista");
@@ -88,7 +82,6 @@ const crearCertificacionAvance = async (req, res, next) => {
     const certificacionesPrevias = await CertificacionAvance.find({
       idObra,
       idSubcontratista,
-      tareaRealizada,
       estado: { $ne: "eliminada" },
     });
 

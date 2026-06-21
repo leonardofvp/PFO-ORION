@@ -10,10 +10,9 @@ block titulo_seccion
         i.bi.bi-pencil-square.me-1
         | Editar
 
-      form(action=`/certificaciones-avance/eliminar-certificacion/${certificacionAvance.id}?_method=DELETE`, method="POST" style="margin: 0;")
-        button.btn.btn-danger(type="submit" onclick="return confirm('¿Estás seguro de que deseas eliminar esta certificación?');")
-          i.bi.bi-trash.me-1
-          | Eliminar
+      button.btn.btn-danger(type="button" onclick=`confirmarAccion('Esta certificación cambiará su estado a eliminado.', '/certificaciones-avance/eliminar-certificacion/${certificacionAvance.id}')`)
+        i.bi.bi-trash.me-1
+        | Eliminar
 
 block content
   .card.border-secondary.shadow-sm.mb-5

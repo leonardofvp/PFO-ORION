@@ -12,10 +12,9 @@ block titulo_seccion
             | Editar
 
         if usuarioSesion.rol === 'admin' && usuarioSesion.id.toString() !== usuario.id.toString()
-          form(action=`/usuarios/eliminar-usuario/${usuario.id}?_method=DELETE`, method="POST" style="margin: 0;")
-            button.btn.btn-danger(type="submit")
-              i.bi.bi-trash.me-1
-              | Eliminar
+          button.btn.btn-danger(type="button" onclick=`confirmarAccion('¿Estás seguro de que deseas eliminar este usuario?', '/usuarios/eliminar-usuario/${usuario.id}')`)
+            i.bi.bi-trash.me-1
+            | Eliminar
 
 block content
   .card.shadow-sm.mb-4.border-secondary
@@ -37,3 +36,8 @@ block content
         .col-md-6.mb-3.mb-md-0
           span.text-muted.d-block.fw-bold Rol en el sistema
           span.badge.bg-secondary.fs-6.mt-1 #{ROLES[usuario.rol.toUpperCase()].label}
+
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-secondary.mb-5(href="/")
+      i.bi.bi-arrow-left.me-2
+      | Volver al inicio

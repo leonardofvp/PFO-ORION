@@ -18,7 +18,7 @@ import {
 const router = express.Router();
 
 router.use(protegerRuta);
-router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id, ROLES.ADMINISTRACION_CENTRAL.id]));
+router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id, ROLES.ADMINISTRACION_CENTRAL.id, ROLES.DIRECTOR_OBRA.id]));
 
 router.get("/", obtenerCertificacionesAvance);
 router.get("/detalle-certificacion/:id", obtenerCertificacionAvancePorId);
