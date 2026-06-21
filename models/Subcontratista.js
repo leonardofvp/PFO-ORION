@@ -34,7 +34,7 @@ const subcontratistaSchema = new mongoose.Schema({
         }
     }
 }, {
-    timestamps: true// agrega fechas de creación y modificación de documentos
+    timestamps: true
 });
 
 const Subcontratista = mongoose.model('Subcontratista', subcontratistaSchema);

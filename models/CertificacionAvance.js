@@ -35,10 +35,10 @@ const certificacionAvanceSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
-  estadoRegistro: {
+  estado: {
     type: String,
-    enum: ["activo", "eliminado"],
-    default: "activo",
+    enum: ["activa", "eliminada"],
+    default: "activa",
   },
 });
 

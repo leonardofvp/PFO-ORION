@@ -9,7 +9,7 @@ block titulo_seccion
       | Agregar nueva obra
 
 block content
-  .card.border-primary.card.shadow-sm.mb-5.overflow-hidden
+  .card.border-secondary.card.shadow-sm.mb-5.overflow-hidden
     .card-header.bg-white.py-3
       h5.mb-0 Lista de Obras Activas
 
@@ -26,7 +26,7 @@ block content
           tbody
             each obra in obrasActivas
               tr
-                td.px-4.fw-bold= obra.nombre
+                td.px-4= obra.nombre
                 td= obra.ubicacion
                 td
                   span.badge.bg-primary= obra.estado
@@ -41,6 +41,6 @@ block content
                   | No hay obras activas registradas en el sistema.
 
   .d-flex.justify-content-end.mt-4.mb-5
-    a.btn.btn-outline-secondary.mb-5(href="/")
+    a.btn.btn-secondary.mb-5(href="/")
       i.bi.bi-arrow-left.me-2
       | Volver al inicio

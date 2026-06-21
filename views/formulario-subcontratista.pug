@@ -8,40 +8,42 @@ block titulo_seccion
 block content
   .row.justify-content-center
     .col-12.col-lg-8
-      .card.border-primary.shadow-sm.mb-5
+      .card.border-secondary.shadow-sm.mb-5
         .card-body.p-4
+
+          include ../views/alertas-validacion.pug
 
           form(method="POST", action= editable ? `/subcontratistas/editar-subcontratista/${subcontratista.id}?_method=PUT` : `/subcontratistas/nuevo-subcontratista`)
 
             .row
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="nombre") Nombre o Razón Social
-                input#nombre.form-control(type="text", name="nombre", value= subcontratista ? subcontratista.nombre : "", required)
+                input#nombre.form-control.border-secondary(type="text" name="nombre", value= subcontratista ? subcontratista.nombre : "")
 
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="cuit") CUIT
-                input#cuit.form-control(type="text", name="cuit", value= subcontratista ? subcontratista.cuit : "", readonly=editable, required)
+                input#cuit.form-control.border-secondary(type="text" name="cuit", value= subcontratista ? subcontratista.cuit : "", readonly=editable)
 
             .row
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="especialidad") Especialidad
-                input#especialidad.form-control(type="text", name="especialidad", value= subcontratista ? subcontratista.especialidad : "", required)
+                input#especialidad.form-control.border-secondary(type="text" name="especialidad", value= subcontratista ? subcontratista.especialidad : "")
 
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="telefono") Teléfono
-                input#telefono.form-control(type="text", name="telefono", value= subcontratista ? subcontratista.telefono : "", required)
+                input#telefono.form-control.border-secondary(type="text" name="telefono", value= subcontratista ? subcontratista.telefono : "")
 
             .mb-3
               label.form-label.fw-bold(for="email") Email
-              input#email.form-control(type="email", name="email", value= subcontratista ? subcontratista.email : "", required)
+              input#email.form-control.border-secondary(type="email" name="email", value= subcontratista ? subcontratista.email : "")
 
-            hr.my-4
+            .mb-5
 
             .d-flex.justify-content-end.gap-2
               if editable
-                a.btn.btn-outline-secondary(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Cancelar
+                a.btn.btn-secondary(href=`/subcontratistas/detalle-subcontratista/${subcontratista.id}`) Cancelar
               else
-                a.btn.btn-outline-secondary(href="/subcontratistas") Volver al listado
+                a.btn.btn-secondary(href="/subcontratistas") Volver al listado
 
               button.btn.btn-primary(type="submit")
                 i.bi(class= editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")

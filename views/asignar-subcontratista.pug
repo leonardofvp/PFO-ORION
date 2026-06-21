@@ -4,12 +4,8 @@ block titulo_seccion
   .d-flex.justify-content-between.align-items-center.mt-4.mb-4
     h2 Asignar subcontratista a: #{obra.nombre}
 
-    a.btn.btn-outline-secondary(href=`/obras/detalle-obra/${obra.id}`)
-      i.bi.bi-arrow-left.me-2
-      | Volver al detalle
-
 block content
-  .card.shadow-sm.mb-5.border-primary
+  .card.shadow-sm.mb-5.border-secondary.overflow-hidden
     .card-header.bg-white.py-3
       h5.mb-0 Lista de subcontratistas disponibles
 
@@ -41,3 +37,8 @@ block content
                 td(colspan="4").text-center.py-4.text-muted
                   i.bi.bi-info-circle.me-2
                   | No hay subcontratistas activos disponibles para asignar en este momento.
+
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-outline-secondary.mb-5(href="/")
+      i.bi.bi-arrow-left.me-2
+      | Volver al inicio

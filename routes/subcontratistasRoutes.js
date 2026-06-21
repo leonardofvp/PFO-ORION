@@ -3,8 +3,8 @@
 import express from "express";
 import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
 import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
+import { validarSubcontratista } from "../middlewares/validacionMiddleware.js";
 import ROLES from "../utils/roles.js";
-
 import {
   obtenerSubcontratistas,
   obtenerSubcontratistaPorId,
@@ -23,9 +23,9 @@ router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id]));
 router.get("/", obtenerSubcontratistas);
 router.get("/detalle-subcontratista/:id", obtenerSubcontratistaPorId);
 router.get("/nuevo-subcontratista", formularioCrearSubcontratista);
-router.post("/nuevo-subcontratista", crearSubcontratista);
+router.post("/nuevo-subcontratista", validarSubcontratista, crearSubcontratista);
 router.get("/editar-subcontratista/:id", formularioEditarSubcontratista);
-router.put("/editar-subcontratista/:id", editarSubcontratista);
+router.put("/editar-subcontratista/:id", validarSubcontratista, editarSubcontratista);
 router.delete("/eliminar-subcontratista/:id", eliminarSubcontratista);
 
 export default router;

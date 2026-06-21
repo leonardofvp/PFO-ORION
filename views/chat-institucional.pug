@@ -8,7 +8,6 @@ block content
     .col-12.col-md-8.col-lg-6
       .card.shadow-sm.border.border-secondary
         .card-body
-          // Contenedor de mensajes con borde interno haciendo juego
           ul#mensajes.list-unstyled(style="height: 350px; overflow-y: auto; border: 1px solid #6c757d; padding: 15px; border-radius: 5px; background-color: #f8f9fa;")
 
           .input-group.mt-3
@@ -16,7 +15,7 @@ block content
             button.btn.btn-primary(type="button" onclick="enviarMensaje()") Enviar
 
       .d-flex.justify-content-end.mt-4.mb-5
-        a.btn.btn-outline-secondary.mb-5(href="/")
+        a.btn.btn-secondary.mb-5(href="/")
           i.bi.bi-arrow-left.me-2
           | Volver al inicio
 

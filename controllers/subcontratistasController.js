@@ -2,6 +2,7 @@
 import { leerArchivo, escribirArchivo } from "../utils/jsonHelper.js";
 
 import Subcontratista from "../models/Subcontratista.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerSubcontratistasJson = (req, res) => {
@@ -45,6 +46,16 @@ const formularioCrearSubcontratista = (req, res) => {
 
 const crearSubcontratista = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-subcontratista", {
+        editable: false,
+        subcontratista: { ...req.body },
+        errores: errores.array(),
+      });
+    }
+
     const nuevaSubcontratista = new Subcontratista(req.body);
     await nuevaSubcontratista.save();
     res.redirect(303, "/subcontratistas");
@@ -74,15 +85,29 @@ const formularioEditarSubcontratista = async (req, res, next) => {
 
 const editarSubcontratista = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-subcontratista", {
+        editable: true,
+        subcontratista: { ...req.body, id: req.params.id },
+        errores: errores.array(),
+      });
+    }
+
     const subcontratista = await Subcontratista.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { returnDocument: "after" },
+      { returnDocument: "after" }
     );
-    res.redirect(
-      303,
-      `/subcontratistas/detalle-subcontratista/${subcontratista.id}`,
-    );
+
+    if (!subcontratista) {
+      const error = new Error("Subcontratista no encontrado");
+      error.status = 404;
+      return next(error);
+    }
+
+    res.redirect(303, `/subcontratistas/detalle-subcontratista/${subcontratista.id}`);
   } catch (error) {
     next(error);
   }
@@ -95,7 +120,8 @@ const eliminarSubcontratista = async (req, res, next) => {
       { estado: "eliminado" },
       { returnDocument: "after" },
     );
-    if (!subcontratista || subcontratista.estado === "eliminado") {
+
+    if (!subcontratista) {
       const error = new Error("Subcontratista no encontrado");
       error.status = 404;
       return next(error);

@@ -3,6 +3,7 @@
 import express, { Router } from "express";
 import { protegerRuta } from "../middlewares/autenticacionMiddleware.js";
 import { verificarRol } from "../middlewares/autorizacionMiddleware.js";
+import { validarObra } from "../middlewares/validacionMiddleware.js";
 import ROLES from "../utils/roles.js";
 import {
   obtenerObras,
@@ -18,6 +19,7 @@ import {
   asignarSubcontratista,
 } from "../controllers/obrasController.js";
 
+
 const router = express.Router();
 
 router.use(protegerRuta);
@@ -26,9 +28,9 @@ router.use(verificarRol([ROLES.ADMIN.id, ROLES.DIRECTOR_GENERAL.id]));
 router.get("/", obtenerObras);
 router.get("/detalle-obra/:id", obtenerObraPorId);
 router.get("/nueva-obra", formularioCrearObra);
-router.post("/nueva-obra", crearObra);
+router.post("/nueva-obra", validarObra, crearObra);
 router.get("/editar-obra/:id", formularioEditarObra);
-router.put("/editar-obra/:id", editarObra);
+router.put("/editar-obra/:id", validarObra, editarObra);
 router.delete("/eliminar-obra/:id", eliminarObra);
 router.get("/asignar-personal/:id", renderizarAsignacionPersonal);
 router.post("/asignar-personal/:id", asignarPersonal);

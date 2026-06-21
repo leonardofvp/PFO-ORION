@@ -8,34 +8,36 @@ block titulo_seccion
 block content
   .row.justify-content-center
     .col-12.col-lg-8
-      .card.shadow-sm.mb-5
+      .card.shadow-sm.mb-5.border-secondary
         .card-body.p-4
+
+          include ../views/alertas-validacion.pug
 
           form(method="POST", action= editable ? `/obras/editar-obra/${obra.id}?_method=PUT` : `/obras/nueva-obra`)
 
             .mb-3
               label.form-label.fw-bold(for="nombre") Nombre de la obra
-              input#nombre.form-control(type="text", name="nombre", value= obra.nombre || "")
+              input#nombre.form-control.border-secondary(type="text", name="nombre", value= obra.nombre || "")
 
             .mb-3
               label.form-label.fw-bold(for="ubicacion") Ubicación
-              input#ubicacion.form-control(type="text", name="ubicacion", value= obra.ubicacion || "", required)
+              input#ubicacion.form-control.border-secondary(type="text", name="ubicacion", value= obra.ubicacion || "")
 
             .row
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="presupuesto") Presupuesto inicial
                 .input-group
-                  span.input-group-text USD
-                  input#presupuesto.form-control(type="number", name="presupuesto", value= obra.presupuesto || "", required)
+                  span.input-group-text.border-secondary USD
+                  input#presupuesto.form-control.border-secondary(type="number", name="presupuesto", value= obra.presupuesto || "")
 
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="estado") Estado
-                select#estado.form-select(name="estado")
+                select#estado.form-select.border-secondary(name="estado")
                   option(value="iniciando" selected= !obra.estado || obra.estado === "iniciando") Iniciando
                   option(value="activa" selected= obra.estado === "activa") Activa
                   option(value="finalizada" selected= obra.estado === "finalizada") Finalizada
 
-            hr.my-4
+            .my-5
 
             .d-flex.justify-content-end.gap-2
               if editable

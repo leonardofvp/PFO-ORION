@@ -9,7 +9,7 @@ block titulo_seccion
       | Agregar nuevo subcontratista
 
 block content
-  .card.border-primary.shadow-sm.mb-5.overflow-hidden
+  .card.border-secondary.shadow-sm.mb-5.overflow-hidden
 
     .card-header.bg-white.py-3
       h5.mb-0 Lista de Subcontratistas Activos
@@ -27,7 +27,7 @@ block content
           tbody
             each subcontratista in subcontratistasActivos
               tr
-                td.px-4.fw-bold= subcontratista.nombre
+                td.px-4= subcontratista.nombre
                 td= subcontratista.cuit
                 td= subcontratista.especialidad
                 td.text-center
@@ -42,6 +42,6 @@ block content
                   | No hay subcontratistas activos registrados en el sistema.
 
   .d-flex.justify-content-end.mt-4.mb-5
-    a.btn.btn-outline-secondary.mb-5(href="/")
+    a.btn.btn-secondary.mb-5(href="/")
       i.bi.bi-arrow-left.me-2
       | Volver al inicio

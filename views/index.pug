@@ -8,7 +8,7 @@ block content
     .col-12.col-md-10.col-lg-8
 
       if usuarioLogueado
-        .alert.alert-info.text-center.shadow-sm.mb-4
+        .alert.alert-info.text-center.shadow-sm.mb-4.border-primary
           if usuario.rol === 'admin'
             h4.alert-heading ¡Bienvenido/a, Administrador!
           else
@@ -76,7 +76,7 @@ block content
                   h5.card-title.mt-2.text-dark Chat
 
       else
-        .card.shadow-sm
+        .card.shadow-sm.border-secondary
           .card-body.p-4.text-center
             p.lead Debe iniciar sesión para continuar.
             a.btn.btn-primary.btn-lg(href="/login") Iniciar sesión

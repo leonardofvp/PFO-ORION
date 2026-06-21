@@ -1,7 +1,6 @@
 extends layout
 
 block titulo_seccion
-  //- Restringimos el ancho del título para que coincida exactamente con la tarjeta
   .row.justify-content-center
     .col-12.col-lg-8
       h2.mt-4.mb-4= editable ? "Editar Usuario: " + usuario.nombre : "Registrar Nuevo Usuario"
@@ -9,46 +8,48 @@ block titulo_seccion
 block content
   .row.justify-content-center
     .col-12.col-lg-8
-      .card.shadow-sm.mb-5
+      .card.shadow-sm.mb-5.border-secondary
         .card-body.p-4
+
+          include ../views/alertas-validacion.pug
 
           form(method="POST", action= editable ? `/usuarios/editar-usuario/${usuario.id}?_method=PUT` : `/usuarios/nuevo-usuario`)
 
             .row
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="nombre") Nombre
-                input#nombre.form-control(type="text", name="nombre", value= usuario.nombre || "", required)
+                input#nombre.form-control.border-secondary(type="text" name="nombre", value= usuario.nombre || "")
 
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="apellido") Apellido
-                input#apellido.form-control(type="text", name="apellido", value= usuario.apellido || "", required)
+                input#apellido.form-control.border-secondary(type="text" name="apellido", value= usuario.apellido || "")
 
             .mb-3
               label.form-label.fw-bold(for="email") Email
-              input#email.form-control(type="email", name="email", value= usuario.email || "", readonly=editable, required)
+              input#email.form-control.border-secondary(type="email" name="email", value= usuario.email || "", readonly=editable)
 
             .row
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="password") Password
                 if editable
-                  input#password.form-control(type="password", name="password", placeholder="Dejar en blanco para no cambiar")
+                  input#password.form-control.border-secondary(type="password" name="password" placeholder="Dejar en blanco para no cambiar")
                 else
-                  input#password.form-control(type="password", name="password", required)
+                  input#password.form-control.border-secondary(type="password" name="password")
 
               .col-md-6.mb-3
                 label.form-label.fw-bold(for="rol") Rol
-                select#rol.form-select(name="rol")
+                select#rol.form-select.border-secondary(name="rol")
                   each role in ROLES
                     if role.id !== "admin"
                       option(value=role.id selected=(usuario.rol === role.id))= role.label
 
-            hr.my-4
+            .mb-5
 
             .d-flex.justify-content-end.gap-2
               if editable
-                a.btn.btn-outline-secondary(href=`/usuarios/detalle-usuario/${usuario.id}`) Cancelar
+                a.btn.btn-secondary(href=`/usuarios/detalle-usuario/${usuario.id}`) Cancelar
               else
-                a.btn.btn-outline-secondary(href="/") Volver al inicio
+                a.btn.btn-secondary(href="/") Volver al inicio
 
               button.btn(type="submit" class= editable ? "btn-warning" : "btn-primary")
                 i.bi(class= editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")

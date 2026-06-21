@@ -2,6 +2,8 @@
 import { leerArchivo, escribirArchivo } from "../utils/jsonHelper.js";
 
 import Gasto from "../models/Gasto.js";
+import Obra from "../models/Obra.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerGastosJson = (req, res) => {
@@ -37,15 +39,34 @@ const obtenerGastoPorId = async (req, res, next) => {
   }
 };
 
-const formularioCrearGasto = (req, res) => {
-  res.render("formulario-gasto", {
-    editable: false,
-    gasto: {},
-  });
+const formularioCrearGasto = async (req, res, next) => {
+  try {
+    const obras = await Obra.find({ estado: { $ne: "eliminado" } });
+
+    res.render("formulario-gasto", {
+      editable: false,
+      gasto: {},
+      obras,
+    });
+  } catch (error) {
+    next(error);
+  }
 };
 
 const crearGasto = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      const obras = await Obra.find({ estado: { $ne: "eliminado" } });
+      return res.render("formulario-gasto", {
+        editable: false,
+        gasto: {},
+        obras,
+        errores: errores.array(),
+      });
+    }
+
     const nuevaGasto = new Gasto(req.body);
     await nuevaGasto.save();
 
@@ -57,7 +78,7 @@ const crearGasto = async (req, res, next) => {
 
 const formularioEditarGasto = async (req, res, next) => {
   try {
-    const gasto = await Gasto.findById(req.params.id);
+    const gasto = await Gasto.findById(req.params.id).populate("idObra");
 
     if (!gasto || gasto.estado === "eliminado") {
       const error = new Error("Gasto no encontrado");
@@ -68,6 +89,7 @@ const formularioEditarGasto = async (req, res, next) => {
     res.render("formulario-gasto", {
       editable: true,
       gasto: gasto,
+      obras: {},
     });
   } catch (error) {
     next(error);
@@ -76,9 +98,35 @@ const formularioEditarGasto = async (req, res, next) => {
 
 const editarGasto = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      const obraOriginal = await Obra.findById(req.body.idObra);
+
+      return res.render("formulario-gasto", {
+        editable: true,
+        gasto: {
+          ...req.body,
+          id: req.params.id,
+          idObra: {
+            id: obraOriginal._id,
+            nombre: obraOriginal.nombre
+          }
+        },
+        errores: errores.array(),
+      });
+    }
+
     const gasto = await Gasto.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
     });
+
+    if (!gasto) {
+      const error = new Error("Gasto no encontrado");
+      error.status = 404;
+      return next(error);
+    }
+
     res.redirect(303, `/gastos/detalle-gasto/${gasto.id}`);
   } catch (error) {
     next(error);
@@ -93,7 +141,7 @@ const eliminarGasto = async (req, res, next) => {
       { returnDocument: "after" },
     );
 
-    if (!gasto || gasto.estado === "eliminado") {
+    if (!gasto) {
       const error = new Error("Gasto no encontrado");
       error.status = 404;
       return next(error);

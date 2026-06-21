@@ -6,19 +6,19 @@ block titulo_seccion
 block alertas
 
 block content
-  form.mx-auto.p-4.border.rounded.shadow-sm.bg-light.mt-5(action="/login" method="POST" style="max-width: 400px;")
+  form.mx-auto.p-4.border.rounded.shadow-sm.bg-light.mt-5.border-secondary(action="/login" method="POST" style="max-width: 400px;")
 
     if error
       div.alert.alert-danger.p-2.text-center(role="alert")= error
 
     label.form-label.fw-bold Email
     div.input-group.mb-3
-      input.form-control(type="email" name="email", value= email || "", required)
+      input.form-control.border-secondary(type="email" name="email", value= email || "", required)
 
     label.form-label.fw-bold Password
     div.input-group.mb-4
-      input#password.form-control(type="password" name="password", required)
-      button#togglePassword.btn.btn-outline-secondary(type="button")
+      input#password.form-control.border-secondary(type="password" name="password", required)
+      button#togglePassword.btn.btn-outline-secondary.border-secondary(type="button")
         i.bi.bi-eye
 
     button.btn.btn-primary.w-100(type="submit") Iniciar sesión

@@ -2,11 +2,12 @@ import CertificacionAvance from "../models/CertificacionAvance.js";
 import Obra from "../models/Obra.js";
 import Subcontratista from "../models/Subcontratista.js";
 import ROLES from "../utils/roles.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerCertificacionesAvance = async (req, res, next) => {
   try {
-    let filtroBusqueda = { estadoRegistro: { $ne: "eliminado" } };
+    let filtroBusqueda = { estado: { $ne: "eliminada" } };
 
     if (req.usuario.rol === ROLES.DIRECTOR_OBRA.id) {
       filtroBusqueda.directorObra = req.usuario._id;
@@ -34,8 +35,8 @@ const obtenerCertificacionAvancePorId = async (req, res, next) => {
       .populate("idSubcontratista")
       .populate("idDirectorObra");
 
-    if (!certificacionAvance || certificacionAvance.estado === "eliminado") {
-      const error = new Error("Usuario no encontrada");
+    if (!certificacionAvance || certificacionAvance.estado === "eliminada") {
+      const error = new Error("Certificacion no encontrada");
       error.status = 404;
       return next(error);
     }
@@ -65,32 +66,47 @@ const formularioCrearCertificacionAvance = async (req, res, next) => {
 
 const crearCertificacionAvance = async (req, res, next) => {
   try {
-    const { idObra, idSubcontratista, tareaRealizada, porcentajeAvance } =
-      req.body;
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      const obras = await Obra.find({ estado: { $ne: "eliminada" } });
+      const subcontratistas = await Subcontratista.find({ estado: "activo" });
+
+      return res.render("formulario-certificacion-avance", {
+        editable: false,
+        certificacionAvance: req.body,
+        obras,
+        subcontratistas,
+        errores: errores.array(),
+      });
+    }
+
+    const { idObra, idSubcontratista, tareaRealizada, porcentajeAvance } = req.body;
+
+    const valorNuevo = Number(porcentajeAvance);
 
     const certificacionesPrevias = await CertificacionAvance.find({
       idObra,
       idSubcontratista,
       tareaRealizada,
-      estadoRegistro: { $ne: "eliminado" },
+      estado: { $ne: "eliminada" },
     });
 
     const avanceAcumulado = certificacionesPrevias.reduce(
-      (total, cert) => total + cert.porcentajeAvance,
+      (total, cert) => total + Number(cert.porcentajeAvance),
       0,
     );
 
-    if (avanceAcumulado + Number(porcentajeAvance) > 100) {
-      const error = new Error(
-        "Error de auditoría: El avance acumulado superaría el 100%.",
-      );
+    if (avanceAcumulado + valorNuevo > 100) {
+      const error = new Error(`Error de auditoría: El avance acumulado (${avanceAcumulado}%) superaría el 100% al sumar ${valorNuevo}%.`);
       error.status = 400;
       return next(error);
     }
 
     const nuevaCertificacionAvance = new CertificacionAvance({
       ...req.body,
-      directorObra: req.usuario._id,
+      porcentajeAvance: valorNuevo,
+      idDirectorObra: req.usuario._id,
     });
 
     await nuevaCertificacionAvance.save();
@@ -102,19 +118,24 @@ const crearCertificacionAvance = async (req, res, next) => {
 
 const formularioEditarCertificacionAvance = async (req, res, next) => {
   try {
-    const certificacionAvance = await CertificacionAvance.findById(
-      req.params.id,
-    );
+    const certificacionAvance = await CertificacionAvance.findById(req.params.id)
+      .populate("idObra")
+      .populate("idSubcontratista");
 
-    if (!certificacionAvance || certificacionAvance.estado === "eliminado") {
-      const error = new Error("Usuario no encontrada");
+    if (!certificacionAvance || certificacionAvance.estado === "eliminada") {
+      const error = new Error("Certificación no encontrada");
       error.status = 404;
       return next(error);
     }
 
+    const obras = await Obra.find({ estado: { $ne: "eliminada" } });
+    const subcontratistas = await Subcontratista.find({ estado: "activo" });
+
     res.render("formulario-certificacion-avance", {
       editable: true,
-      certificacionAvance: certificacionAvance,
+      certificacionAvance,
+      obras,
+      subcontratistas
     });
   } catch (error) {
     next(error);
@@ -123,6 +144,21 @@ const formularioEditarCertificacionAvance = async (req, res, next) => {
 
 const editarCertificacionAvance = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      const obras = await Obra.find({ estado: { $ne: "eliminada" } });
+      const subcontratistas = await Subcontratista.find({ estado: "activo" });
+
+      return res.render("formulario-certificacion-avance", {
+        editable: true,
+        certificacionAvance: { ...req.body, id: req.params.id },
+        obras,
+        subcontratistas,
+        errores: errores.array(),
+      });
+    }
+
     const certificacionAvance = await CertificacionAvance.findByIdAndUpdate(
       req.params.id,
       req.body,
@@ -130,14 +166,14 @@ const editarCertificacionAvance = async (req, res, next) => {
     );
 
     if (!certificacionAvance) {
-      const error = new Error("Usuario no encontrada");
+      const error = new Error("Certificación no encontrada");
       error.status = 404;
       return next(error);
     }
 
     res.redirect(
       303,
-      `/certificaciones-avance/detalle-certificacion-avance/${certificacionAvance.id}`,
+      `/certificaciones-avance/detalle-certificacion/${certificacionAvance.id}`,
     );
   } catch (error) {
     next(error);
@@ -148,12 +184,12 @@ const eliminarCertificacionAvance = async (req, res, next) => {
   try {
     const certificacionAvance = await CertificacionAvance.findByIdAndUpdate(
       req.params.id,
-      { estado: "eliminado" },
+      { estado: "eliminada" },
       { returnDocument: "after" },
     );
 
-    if (!certificacionAvance || certificacionAvance.estado === "eliminado") {
-      const error = new Error("Usuario no encontrada");
+    if (!certificacionAvance) {
+      const error = new Error("Certificacion no encontrada");
       error.status = 404;
       return next(error);
     }

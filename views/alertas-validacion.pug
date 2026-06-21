@@ -1,0 +1,7 @@
+if errores && errores.length > 0
+  .alert.alert-danger.alert-dismissible.fade.show.mb-4(role="alert")
+    strong.d-block.mb-2 ¡Por favor corrige los siguientes errores!
+    ul.mb-0
+      each error in errores
+        li= error.msg
+    button.btn-close(type="button", data-bs-dismiss="alert", aria-label="Cerrar")

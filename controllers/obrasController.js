@@ -5,6 +5,7 @@ import Obra from "../models/Obra.js";
 import Usuario from "../models/Usuario.js";
 import Subcontratista from "../models/Subcontratista.js";
 import ROLES from "../utils/roles.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerObrasJson = (req, res) => {
@@ -41,7 +42,7 @@ const obtenerObraPorId = async (req, res, next) => {
 };
 
 const formularioCrearObra = (req, res) => {
-  res.render(res.locals.vista, {
+  res.render("formulario-obra", {
     editable: false,
     obra: {},
   });
@@ -49,8 +50,19 @@ const formularioCrearObra = (req, res) => {
 
 const crearObra = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-obra", {
+        editable: false,
+        obra: req.body,
+        errores: errores.array(),
+      });
+    }
+
     const nuevaObra = new Obra(req.body);
     await nuevaObra.save();
+
     res.redirect(303, "/obras");
   } catch (error) {
     next(error);
@@ -78,9 +90,26 @@ const formularioEditarObra = async (req, res, next) => {
 
 const editarObra = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-obra", {
+        editable: true,
+        obra: { ...req.body, id: req.params.id },
+        errores: errores.array(),
+      });
+    }
+
     const obra = await Obra.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
     });
+
+    if (!obra) {
+      const error = new Error("Obra no encontrada");
+      error.status = 404;
+      return next(error);
+    }
+
     res.redirect(303, `/obras/detalle-obra/${obra.id}`);
   } catch (error) {
     next(error);

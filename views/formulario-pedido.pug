@@ -5,56 +5,59 @@ block titulo_seccion
     h2= editable ? "Editar Pedido" : "Registrar Nuevo Pedido"
 
 block content
-  .card.border-primary.shadow-sm.mb-5
+  .card.border-secondary.shadow-sm.mb-5
     .card-body.p-4
+
+      include ../views/alertas-validacion.pug
+
       form(method="POST", action= editable ? `/pedidos/editar-pedido/${pedido.id}?_method=PUT` : `/pedidos/nuevo-pedido`)
 
         .row.mb-3
           .col-md-6
             label.form-label.fw-bold(for="idObra") Obra
             if !editable
-              select#idObra.form-select(name="idObra", required)
+              select#idObra.form-select.border-secondary(name="idObra")
                 option(value="", disabled, selected) Seleccione una obra...
                 each obra in obras
                   option(value=obra.id) #{obra.nombre}
             else
-              input.form-control(type="text", value=pedido.idObra.nombre, readonly)
+              input.form-control(type="text", value=pedido.idObra.nombre)
               input(type="hidden", name="idObra", value=pedido.idObra.id)
 
           .col-md-6
             label.form-label.fw-bold(for="tipo") Tipo
-            select#tipo.form-select(name="tipo", required)
+            select#tipo.form-select.border-secondary(name="tipo", required)
               option(value="material", selected=(pedido && pedido.tipo === "material")) Material
               option(value="servicio", selected=(pedido && pedido.tipo === "servicio")) Servicio
 
         .mb-3
           label.form-label.fw-bold(for="descripcion") Descripción
-          input#descripcion.form-control(type="text", name="descripcion", value=(pedido ? pedido.descripcion : ""), placeholder="Ej: Arena, Electricista", required)
+          input#descripcion.form-control.border-secondary(type="text", name="descripcion", value=(pedido ? pedido.descripcion : ""), placeholder="Ej: Arena, Electricista")
 
         .row.mb-3
           .col-md-4
             label.form-label.fw-bold(for="cantidad") Cantidad
-            input#cantidad.form-control(type="number", name="cantidad", value=(pedido ? pedido.cantidad : ""), required)
+            input#cantidad.form-control.border-secondary(type="number", name="cantidad", value=(pedido ? pedido.cantidad : ""))
           .col-md-4
             label.form-label.fw-bold(for="unidad") Unidad
-            input#unidad.form-control(type="text", name="unidad", value=(pedido ? pedido.unidad : ""), placeholder="Ej: m3, unidades", required)
+            input#unidad.form-control.border-secondary(type="text", name="unidad", value=(pedido ? pedido.unidad : ""), placeholder="Ej: m3, unidades")
           .col-md-4
             label.form-label.fw-bold(for="estado") Estado
-            select#estado.form-select(name="estado", required)
+            select#estado.form-select.border-secondary(name="estado", required)
               option(value="pendiente", selected=(pedido && pedido.estado === "pendiente")) Pendiente
               option(value="aprobado", selected=(pedido && pedido.estado === "aprobado")) Aprobado
               option(value="entregado", selected=(pedido && pedido.estado === "entregado")) Entregado
 
         .mb-4
           label.form-label.fw-bold(for="observaciones") Observaciones
-          textarea#observaciones.form-control(name="observaciones", rows="3")= pedido ? pedido.observaciones : ""
+          textarea#observaciones.form-control.border-secondary(name="observaciones", rows="3")= pedido ? pedido.observaciones : ""
 
-        //- Acciones
+        .mb-5
         .d-flex.justify-content-end.gap-2
           if editable
-            a.btn.btn-outline-secondary(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
+            a.btn.btn-secondary(href=`/pedidos/detalle-pedido/${pedido.id}`) Cancelar
           else
-            a.btn.btn-outline-secondary(href="/pedidos") Volver al listado
+            a.btn.btn-secondary(href="/pedidos") Volver al listado
 
           button.btn(type="submit", class=editable ? "btn-warning" : "btn-primary")
             | #{editable ? "Guardar cambios" : "Crear pedido"}

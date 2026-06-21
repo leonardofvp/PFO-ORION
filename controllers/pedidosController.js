@@ -4,6 +4,7 @@ import { leerArchivo, escribirArchivo } from "../utils/jsonHelper.js";
 import Pedido from "../models/Pedido.js";
 import Obra from "../models/Obra.js";
 import ROLES from "../utils/roles.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerPedidosJson = (req, res) => {
@@ -69,7 +70,33 @@ const formularioCrearPedido = async (req, res, next) => {
 
 const crearPedido = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
     const usuario = req.usuario;
+
+    if (!errores.isEmpty()) {
+      let obras;
+
+      if (
+        usuario.rol === ROLES.ADMIN.id ||
+        usuario.rol === ROLES.DIRECTOR_GENERAL.id ||
+        usuario.rol === ROLES.ADMINISTRACION_CENTRAL.id
+      ) {
+        obras = await Obra.find({ estado: { $ne: "eliminado" } });
+      } else {
+        obras = await Obra.find({
+          personalAsignado: usuario._id,
+          estado: { $ne: "eliminado" },
+        });
+      }
+
+      return res.render("formulario-pedido", {
+        editable: false,
+        pedido: req.body,
+        obras: obras,
+        errores: errores.array(),
+      });
+    }
+
     const datosCompletos = {
       ...req.body,
       idUsuario: usuario.id,
@@ -106,6 +133,26 @@ const formularioEditarPedido = async (req, res, next) => {
 
 const editarPedido = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      const obraOriginal = await Obra.findById(req.body.idObra);
+
+      return res.render("formulario-pedido", {
+        editable: true,
+        pedido: {
+          ...req.body,
+          id: req.params.id,
+          idObra: {
+            id: obraOriginal._id,
+            nombre: obraOriginal.nombre,
+          },
+        },
+        errores: errores.array(),
+      });
+    }
+
+    // 2. Solo si la validación es exitosa, se actualiza el documento
     const pedido = await Pedido.findByIdAndUpdate(req.params.id, req.body, {
       returnDocument: "after",
     });

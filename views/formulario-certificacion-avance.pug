@@ -5,41 +5,45 @@ block titulo_seccion
     h2= editable ? "Editar Certificación" : "Registrar Nueva Certificación"
 
 block content
-  .card.border-info.shadow-sm.mb-5
+  .card.border-secondary.shadow-sm.mb-5
     .card-body.p-4
-      form(method="POST", action= editable ? `/certificacion-avance/editar-certificacion/${certificacionAvance.id}?_method=PUT` : `/certificacion-avance/nuevo-certificado`)
+
+      include ../views/alertas-validacion.pug
+
+      form(method="POST", action= editable ? `/certificaciones-avance/editar-certificacion/${certificacionAvance.id}?_method=PUT` : `/certificaciones-avance/nueva-certificacion`)
 
         .row.mb-3
           .col-md-6
             label.form-label.fw-bold(for="obraId") Obra
-            select#obraId.form-select(name="obraId", required)
-              option(value="", disabled, selected=!certificacionAvance.obraId) Seleccione Obra...
+            select#obraId.form-select.border-secondary(name="idObra")
+              option(value="", disabled, selected=!certificacionAvance.idObra) Seleccione Obra...
               each obra in obras
-                option(value=obra.id, selected=(certificacionAvance.obraId == obra.id))= obra.nombre
+                option(value=obra.id, selected=(certificacionAvance.idObra == obra.id))= obra.nombre
 
           .col-md-6
             label.form-label.fw-bold(for="subcontratistaId") Subcontratista
-            select#subcontratistaId.form-select(name="subcontratistaId", required)
-              option(value="", disabled, selected=!certificacionAvance.subcontratistaId) Seleccione Subcontratista...
+            select#subcontratistaId.form-select.border-secondary(name="idSubcontratista")
+              option(value="", disabled, selected=!certificacionAvance.idSubcontratista) Seleccione Subcontratista...
               each sub in subcontratistas
-                option(value=sub.id, selected=(certificacionAvance.subcontratistaId == sub.id))= sub.nombre
+                option(value=sub.id, selected=(certificacionAvance.idSubcontratista == sub.id))= sub.nombre
 
         .row.mb-4
           .col-md-8
             label.form-label.fw-bold(for="tareaRealizada") Tarea realizada
-            input#tareaRealizada.form-control(type="text", name="tareaRealizada", value=(certificacionAvance.tareaRealizada || ""), required)
+            input#tareaRealizada.form-control.border-secondary(type="text", name="tareaRealizada", value=(certificacionAvance.tareaRealizada || ""))
 
           .col-md-4
             label.form-label.fw-bold(for="porcentajeAvance") % de Avance
             .input-group
-              input#porcentajeAvance.form-control(type="number", name="porcentajeAvance", value=(certificacionAvance.porcentajeAvance || ""), min="1", max="100", required)
-              span.input-group-text %
+              input#porcentajeAvance.form-control.border-secondary(type="number", name="porcentajeAvance", value=(certificacionAvance.porcentajeAvance || ""))
+              span.input-group-text.border-secondary %
 
         .d-flex.justify-content-end.gap-2
           if editable
-            a.btn.btn-outline-secondary(href=`/certificacions-avance/detalle-certificacion/${certificacionAvance.id}`) Cancelar
+            a.btn.btn-secondary(href=`/certificaciones-avance/detalle-certificacion/${certificacionAvance.id}`) Cancelar
           else
-            a.btn.btn-outline-secondary(href="/certificacions-avance") Volver al listado
+            a.btn.btn-secondary(href="/certificaciones-avance") Volver al listado
 
-          button.btn.btn-info.text-white(type="submit")
+          button.btn(type="submit" class= editable ? "btn-warning" : "btn-primary")
+            i.bi(class=editable ? "bi-pencil-square me-2" : "bi-check-lg me-2")
             | #{editable ? "Guardar cambios" : "Registrar avance"}

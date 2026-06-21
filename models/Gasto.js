@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 const gastoSchema = new mongoose.Schema({
     idObra: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Obra', // Vincula este gasto directamente con el modelo de Obra
+        ref: 'Obra',
         required: [true, "El ID de la obra es obligatorio"]
     },
     descripcion: {
@@ -18,15 +18,15 @@ const gastoSchema = new mongoose.Schema({
     },
     estado: {
         type: String,
-        default: "pendiente", // El estado inicial por defecto
+        default: "pendiente",
         trim: true
     },
     fecha: {
         type: Date,
-        default: Date.now // Si no se envía fecha, guarda el día y hora actual automáticamente
+        default: Date.now
     }
 }, {
-    timestamps: true// agrega fechas de creación y modificación de documentos
+    timestamps: true
 });
 
 const Gasto = mongoose.model("Gasto", gastoSchema);

@@ -2,6 +2,7 @@
 import { leerArchivo, escribirArchivo } from "../utils/jsonHelper.js";
 
 import Usuario from "../models/Usuario.js";
+import { validationResult } from "express-validator";
 
 // CRUD
 const obtenerUsuariosJson = (req, res) => {
@@ -11,7 +12,6 @@ const obtenerUsuariosJson = (req, res) => {
 };
 
 const obtenerUsuarios = async (req, res, next) => {
-  res.locals.vista = "usuarios";
   try {
     const usuariosActivos = await Usuario.find({
       estado: { $ne: "eliminado" },
@@ -53,6 +53,16 @@ const formularioCrearUsuario = (req, res) => {
 
 const crearUsuario = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-usuario", {
+        editable: false,
+        usuario: { ...req.body },
+        errores: errores.array(),
+      });
+    }
+
     const { password, ...datosUsuario } = req.body;
     const passwordLimpio = password?.trim() || "";
     const { salt, passwordHash } = Usuario.crearPasswordSeguro(passwordLimpio);
@@ -88,6 +98,16 @@ const formularioEditarUsuario = async (req, res, next) => {
 
 const editarUsuario = async (req, res, next) => {
   try {
+    const errores = validationResult(req);
+
+    if (!errores.isEmpty()) {
+      return res.render("formulario-usuario", {
+        editable: true,
+        usuario: { ...req.body, id: req.params.id },
+        errores: errores.array(),
+      });
+    }
+
     const { password, ...datosUsuario } = req.body;
 
     if (password && password.trim() !== "") {

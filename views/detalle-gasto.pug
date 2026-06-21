@@ -4,8 +4,6 @@ block titulo_seccion
   .d-flex.justify-content-between.align-items-center.mt-4.mb-4
 
     .d-flex.align-items-center
-      a.btn.btn-outline-secondary.me-3(href="/gastos")
-        i.bi.bi-arrow-left
       h2.mb-0 Detalle del Gasto
 
     .d-flex.gap-2
@@ -19,7 +17,7 @@ block titulo_seccion
           | Eliminar
 
 block content
-  .card.border-danger.shadow-sm.mb-5
+  .card.border-secondary.shadow-sm.mb-5
     .card-body.p-4
 
       .row.mb-4
@@ -35,7 +33,7 @@ block content
           span.text-muted.d-block.fw-bold.mb-1 Fecha
           span.fs-5 #{new Date(gasto.fecha).toLocaleDateString('es-AR')}
 
-      hr.text-danger.opacity-25.my-4
+      hr.text-secondary.opacity-25.my-4
 
       .row
         .col-md-6
@@ -44,4 +42,9 @@ block content
 
         .col-md-6
           span.text-muted.d-block.fw-bold.mb-1 Estado
-          span.badge.bg-danger.mt-1 #{gasto.estado}
+          span.badge.bg-info.mt-1 #{gasto.estado}
+
+  .d-flex.justify-content-end.mt-4.mb-5
+    a.btn.btn-secondary.mb-5(href="/gastos")
+      i.bi.bi-arrow-left.me-2
+      | Volver a la lista de gastos
