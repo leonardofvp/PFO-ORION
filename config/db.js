@@ -1,19 +1,8 @@
 import mongoose from "mongoose";
-import { MongoMemoryServer } from "mongodb-memory-server";
 
-const mongoServer = new MongoMemoryServer();
-
-const getUri = async () => {
-  if (process.env.NODE_ENV === "test") {
-    await mongoServer.start();
-    return mongoServer.getUri();
-  }
-  return process.env.MONGO_URI;
-};
-
-const conectarDB = async (uri) => {
+const conectarDB = async () => {
   try {
-    await mongoose.connect(uri);
+    await mongoose.connect(process.env.MONGO_URI);
     console.log("Base de datos conectada");
   } catch (error) {
     console.error(error);
@@ -21,4 +10,4 @@ const conectarDB = async (uri) => {
   }
 };
 
-export { getUri, conectarDB };
+export { conectarDB };
