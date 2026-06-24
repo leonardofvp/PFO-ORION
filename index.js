@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import app from "./app.js";
 import { createServer } from "http";
 import { Server } from "socket.io";
-import { getUri, conectarDB } from "./config/db.js";
+import { conectarDB } from "./config/db.js";
 import configurarChat from "./sockets/chatInstitucional.js";
 
 dotenv.config();
@@ -12,12 +12,10 @@ const PORT = process.env.PORT || 3000;
 const httpServer = createServer(app);
 const io = new Server(httpServer);
 
-const uri = getUri();
-
 configurarChat(io);
 
 try {
-  await conectarDB(uri);
+  await conectarDB();
   console.log("Conexión a la base de datos establecida.");
 
   const server = httpServer.listen(PORT, () => {
