@@ -6,7 +6,7 @@ const formularioLogin = (req, res) => {
   res.render("formulario-login");
 };
 
-const iniciarSesion = async (req, res) => {
+const iniciarSesion = async (req, res, next) => {
   try {
     const { email, password } = req.body;
     const usuario = await Usuario.findOne({

@@ -70,7 +70,7 @@ const crearUsuario = async (req, res, next) => {
     const nuevaUsuario = new Usuario({ ...datosUsuario, salt, passwordHash });
 
     await nuevaUsuario.save();
-    res.redirect(303, "/");
+    res.redirect(303, "/login");
   } catch (error) {
     next(error);
   }

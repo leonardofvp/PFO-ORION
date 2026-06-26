@@ -1,5 +1,7 @@
 const errorHandler = (err, req, res, next) => {
-  console.error("Error capturado:", err);
+  if (process.env.NODE_ENV !== "test") {
+    console.error("Error capturado:", err);
+  }
 
   if (err.name === "ValidationError") {
     const mensajes = Object.values(err.errors)
