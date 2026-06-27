@@ -10,7 +10,7 @@
 
 # Materia
 
-Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 2
+Desarrollo de Sistemas Web (Back End) Trabajo Práctico N.º 3
 
 # Licencia
 
@@ -114,6 +114,7 @@ El sistema implementa una arquitectura basada en separación de responsabilidade
 
 # Estructura del Proyecto
 
+```
 PFO-ORION/
 ├── __tests__/
 │   ├── gastos.test.js
@@ -213,6 +214,7 @@ PFO-ORION/
     ├── pedidos.pug
     ├── subcontratistas.pug
     └── usuarios.pug
+```
 
 # Modelado de Datos
 
