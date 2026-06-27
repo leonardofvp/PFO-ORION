@@ -3,8 +3,6 @@ import { MongoMemoryServer } from "mongodb-memory-server";
 
 let mongoServer;
 
-
-
 beforeAll(async () => {
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
