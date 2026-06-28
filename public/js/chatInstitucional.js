@@ -1,6 +1,5 @@
 const socket = io();
 
-// Guardamos la referencia al input en una constante para reutilizarla
 const inputMensaje = document.getElementById("mensaje");
 
 function enviarMensaje() {
@@ -16,12 +15,10 @@ function enviarMensaje() {
   inputMensaje.value = "";
 }
 
-// Escuchar el evento "keydown" en el campo de texto
 inputMensaje.addEventListener("keydown", (event) => {
-  // Verificamos si la tecla presionada es "Enter"
   if (event.key === "Enter") {
-    event.preventDefault(); // Evita comportamientos por defecto del navegador (como recargar o saltar de línea)
-    enviarMensaje(); // Ejecuta la función de envío
+    event.preventDefault();
+    enviarMensaje();
   }
 });
 
@@ -34,6 +31,5 @@ socket.on("mensaje", (datos) => {
 
   mensajesUl.appendChild(li);
 
-  // Auto-scroll hacia el último mensaje
   mensajesUl.scrollTop = mensajesUl.scrollHeight;
 });
