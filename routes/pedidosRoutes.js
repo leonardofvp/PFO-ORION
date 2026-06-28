@@ -21,6 +21,7 @@ router.use(protegerRuta);
 router.use(
   verificarRol([
     ROLES.ADMIN.id,
+    ROLES.DIRECTOR_GENERAL.id,
     ROLES.ADMINISTRACION_CENTRAL.id,
     ROLES.DIRECTOR_OBRA.id,
     ROLES.CAPATAZ.id,
